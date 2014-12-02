@@ -14,7 +14,7 @@ public class Player {
 	private int points;
 	private int availablePop;
 	
-	private ArrayList<LAND> lands;
+	private ArrayList<Land> lands;
 	
 	
 
