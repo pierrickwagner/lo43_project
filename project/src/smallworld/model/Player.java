@@ -149,15 +149,24 @@ public class Player {
 		
 		boolean legalMove = false;
 		
-		//Boucle qui vérifie que la cible soit bien l'un des lands adjacents à ceux possédés.
-		for(Land l : lands)
+		
+		
+		if(lands.isEmpty())
+			legalMove = target.isBorder();
+		else
 		{
-			for(Land neighbor : l.getNeighbors())
+			//Boucle qui vérifie que la cible soit bien l'un des lands adjacents à ceux possédés.
+			for(Land l : lands)
 			{
-				if(neighbor == target)
-					legalMove = true;
+				for(Land neighbor : l.getNeighbors())
+				{
+					if(neighbor == target)
+						legalMove = true;
+				}
 			}
 		}
+		
+		
 		if(!legalMove)
 			throw(new ImpossibleAttackException(ImpossibleAttackException.Reason.NOT_REACHABLE));
 		
