@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.sun.org.apache.bcel.internal.generic.LAND;
 
+import exceptions.ImpossibleAttackException;
+
 public class Player {
 	
 	private Tribe currentTribe;
@@ -30,11 +32,20 @@ public class Player {
 	
 	//Methods
 	
-	public void attack(Land target)
+	public void attack(Land target) throws ImpossibleAttackException
 	{
 		int neededTroops = simulateAttack(target);
-		if(neededTroops != -1 && availablePop > 0)// Si l'attaque est possible
+		if(availablePop <= 0)
+			throw(new ImpossibleAttackException(ImpossibleAttackException.Reason.NO_TROOPS));
+		else// Si l'attaque est possible
 		{
+			
+			//On vérifie que la bataille n'est pas perdue d'avance
+			if(availablePop + 3 < neededTroops)
+				throw(new ImpossibleAttackException(ImpossibleAttackException.Reason.NOT_ENOUGH_TROOPS));
+			
+			
+			
 			int sentTroops = Math.min(neededTroops, availablePop);
 			availablePop -= sentTroops;
 			
@@ -132,7 +143,7 @@ public class Player {
 		
 	}
 	
-	public int simulateAttack(Land target)
+	public int simulateAttack(Land target) throws ImpossibleAttackException
 	{
 		//TODO optimisation possible
 		
@@ -147,20 +158,18 @@ public class Player {
 					legalMove = true;
 			}
 		}
+		if(!legalMove)
+			throw(new ImpossibleAttackException(ImpossibleAttackException.Reason.NOT_REACHABLE));
 		
 		//On vérifie que le joueur ne s'attaque pas lui-meme
 		if(target.getOccupant() == this)
-			legalMove = false;
+			throw(new ImpossibleAttackException(ImpossibleAttackException.Reason.FRIENDLY_FIRE));
 		
 		
-		if(legalMove)
-		{
-			// Fonctionne dans le cas général, des conditions à rajouter pour les tribus / terrains particuliers
-			int neededTroops = 2;
-			neededTroops += target.getPopulation();
-		}
-		else
-			return -1; // Attaque impossible
+		
+		// Fonctionne dans le cas général, des conditions à rajouter pour les tribus / terrains particuliers
+		int neededTroops = 2;
+		neededTroops += target.getPopulation();
 	}
 	
 	
