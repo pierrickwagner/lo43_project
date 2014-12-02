@@ -16,7 +16,6 @@ public class Player {
 	
 	private ArrayList<Land> lands;
 	
-	
 
 	private ArrayList<TribeDeletedListener> listeners;
 	
@@ -61,6 +60,7 @@ public class Player {
 				if(target.getOccupant() != null)
 					target.getOccupant().looseLand(target);
 				target.setOccupant(this);
+				target.setTribe(currentTribe);
 				target.setPopulation(sentTroops);
 				
 				lands.add(target);

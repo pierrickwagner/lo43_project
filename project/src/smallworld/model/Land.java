@@ -15,6 +15,7 @@ public class Land {
 	private ArrayList<Land> adjacentLands;
 	private boolean border;
 	private Player occupant;
+	private Tribe tribe;
 	
 	
 	
@@ -26,6 +27,7 @@ public class Land {
 		this.population = 0;
 		this.adjacentLands = new ArrayList<Land>();
 		this.occupant = null;
+		this.tribe = null;
 	}
 	
 	
@@ -45,6 +47,10 @@ public class Land {
 
 	public void setOccupant(Player occupant) {
 		this.occupant = occupant;
+	}
+	
+	public void setTribe(Tribe tribe) {
+		this.tribe = tribe;
 	}
 
 	
@@ -72,5 +78,10 @@ public class Land {
 
 	public Player getOccupant() {
 		return occupant;
+	}
+	
+	public Tribe getTribe()
+	{
+		return tribe;
 	}
 }
