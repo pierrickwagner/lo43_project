@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
@@ -41,3 +42,12 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+=======
+
+
+# fichiers temporaires
+*~
+
+# fichiers compilés
+*/bin/*
+>>>>>>> d70506b2458880628ae04ad358ecab8d22f1abe8
