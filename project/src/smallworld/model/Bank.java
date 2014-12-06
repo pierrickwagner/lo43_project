@@ -83,26 +83,61 @@ public class Bank {
 			randPop = (int) (minPop + (Math.random() * (maxPop - minPop))) ;
 			randPower = (int) (minPower + (Math.random() * (maxPower - minPower))) ;
 			
-			
 			if(listOfPopulations.get(randPop).isAvailable() && listOfPowers.get(randPower).isAvailable()){
 				
-				listOfAvailableTribes.add(new Tribe(listOfPopulations.get(randPop),listOfPowers.get(randPower)));
-				listOfPopulations.get(randPop).setAvailable(false);
-				listOfPowers.get(randPower).setAvailable(false);
+						if(containsPopulation(listOfPopulations.get(randPop)) && containsPower(listOfPowers.get(randPower))){
 				
+								listOfAvailableTribes.add(new Tribe(listOfPopulations.get(randPop),listOfPowers.get(randPower)));
+				
+						}
 			}
+	
 			
 		}
 		
 	}
 	
+	private boolean containsPopulation(Population p){
+		
+		for(Tribe t: listOfAvailableTribes){
+			
+			if(t.getPopulation().equals(p)){
+				
+				return true;
+			}
+			
+		}
+		return false;
+		
+	}
+	
+	private boolean containsPower(Power p){
+			
+			for(Tribe t: listOfAvailableTribes){
+				
+				if(t.getPower().equals(p)){
+					
+					return true;
+				}
+				
+			}
+			return false;
+			
+		}
+	
 	public void freeTribe(Tribe t){
 		
+		listOfPopulations.get(listOfPopulations.indexOf(t.getPopulation())).setAvailable(true);
+		listOfPowers.get(listOfPowers.indexOf(t.getPower())).setAvailable(true);
+	}
+	
+	public void pickTribe(Tribe t){
+		
 		int index = listOfAvailableTribes.indexOf(t);
-		listOfPopulations.get(listOfPopulations.indexOf(listOfAvailableTribes.get(index).getPopulation())).setAvailable(true);
-		listOfPowers.get(listOfPowers.indexOf(listOfAvailableTribes.get(index).getPower())).setAvailable(true);
+		listOfPopulations.get(listOfPopulations.indexOf(listOfAvailableTribes.get(index).getPopulation())).setAvailable(false);
+		listOfPowers.get(listOfPowers.indexOf(listOfAvailableTribes.get(index).getPower())).setAvailable(false);
 		listOfAvailableTribes.remove(index);
-		generate();	
+		generate();
 	}
 
 	public ArrayList<Tribe> getListOfAvailableTribes() {
