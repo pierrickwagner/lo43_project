@@ -13,7 +13,7 @@ public class Bank {
 
 	private ArrayList<Power> listOfPowers;
 	private ArrayList<Population> listOfPopulations;
-	private ArrayList<Tribe> listOfAvailableTribes;
+	private ArrayList<Tribe> AvailableTribes;
 	private String listOfDescriptionsPop[] = {"Leur connaissance du terrain leur permet d'être plus efficace pour se defendre. Il faut une unité de plus pour les attaquer.", 
 			"Etant d'une grande capacité d'adaptation ils peuvent avec 1 unité en - attaquer les labos", 
 			"Leur envie de s'établir sur un ordinateur est tellement grande que leur combativité en est stimulé ils ont besoin d'une unité en - pr attaquer les salles GI" , 
@@ -40,7 +40,7 @@ public class Bank {
 			
 		listOfPopulations  = new ArrayList<Population>();
 		listOfPowers  = new ArrayList<Power>();
-		listOfAvailableTribes =  new ArrayList<Tribe>();
+		AvailableTribes =  new ArrayList<Tribe>();
 		//création de la liste de la banque contenant les différents pouvoirs et leurs caractéristiques (population en + et description)
 		
 		listOfPowers.add(new Power("intellos",listOfDescriptionsPower[0],5,Power.TypePower.INTELLOS));
@@ -78,16 +78,16 @@ public class Bank {
 		int maxPower=listOfPowers.size();
 		int randPop=0;
 		int randPower=0;
-		while(listOfAvailableTribes.size()<=6){
+		while(AvailableTribes.size()<=6){
 			
 			randPop = (int) (minPop + (Math.random() * (maxPop - minPop))) ;
 			randPower = (int) (minPower + (Math.random() * (maxPower - minPower))) ;
 			
 			if(listOfPopulations.get(randPop).isAvailable() && listOfPowers.get(randPower).isAvailable()){
 				
-						if(containsPopulation(listOfPopulations.get(randPop)) && containsPower(listOfPowers.get(randPower))){
+						if(!containsPopulation(listOfPopulations.get(randPop)) && !containsPower(listOfPowers.get(randPower))){
 				
-								listOfAvailableTribes.add(new Tribe(listOfPopulations.get(randPop),listOfPowers.get(randPower)));
+								AvailableTribes.add(new Tribe(listOfPopulations.get(randPop),listOfPowers.get(randPower)));
 				
 						}
 			}
@@ -99,7 +99,7 @@ public class Bank {
 	
 	private boolean containsPopulation(Population p){
 		
-		for(Tribe t: listOfAvailableTribes){
+		for(Tribe t: AvailableTribes){
 			
 			if(t.getPopulation().equals(p)){
 				
@@ -113,7 +113,7 @@ public class Bank {
 	
 	private boolean containsPower(Power p){
 			
-			for(Tribe t: listOfAvailableTribes){
+			for(Tribe t: AvailableTribes){
 				
 				if(t.getPower().equals(p)){
 					
@@ -125,23 +125,28 @@ public class Bank {
 			
 		}
 	
-	public void freeTribe(Tribe t){
+	public void setAvailable(Tribe t){
 		
 		listOfPopulations.get(listOfPopulations.indexOf(t.getPopulation())).setAvailable(true);
 		listOfPowers.get(listOfPowers.indexOf(t.getPower())).setAvailable(true);
 	}
 	
+	public void setAvailable(Power p){
+		
+		listOfPowers.get(listOfPowers.indexOf(p)).setAvailable(true);
+	}
+	
 	public void pickTribe(Tribe t){
 		
-		int index = listOfAvailableTribes.indexOf(t);
-		listOfPopulations.get(listOfPopulations.indexOf(listOfAvailableTribes.get(index).getPopulation())).setAvailable(false);
-		listOfPowers.get(listOfPowers.indexOf(listOfAvailableTribes.get(index).getPower())).setAvailable(false);
-		listOfAvailableTribes.remove(index);
+		int index = AvailableTribes.indexOf(t);
+		listOfPopulations.get(listOfPopulations.indexOf(AvailableTribes.get(index).getPopulation())).setAvailable(false);
+		listOfPowers.get(listOfPowers.indexOf(AvailableTribes.get(index).getPower())).setAvailable(false);
+		AvailableTribes.remove(index);
 		generate();
 	}
 
-	public ArrayList<Tribe> getListOfAvailableTribes() {
-		return listOfAvailableTribes;
+	public ArrayList<Tribe> getAvailableTribes() {
+		return AvailableTribes;
 	}
 	
 	
