@@ -9,6 +9,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import smallworld.model.Tribe;
 
 /**
  *
@@ -18,7 +19,9 @@ public class MyWindow extends javax.swing.JFrame {
     boolean redeploy;
     int numberClickedLand;
     DefaultListModel listModel;
-    ArrayList<Population> listPopulation;
+    ArrayList<Tribe> listTribe;
+    
+    
     /**
      * Creates new form MyWindow
      */
@@ -32,17 +35,17 @@ public class MyWindow extends javax.swing.JFrame {
     public void fillListPopulation() // remplit la Jlist
     {
         listModel=new DefaultListModel();
-        listPopulation= new ArrayList<>();
+        listTribe= new ArrayList<>();
         
-        for(int i=0;i<5;i++)
+       /* for(int i=0;i<5;i++)
         {
-            listPopulation.add(new Population("pop"+i, "power"+i, "desc"+i));
-        }
+            listTribe.add(new Tribe("pop"+i, "power"+i, "desc"+i));
+        }*/
         
         
-        for(int i =0;i<listPopulation.size();i++)
+        for(int i =0;i<listTribe.size();i++)
         {
-           listModel.addElement(listPopulation.get(i));
+           listModel.addElement(listTribe.get(i));
         }
         listPeuple.setModel(listModel);
     }
@@ -53,9 +56,9 @@ public class MyWindow extends javax.swing.JFrame {
         listPeuple.addListSelectionListener(new ListSelectionListener() {
 
             @Override
-            public void valueChanged(ListSelectionEvent e) {
+        public void valueChanged(ListSelectionEvent e) {
                 System.out.println(listPeuple.getSelectedIndex());
-            textAreaDescription.setText(listPopulation.get(listPeuple.getSelectedIndex()).getDescription());
+                textAreaDescription.setText(listTribe.get(listPeuple.getSelectedIndex()).getPopulation().getDescription());
             }
         });
     }
