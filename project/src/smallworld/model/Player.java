@@ -2,7 +2,6 @@ package smallworld.model;
 
 import java.util.ArrayList;
 
-import com.sun.org.apache.bcel.internal.generic.LAND;
 
 import smallworld.exceptions.ImpossibleAttackException;
 
@@ -121,7 +120,7 @@ public class Player {
 	{
 		currentTribe = tribe;
 		points -= cost;
-		availablePop = tribe.getPopulation();
+		availablePop = tribe.getPopulation().getBasePop() + tribe.getPower().getBasePop();
 	}
 	
 	
@@ -148,8 +147,6 @@ public class Player {
 		//TODO optimisation possible
 		
 		boolean legalMove = false;
-		
-		
 		
 		if(lands.isEmpty())
 			legalMove = target.isBorder();
@@ -179,6 +176,8 @@ public class Player {
 		// Fonctionne dans le cas général, des conditions à rajouter pour les tribus / terrains particuliers
 		int neededTroops = 2;
 		neededTroops += target.getPopulation();
+		
+		return neededTroops;
 	}
 	
 	
@@ -201,7 +200,7 @@ public class Player {
 	private void tribeDeleted(Tribe t)
 	{
 		for(TribeDeletedListener l : listeners)
-			t.tribeDeleted(t);
+			l.tribeDeleted(t);
 	}
 	
 	public void addListener(TribeDeletedListener l)
