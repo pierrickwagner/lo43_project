@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.sun.org.apache.bcel.internal.generic.LAND;
 
-import exceptions.ImpossibleAttackException;
+import smallworld.exceptions.ImpossibleAttackException;
 
 public class Player {
 	
