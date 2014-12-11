@@ -1,7 +1,5 @@
 package smallworld.model;
 
-import com.sun.glass.ui.CommonDialogs.Type;
-
 public class Population {
 	
 	public enum TypePopulation{PROFESSEURS,DOCTORANTS,GI,EDIM,E,IMSI,
