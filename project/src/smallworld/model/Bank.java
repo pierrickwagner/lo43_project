@@ -9,7 +9,7 @@ import smallworld.model.Power.TypePower;
 
 
 
-public class Bank {
+public class Bank implements TribeDeletedListener{
 
 	private ArrayList<Power> listOfPowers;
 	private ArrayList<Population> listOfPopulations;
@@ -130,12 +130,7 @@ public class Bank {
 		listOfPopulations.get(listOfPopulations.indexOf(t.getPopulation())).setAvailable(true);
 		listOfPowers.get(listOfPowers.indexOf(t.getPower())).setAvailable(true);
 	}
-	
-	public void setAvailable(Power p){
-		
-		listOfPowers.get(listOfPowers.indexOf(p)).setAvailable(true);
-	}
-	
+
 	public void pickTribe(Tribe t){
 		
 		int index = AvailableTribes.indexOf(t);
@@ -147,6 +142,13 @@ public class Bank {
 
 	public ArrayList<Tribe> getAvailableTribes() {
 		return AvailableTribes;
+	}
+
+	@Override
+	public void tribeDeleted(Tribe t) {
+		// TODO Auto-generated method stub
+		setAvailable(t);
+		
 	}
 	
 	
