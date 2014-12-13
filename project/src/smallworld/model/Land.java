@@ -2,6 +2,9 @@ package smallworld.model;
 
 import java.util.ArrayList;
 
+import smallworld.model.Population.TypePopulation;
+import smallworld.model.Power.TypePower;
+
 public class Land {
 	
 	
@@ -11,7 +14,7 @@ public class Land {
 	
 	
 	private Type type;
-	private int population;
+	private int troups;
 	private ArrayList<Land> adjacentLands;
 	private boolean border;
 	private Player occupant;
@@ -24,7 +27,7 @@ public class Land {
 	{
 		this.type = type;
 		this.border = border;
-		this.population = 0;
+		this.troups = 0;
 		this.adjacentLands = new ArrayList<Land>();
 		this.occupant = null;
 		this.tribe = null;
@@ -41,7 +44,7 @@ public class Land {
 
 	public void setPopulation(int population) {
 		if(population >= 0)
-			this.population = population;
+			this.troups = population;
 	}
 
 
@@ -61,8 +64,8 @@ public class Land {
 	}
 
 
-	public int getPopulation() {
-		return population;
+	public int getTroups() {
+		return troups;
 	}
 
 
@@ -83,5 +86,21 @@ public class Land {
 	public Tribe getTribe()
 	{
 		return tribe;
+	}
+	
+	public TypePopulation getPopulationType()
+	{
+		if(tribe != null)
+			return tribe.getPopulation().getType();
+		else
+			return null;
+	}
+	
+	public TypePower getPowerType()
+	{
+		if(tribe != null)
+			return tribe.getPower().getPowertype();
+		else
+			return null;
 	}
 }
