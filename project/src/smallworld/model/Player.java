@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 
 import smallworld.exceptions.ImpossibleAttackException;
+import smallworld.model.Population.TypePopulation;
 
 public class Player {
 	
@@ -25,6 +26,9 @@ public class Player {
 		points = 5;
 		availablePop = 0;
 		lands = new ArrayList<Land>();
+		currentTribe = null;
+		previousTribe = null;
+		listeners = new ArrayList<TribeDeletedListener>();
 	}
 	
 	
@@ -49,7 +53,7 @@ public class Player {
 			
 			
 			int reinforcements = 0;
-			if(sentTroops < neededTroops)
+			if(sentTroops < neededTroops && currentTribe.getPopulation().getType() == TypePopulation.IUT)
 			{
 				reinforcements = throwDice();
 			}
@@ -79,15 +83,15 @@ public class Player {
 				if(availablePop > 0)
 				{
 					availablePop--;
-					land.setPopulation(land.getPopulation()+1);
+					land.setPopulation(land.getTroups()+1);
 				}
 			}
 			else
 			{
-				if(land.getPopulation()>1)
+				if(land.getTroups()>1)
 				{
 					availablePop ++;
-					land.setPopulation(land.getPopulation()-1);
+					land.setPopulation(land.getTroups()-1);
 				}
 			}
 		}
@@ -133,12 +137,16 @@ public class Player {
 		//Sets the population of each land to 1 and gets the pop tokens back.
 		for(Land l : lands)
 		{
-			if(l.getPopulation() > 1)
+			if(l.getTroups() > 1)
 			{
-				availablePop += l.getPopulation()-1;
+				availablePop += l.getTroups()-1;
 				l.setPopulation(1);
 			}
 		}
+		
+		//Les TC perdent une unité par tour
+		if(currentTribe.getPopulation().getType() == TypePopulation.TC)
+			availablePop --;
 		
 	}
 	
@@ -148,8 +156,12 @@ public class Player {
 		
 		boolean legalMove = false;
 		
+		
+		
 		if(lands.isEmpty())
 			legalMove = target.isBorder();
+		else if(currentTribe.getPopulation().getType() == TypePopulation.ADMIN)
+			legalMove = true; // Les admins vont où ils veulent
 		else
 		{
 			//Boucle qui vérifie que la cible soit bien l'un des lands adjacents à ceux possédés.
@@ -164,19 +176,50 @@ public class Player {
 		}
 		
 		
+		
+		
 		if(!legalMove)
 			throw(new ImpossibleAttackException(ImpossibleAttackException.Reason.NOT_REACHABLE));
+		
 		
 		//On vérifie que le joueur ne s'attaque pas lui-meme
 		if(target.getOccupant() == this)
 			throw(new ImpossibleAttackException(ImpossibleAttackException.Reason.FRIENDLY_FIRE));
 		
 		
+		//Les GMC ne peuvent pas attaquer les GI
+		if(currentTribe.getPopulation().getType() == TypePopulation.GMC &&target.getPopulationType() == TypePopulation.GI)
+			throw(new ImpossibleAttackException(ImpossibleAttackException.Reason.SPECIAL_RULE));
+		
+		//Le groupe ISO ne peut pas attaquer autre chose que les amphis
+		if(currentTribe.getPopulation().getType() == TypePopulation.GROUPEISO && target.getType() != Land.Type.AMPHI)
+			throw(new ImpossibleAttackException(ImpossibleAttackException.Reason.SPECIAL_RULE));
 		
 		// Fonctionne dans le cas général, des conditions à rajouter pour les tribus / terrains particuliers
 		int neededTroops = 2;
-		neededTroops += target.getPopulation();
+		neededTroops += target.getTroups();
 		
+		//Rend un défenseur inutile pour les EDIM
+		if(target.getTroups()>0)
+			neededTroops --;
+		
+		
+		if(target.getPopulationType() == TypePopulation.PROFESSEURS)
+			neededTroops++;
+		
+		//Les doctorants ont un bonus en attaquant les labos
+		if(currentTribe.getPopulation().getType() == TypePopulation.DOCTORANTS && target.getType()==Land.Type.LABO)
+			neededTroops --;
+		
+		//Les GI ont un bonus en attaquant les salles de TP
+		if(currentTribe.getPopulation().getType() == TypePopulation.GI && target.getType() == Land.Type.TP_GI)
+			neededTroops --;
+		
+		//Les anciens ont un bonus de défense
+		if(target.getPopulationType() == TypePopulation.ANCIENS)
+			neededTroops ++;
+		
+			
 		return neededTroops;
 	}
 	
@@ -185,8 +228,9 @@ public class Player {
 	
 	public void looseLand(Land l)
 	{
-		//Quand on perd une case on rècupère les jetons de cette case moins 1
-		availablePop += l.getPopulation() -1;
+		//Quand on perd une case on rècupère les jetons de cette case moins 1. Sauf pour les E.
+		if(currentTribe.getPopulation().getType()!=TypePopulation.E)
+			availablePop += l.getTroups() -1;
 		
 		lands.remove(l);
 	}
