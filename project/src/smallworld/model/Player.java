@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 
 import smallworld.exceptions.ImpossibleAttackException;
+import smallworld.exceptions.ImpossibleAttackException.Reason;
 import smallworld.model.Population.TypePopulation;
 
 public class Player {
@@ -53,7 +54,10 @@ public class Player {
 			
 			
 			int reinforcements = 0;
-			if(sentTroops < neededTroops && currentTribe.getPopulation().getType() == TypePopulation.IUT)
+			// si les troupes sont insuffisantes, on lance le dé, sauf pour les IUT.
+			//Les bourrés jettent toujours le dé.
+			if((sentTroops < neededTroops && currentTribe.getPopulation().getType() == TypePopulation.IUT)
+					||  currentTribe.getPower().getPowertype() == Power.TypePower.BOURRES)
 			{
 				reinforcements = throwDice();
 			}
@@ -147,8 +151,12 @@ public class Player {
 		//Les TC perdent une unité par tour
 		if(currentTribe.getPopulation().getType() == TypePopulation.TC)
 			availablePop --;
-		
+		//Les charlatans gagnent une unité par tour
+		if(currentTribe.getPower().getPowertype() == Power.TypePower.CHARLATANTS)
+			availablePop ++;
 	}
+	
+	
 	
 	public int simulateAttack(Land target) throws ImpossibleAttackException
 	{
@@ -195,6 +203,11 @@ public class Player {
 		if(currentTribe.getPopulation().getType() == TypePopulation.GROUPEISO && target.getType() != Land.Type.AMPHI)
 			throw(new ImpossibleAttackException(ImpossibleAttackException.Reason.SPECIAL_RULE));
 		
+		//Les nains ne peuvent pas perdre les couloirs
+		if(target.getPowerType() == Power.TypePower.NAINS)
+			throw(new ImpossibleAttackException(ImpossibleAttackException.Reason.SPECIAL_RULE));
+		
+		
 		// Fonctionne dans le cas général, des conditions à rajouter pour les tribus / terrains particuliers
 		int neededTroops = 2;
 		neededTroops += target.getTroups();
@@ -203,7 +216,7 @@ public class Player {
 		if(target.getTroups()>0)
 			neededTroops --;
 		
-		
+		//Les profs ont un bonus de défense
 		if(target.getPopulationType() == TypePopulation.PROFESSEURS)
 			neededTroops++;
 		
@@ -218,6 +231,23 @@ public class Player {
 		//Les anciens ont un bonus de défense
 		if(target.getPopulationType() == TypePopulation.ANCIENS)
 			neededTroops ++;
+		
+		//Les bourrés ont besoin d'un d'attaque en plus
+		if(currentTribe.getPower().getPowertype() == Power.TypePower.BOURRES)
+			neededTroops ++;
+		
+		//Les courageux ont besoin d'une unité en moins
+		if(currentTribe.getPower().getPowertype() == Power.TypePower.COURAGEUX)
+			neededTroops --;
+		
+		//Les overdrives ont un bonus de défense
+		if(target.getPowerType() == Power.TypePower.OVERDRIVES)
+			neededTroops ++;
+		
+		
+		//On ne peut pas avoir 0 troupes sur une case, le minimum de troupes à utiliser pour attaquer est donc de 1 dans tous les cas.
+		if(neededTroops <= 0)
+			neededTroops = 1;
 		
 			
 		return neededTroops;
