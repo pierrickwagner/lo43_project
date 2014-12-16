@@ -23,11 +23,11 @@ public class Land {
 	
 	
 	
-	public Land(Type type, boolean border)
+	public Land(Type type, boolean border, int initTroups)
 	{
 		this.type = type;
 		this.border = border;
-		this.troups = 0;
+		this.troups = initTroups;
 		this.adjacentLands = new ArrayList<Land>();
 		this.occupant = null;
 		this.tribe = null;
