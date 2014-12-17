@@ -16,6 +16,7 @@ public class Game {
     //constructeur
     public Game(int nbPlayer){
         this.players = new ArrayList<Player>();
+        bank =  new Bank();
         nbPlayer = 2;
         for(int i=0; i<nbPlayer; ++i){players.add(new Player());}
         currentPlayer = players.get(0);
@@ -28,11 +29,11 @@ public class Game {
     //passer au joueur suivant
     public void nextPlayer(){
         countPoints();
-        if(players.getIndex(currentPlayer) +1 = nbPlayer){
+        if(players.indexOf(currentPlayer) +1 == nbPlayer){
             currentPlayer = players.get(0);
             turn++;
         }else{
-            currentPlayer = players.get(players.getIndex(currentPlayer) +1);
+            currentPlayer = players.get(players.indexOf(currentPlayer) +1);
         }
         if(turn == 10){
             isFinished = true;
@@ -54,9 +55,14 @@ public class Game {
     //count points
     public void countPoints(){
         points = currentPlayer.getLands().size()+ pointsExtern();
-        currentPlayer.addPoints(points);
+        addPoints(points);
     }
     
+    public void addPoints(int p){
+    	int tmp = currentPlayer.getPoints();
+    	tmp = tmp + p;
+    	currentPlayer.setPoints(tmp);	
+    }
     
     public int pointsExtern(){
         int pointsExtern=0;
@@ -96,16 +102,14 @@ public class Game {
     
  
     //get
-    public int getPlayers(){
-        return players;
-    }
+ 
     public int getNbPlayer(){
         return nbPlayer;
     }
-    public int getCurrentPlayer(){
+    public Player getCurrentPlayer(){
         return currentPlayer;
     }
-    public int getBank(){
+    public Bank getBank(){
         return bank;
     }
     public int getTurn(){
@@ -132,7 +136,7 @@ public class Game {
 
 
 
-/*需要知道当前是哪个玩家在玩，然后判断其他玩家是否被攻击 for(玩家：所有玩家） 检验是否手中有可用兵力；如果有，则执行部署。
+/*
      for(int i;i<=players.size();++i)
      {
      if(players[i].getavaliablePop()!=0&&i!=currentPlayer){

@@ -18,6 +18,16 @@ public class Player {
 	private ArrayList<Land> lands;
 	
 
+	public void setPoints(int points) {
+		this.points = points;
+	}
+
+
+
+
+
+
+
 	private ArrayList<TribeDeletedListener> listeners;
 	
 	
