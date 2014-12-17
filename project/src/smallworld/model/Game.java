@@ -2,6 +2,9 @@ package smallworld.model;
 
 import java.util.ArrayList;
 
+import smallworld.model.Population.TypePopulation;
+import smallworld.model.Power.TypePower;
+
 
 public class Game {
     private ArrayList<Player> players;
@@ -66,31 +69,31 @@ public class Game {
     
     public int pointsExtern(){
         int pointsExtern=0;
-        String power = currentPlayer.getCurrentTribe().getPower().getPowertype();
-        String population = currentPlayer.getCurrentTribe().getPopulation().getType();
+        TypePower power = currentPlayer.getCurrentTribe().getPower().getPowertype();
+        TypePopulation population = currentPlayer.getCurrentTribe().getPopulation().getType();
         switch(power){
-            case "INTELLOS":
+            case INTELLOS:
                 for(Land l:currentPlayer.getLands()){
-                    if(l.getType()="BIBLIO")
+                    if(l.getType()== Land.Type.BIBLIO)
                         pointsExtern+=1;
                 }break;
-            case "CHANCEUX":
-                if(countForChanceux = 0){
+            case CHANCEUX:
+                if(countForChanceux == 0){
                     pointsExtern+= 7;
                     this.countForChanceux+=1;
                 }break;
-            case "FETARD":
+            case FETARD:
                 for(Land l:currentPlayer.getLands()){
-                    if(l.getType()="FOYER")
+                    if(l.getType()==Land.Type.FOYER)
                         pointsExtern+=4;
                 }break;
             default:pointsExtern+=0;
         }
         
         switch(population){
-            case "IMSI":
+            case IMSI:
                 for(Land l:currentPlayer.getLands()){
-                    if(l.getType()="BIBLIO")
+                    if(l.getType()==Land.Type.COULOIR)
                         pointsExtern+=1;
                 }break;
        
