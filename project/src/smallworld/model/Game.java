@@ -5,148 +5,139 @@ import java.util.ArrayList;
 
 public class Game {
     private ArrayList<Player> players;
-   // private ArrayList<tribe> tribe;
     private int nbPlayer;
-    private int currentPlayer;
+    private Player currentPlayer;
+    private Bank bank;
     private int turn;
-    private int bonus;
+    private int points;
+    private boolean isFinished;
     private int countForChanceux;
     
-    
-
-    
-    
-    //构造函数  开始游戏
-    public Game(){
+    //constructeur
+    public Game(int nbPlayer){
         this.players = new ArrayList<Player>();
-        nbPlayer = 0;
-        currentPlayer = 0;
+        nbPlayer = 2;
+        for(int i=0; i<nbPlayer; ++i){players.add(new Player());}
+        currentPlayer = players.get(0);
         turn = 0;
-        bonus = 0;
+        points = 0;
+        isFinished = false;
         countForChanceux = 0;
+    }
+   
+    //passer au joueur suivant
+    public void nextPlayer(){
+        countPoints();
+        if(players.getIndex(currentPlayer) +1 = nbPlayer){
+            currentPlayer = players.get(0);
+            turn++;
+        }else{
+            currentPlayer = players.get(players.getIndex(currentPlayer) +1);
         }
+        if(turn == 10){
+            isFinished = true;
+            showPoints();
+        }
+    }
     
     
-    //构造函数里可以调用别的函数？
-    public startGame(){
-        setNbPlayer();
-        
-        for(turn = 1; turn <=10; ++turn){
-            for(currentPlayer= 1; currentPlayer <= nbPlayer; ++currentPlayer){ //需要知道当前是哪个玩家在玩，然后判断其他玩家是否被攻击 for(玩家：所有玩家） 检验是否手中有可用兵力；如果有，则执行部署。
-                for(int i;i<=players.size();++i)
-                {
-                    if(players[i].getavaliablePop()!=0&&i!=currentPlayer){
-                        players[i].redeploy();
-                    }
-                }
-                
-              //  if(players[currentPlayer].getavaliablePop()==0)
-            //    {
-                if(!players[currentPlayer]){players.Add(new Player());}
-                if(!players[currentPlayer].getCurrentTribe()){
-                    //if(players[currentPlayer].points >= ){}//---------根据表的顺序判断金币够不够--------
-                    //怎么得到tribe和cost
-                  //  chooseTribe(........);
-                  //  players[currentPlayer].minusPoints(cost);
-                    players[currentPlayer].chooseTribe(...);
-                }
-                //conceptuell
-                //进行游戏（好几种情况？？？）
-                switch(....){
-                case "attack":
-                    players[currentPlayer].beginTurn()
-                    players[currentPlayer].attack(target);
-                    players[currentPlayer].redeploy(land,addPop);
-                    break;
-                case "abandon"
-                    if(turn!== 1)
-                        players[currentPlayer].abandonTribe();
-                    break;
-                }
-                    
-                countBonus(players[currentPlayer]);
-                
-                
-                }
-            /*    else
-                {
-                    players[currentPlayer].redepoly();//redeploy from base;
-                }*/
-                
-            
+    //show points
+    public void showPoints(){
+        if(isFinished==true){
+            for(int i=1;i<=nbPlayer; ++i){
+                System.out.println("player"+i+":"+players.get(i).getPoints()+"points");
             }
         }
     }
-
     
     
-    //退出游戏
-    public void quitGame(){
+    //count points
+    public void countPoints(){
+        points = currentPlayer.getLands().size()+ pointsExtern();
+        currentPlayer.addPoints(points);
     }
     
     
-  //函数实现
-    //#########这里面应该是什么参数
+    public int pointsExtern(){
+        int pointsExtern=0;
+        String power = currentPlayer.getCurrentTribe().getPower().getPowertype();
+        String population = currentPlayer.getCurrentTribe().getPopulation().getType();
+        switch(power){
+            case "INTELLOS":
+                for(Land l:currentPlayer.getLands()){
+                    if(l.getType()="BIBLIO")
+                        pointsExtern+=1;
+                }break;
+            case "CHANCEUX":
+                if(countForChanceux = 0){
+                    pointsExtern+= 7;
+                    this.countForChanceux+=1;
+                }break;
+            case "FETARD":
+                for(Land l:currentPlayer.getLands()){
+                    if(l.getType()="FOYER")
+                        pointsExtern+=4;
+                }break;
+            default:pointsExtern+=0;
+        }
+        
+        switch(population){
+            case "IMSI":
+                for(Land l:currentPlayer.getLands()){
+                    if(l.getType()="BIBLIO")
+                        pointsExtern+=1;
+                }break;
+       
+            default:pointsExtern+=0;
+        }
+   
+        return pointsExtern;
+    }
+    
+ 
+    //get
+    public int getPlayers(){
+        return players;
+    }
+    public int getNbPlayer(){
+        return nbPlayer;
+    }
+    public int getCurrentPlayer(){
+        return currentPlayer;
+    }
+    public int getBank(){
+        return bank;
+    }
+    public int getTurn(){
+        return turn;
+    }
+    public int getPoints(){
+        return points;
+    }
+    public int getIsBoolean(){
+        return nbPlayer;
+    }
+    
+    //set
     public void setNbPlayer(int p){
         this.nbPlayer = p;
     }
-    
-    public int countBonus(player p){
-        return bouns = p.getLands().size()+ bonusExtern(p);
-        p.addPoints(bonus);
+    public void setIsFinished(boolean b){
+        this.isFinished = b;
     }
-    
-    
-    public int bonusExtern(Player p){
-        int bonusExtern=0;
-        String power = p.getCurrentTribe().getPower().getPowertype();
-        switch(power){
-            case "INTELLOS":
-                for(Land l:p.getLands()){
-                    if(l.getType()="BIBLIO")
-                        bonusExtern+=1;
-                }break;
-            case "BOURRES":
-            case "CHARLATANTS":
-                bonusExtern = 1;
-                break;
-            case "CHANCEUX":
-                if(countForChanceux = 0){
-                    bonusExtern = 7;
-                    countForChanceux+=1;
-                }break;
-            case "FETARD":
-                for(Land l:p.getLands()){
-                    if(l.getType()="FOYER")
-                        bonusExtern+=4;
-                }break;
-            case "COURAGEUX": break;
-            case "OVERDRIVES": break;
-            case "NAINS": break;
-            default:bonusExtern+=0;
-        }
-   
-        return bonusExtern;
-    }
-    
-    /*
-    public int chooseTribe(//mouseLisener player p){
-                           //cost
-        if(players[currentPlayer].getPoints()>cost)
-          p.tribe=t;
-        return cost;
-    }
-    */
-    
-    
-    
+
+
     
 }
-//AWT
 
-//players.get(i)
-//players[currentPlayer]
 
-//arraylist get(i)
-/*
- 
+
+/*需要知道当前是哪个玩家在玩，然后判断其他玩家是否被攻击 for(玩家：所有玩家） 检验是否手中有可用兵力；如果有，则执行部署。
+     for(int i;i<=players.size();++i)
+     {
+     if(players[i].getavaliablePop()!=0&&i!=currentPlayer){
+     players[i].redeploy();
+     }
+     }
+    if(players[currentPlayer].getavaliablePop()==0)*/
+
