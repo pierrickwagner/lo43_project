@@ -4,22 +4,46 @@
  */
 package smallworld.view;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import smallworld.exceptions.ImpossibleAttackException;
+import smallworld.model.Game;
+import smallworld.model.Land;
 import smallworld.model.Tribe;
+import smallworld.model.TribeDeletedListener;
+
+
 
 /**
  *
  * @author Darty
  */
-public class MyWindow extends javax.swing.JFrame {
+public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener{
     boolean redeploy;
     int numberClickedLand;
     DefaultListModel listModel;
+    
     ArrayList<Tribe> listTribe;
+    
+    public static final int MAP_WIDTH=6;
+    public static final int MAP_HEIGHT=5;
+    
+    Game game;
+    
+    
+    
+    
+    ArrayList<LandDisplayer> landDisplayer;
+    ArrayList<Land> lands;
+    
+    //JPanel[][] tabPanel ;
     
     
     /**
@@ -27,20 +51,144 @@ public class MyWindow extends javax.swing.JFrame {
      */
     public MyWindow() {
         initComponents();
+        //this.setSize(panelAccueil.getHeight(), panelAccueil.getWidth());
+        
+        game=new Game();
+   
+        lands=new ArrayList<Land>();
+        landDisplayer=new ArrayList<LandDisplayer>();
+        createLands();
+        createLandDisplayer();
+        addListenerPanel();
+        computeNeighbours();
         init();
         fillDescPop();
         
     }
     
+    @Override
+    public void tribeDeleted(Tribe t) {
+        for(Land l : lands)
+        {
+                if(l.getTribe() == t)
+                {
+                        l.setTribe(null);
+                        l.setPopulation(0);
+                        l.setOccupant(null);
+                }
+        }
+    }
+    
+    public void createLands()
+    {
+        lands.add(new Land(Land.Type.COULOIR, true));
+        lands.add(new Land(Land.Type.COULOIR, true));
+        lands.add(new Land(Land.Type.COULOIR, true));
+        lands.add(new Land(Land.Type.COULOIR, true));
+        lands.add(new Land(Land.Type.COULOIR, true));
+        lands.add(new Land(Land.Type.COULOIR, true));
+        
+        lands.add(new Land(Land.Type.COULOIR, true));
+        lands.add(new Land(Land.Type.COULOIR, false));
+        lands.add(new Land(Land.Type.COULOIR, false));
+        lands.add(new Land(Land.Type.COULOIR, false));
+        lands.add(new Land(Land.Type.COULOIR, false));
+        lands.add(new Land(Land.Type.COULOIR, true));
+        
+        lands.add(new Land(Land.Type.COULOIR, true));
+        lands.add(new Land(Land.Type.COULOIR, false));
+        lands.add(new Land(Land.Type.COULOIR, false));
+        lands.add(new Land(Land.Type.COULOIR, false));
+        lands.add(new Land(Land.Type.COULOIR, false));
+        lands.add(new Land(Land.Type.COULOIR, true));
+        
+        lands.add(new Land(Land.Type.COULOIR, true));
+        lands.add(new Land(Land.Type.COULOIR, false));
+        lands.add(new Land(Land.Type.COULOIR, false));
+        lands.add(new Land(Land.Type.COULOIR, false));
+        lands.add(new Land(Land.Type.COULOIR, false));
+        lands.add(new Land(Land.Type.COULOIR, true));
+        
+        lands.add(new Land(Land.Type.COULOIR, true));
+        lands.add(new Land(Land.Type.COULOIR, true));
+        lands.add(new Land(Land.Type.COULOIR, true));
+        lands.add(new Land(Land.Type.COULOIR, true));
+        lands.add(new Land(Land.Type.COULOIR, true));
+        lands.add(new Land(Land.Type.COULOIR, true));
+        
+        
+    }
+    
+    public void computeNeighbours()
+    {
+            for(int i=0;i<lands.size();i++)
+            {
+                    int y = i/MAP_WIDTH;
+                    int x = i%MAP_WIDTH;
+
+                    int xMin = (x-1<0) ? 0 : x-1;
+                    int xMax = (x+1>MAP_WIDTH-1) ? MAP_WIDTH-1 : x+1;
+                    int yMin = (y-1<0) ? 0 : y-1;
+                    int yMax = (y+1>MAP_HEIGHT-1) ? MAP_HEIGHT-1 : y+1;
+
+
+                    for(int nx = xMin; nx<=xMax; nx++)
+                    {
+                            for(int ny = yMin; ny<=yMax; ny++)
+                            {
+                                    if(nx!=x || ny!=y)
+                                            lands.get(i).addAdjacent(lands.get(ny*MAP_WIDTH+nx));
+                            }
+                    }
+
+            }
+    }
+    
+    public void createLandDisplayer()
+    {
+        
+        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(0)));
+        landDisplayer.add(new LandDisplayer(land1, label1, lands.get(1)));
+        landDisplayer.add(new LandDisplayer(land2, label2, lands.get(2)));
+        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(3)));
+        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(4)));
+        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(5)));
+        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(6)));
+        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(7)));
+        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(8)));
+        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(9)));
+        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(10)));
+        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(11)));
+        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(12)));
+        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(13)));
+        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(14)));
+        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(15)));
+        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(16)));
+        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(17)));
+        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(18)));
+        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(19)));
+        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(20)));
+        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(0)));
+        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(0)));
+        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(0)));
+        landDisplayer.add(new LandDisplayer(land24, label24, lands.get(24)));
+        landDisplayer.add(new LandDisplayer(land25, label25, lands.get(25)));
+        landDisplayer.add(new LandDisplayer(land26, label26, lands.get(26)));
+        landDisplayer.add(new LandDisplayer(land27, label27, lands.get(27)));
+        landDisplayer.add(new LandDisplayer(land28, label28, lands.get(28)));
+        landDisplayer.add(new LandDisplayer(land29, label29, lands.get(29)));
+       
+       
+        
+    }
+    
+   
     public void fillListPopulation() // remplit la Jlist
     {
         listModel=new DefaultListModel();
         listTribe= new ArrayList<>();
         
-       /* for(int i=0;i<5;i++)
-        {
-            listTribe.add(new Tribe("pop"+i, "power"+i, "desc"+i));
-        }*/
+        //listTribe=game.bank.getAvailableTribes();
         
         
         for(int i =0;i<listTribe.size();i++)
@@ -68,32 +216,60 @@ public class MyWindow extends javax.swing.JFrame {
     {
         panelGame.setVisible(false);
         buttonEndTurn.setVisible(false);
-       // buttonRedeploy.setVisible(true);
+        
+        buttonRedeploy.setVisible(false);
         redeploy=false;
         fillListPopulation();
         
     }
     
-    public void landsClick(int ncl)
+    public void landsClick(int ncl, boolean rc)
     {
         numberClickedLand=ncl;
         System.out.println(ncl);
         if(redeploy== false)
         {
-            /*.
-             * attack
-             */
-            System.out.println("J'attaque la case "+ncl);
+            if(!buttonChoice.isVisible())
+            {
+                //Attack
+                System.out.println("J'attaque la case "+ncl);
+                /*try{
+                    game.getCurrentPlayer().attack(lands.get(ncl));
+                }catch(ImpossibleAttackException e)
+                {
+
+                }*/
+                
+            }
+            
         }
         else
         {
+        //redeploy
+            //game.getCurrentPlayer.redeploy(lands.get(ncl), !rc);
             System.out.println("Je ne peux plus attaquer car je suis en train de redéployer");
         }
         
     }
+    
+    public void addListenerPanel()
+    {
+        for(int i=0; i<landDisplayer.size(); i++)
+        {
+            final int j = i;
+            landDisplayer.get(i).getPanelLand().addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                boolean rightClick = (evt.getButton() == MouseEvent.BUTTON2);
+                landsClick(j, rightClick);
+                
+            }
+        });
+            
+        }
+    }
 
    
-;    
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -109,72 +285,72 @@ public class MyWindow extends javax.swing.JFrame {
         listPeuple = new javax.swing.JList();
         buttonRedeploy = new javax.swing.JButton();
         panelTerritoires = new javax.swing.JPanel();
-        land1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        land2 = new javax.swing.JPanel();
-        jLabel21 = new javax.swing.JLabel();
-        land3 = new javax.swing.JPanel();
-        jLabel23 = new javax.swing.JLabel();
-        land4 = new javax.swing.JPanel();
-        jLabel24 = new javax.swing.JLabel();
-        land5 = new javax.swing.JPanel();
-        jLabel25 = new javax.swing.JLabel();
-        land11 = new javax.swing.JPanel();
-        jLabel26 = new javax.swing.JLabel();
-        land10 = new javax.swing.JPanel();
-        jLabel27 = new javax.swing.JLabel();
-        land9 = new javax.swing.JPanel();
-        jLabel28 = new javax.swing.JLabel();
-        land8 = new javax.swing.JPanel();
-        jLabel29 = new javax.swing.JLabel();
-        land7 = new javax.swing.JPanel();
-        jLabel30 = new javax.swing.JLabel();
-        land16 = new javax.swing.JPanel();
-        jLabel31 = new javax.swing.JLabel();
-        land15 = new javax.swing.JPanel();
-        jLabel32 = new javax.swing.JLabel();
-        land14 = new javax.swing.JPanel();
-        jLabel33 = new javax.swing.JLabel();
-        land13 = new javax.swing.JPanel();
-        jLabel34 = new javax.swing.JLabel();
-        land12 = new javax.swing.JPanel();
-        jLabel35 = new javax.swing.JLabel();
-        land21 = new javax.swing.JPanel();
-        jLabel36 = new javax.swing.JLabel();
-        land20 = new javax.swing.JPanel();
-        jLabel37 = new javax.swing.JLabel();
-        land19 = new javax.swing.JPanel();
-        jLabel38 = new javax.swing.JLabel();
-        land18 = new javax.swing.JPanel();
-        jLabel39 = new javax.swing.JLabel();
-        land17 = new javax.swing.JPanel();
-        jLabel40 = new javax.swing.JLabel();
-        land28 = new javax.swing.JPanel();
-        jLabel41 = new javax.swing.JLabel();
-        land27 = new javax.swing.JPanel();
-        jLabel42 = new javax.swing.JLabel();
-        land26 = new javax.swing.JPanel();
-        jLabel43 = new javax.swing.JLabel();
-        land25 = new javax.swing.JPanel();
-        jLabel44 = new javax.swing.JLabel();
-        land24 = new javax.swing.JPanel();
-        jLabel45 = new javax.swing.JLabel();
-        land30 = new javax.swing.JPanel();
-        jLabel46 = new javax.swing.JLabel();
         land0 = new javax.swing.JPanel();
-        jLabel47 = new javax.swing.JLabel();
+        label0 = new javax.swing.JLabel();
+        land1 = new javax.swing.JPanel();
+        label1 = new javax.swing.JLabel();
+        land2 = new javax.swing.JPanel();
+        label2 = new javax.swing.JLabel();
+        land3 = new javax.swing.JPanel();
+        label3 = new javax.swing.JLabel();
+        land4 = new javax.swing.JPanel();
+        label4 = new javax.swing.JLabel();
+        land5 = new javax.swing.JPanel();
+        label5 = new javax.swing.JLabel();
         land6 = new javax.swing.JPanel();
-        jLabel48 = new javax.swing.JLabel();
+        label6 = new javax.swing.JLabel();
+        land7 = new javax.swing.JPanel();
+        label7 = new javax.swing.JLabel();
+        land8 = new javax.swing.JPanel();
+        label8 = new javax.swing.JLabel();
+        land9 = new javax.swing.JPanel();
+        label9 = new javax.swing.JLabel();
+        land10 = new javax.swing.JPanel();
+        label10 = new javax.swing.JLabel();
+        land11 = new javax.swing.JPanel();
+        label11 = new javax.swing.JLabel();
+        land12 = new javax.swing.JPanel();
+        label12 = new javax.swing.JLabel();
+        land13 = new javax.swing.JPanel();
+        label13 = new javax.swing.JLabel();
+        land14 = new javax.swing.JPanel();
+        label14 = new javax.swing.JLabel();
+        land15 = new javax.swing.JPanel();
+        label15 = new javax.swing.JLabel();
+        land16 = new javax.swing.JPanel();
+        label16 = new javax.swing.JLabel();
+        land17 = new javax.swing.JPanel();
+        label17 = new javax.swing.JLabel();
+        land18 = new javax.swing.JPanel();
+        label18 = new javax.swing.JLabel();
+        land19 = new javax.swing.JPanel();
+        label19 = new javax.swing.JLabel();
+        land20 = new javax.swing.JPanel();
+        label20 = new javax.swing.JLabel();
+        land21 = new javax.swing.JPanel();
+        label21 = new javax.swing.JLabel();
         land22 = new javax.swing.JPanel();
-        jLabel49 = new javax.swing.JLabel();
-        land29 = new javax.swing.JPanel();
-        jLabel50 = new javax.swing.JLabel();
+        label22 = new javax.swing.JLabel();
         land23 = new javax.swing.JPanel();
-        jLabel51 = new javax.swing.JLabel();
+        label23 = new javax.swing.JLabel();
+        land24 = new javax.swing.JPanel();
+        label24 = new javax.swing.JLabel();
+        land25 = new javax.swing.JPanel();
+        label25 = new javax.swing.JLabel();
+        land26 = new javax.swing.JPanel();
+        label26 = new javax.swing.JLabel();
+        land27 = new javax.swing.JPanel();
+        label27 = new javax.swing.JLabel();
+        land28 = new javax.swing.JPanel();
+        label28 = new javax.swing.JLabel();
+        land29 = new javax.swing.JPanel();
+        label29 = new javax.swing.JLabel();
         buttonEndTurn = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         textAreaDescription = new javax.swing.JTextArea();
         labelDesc = new javax.swing.JLabel();
+        buttonChoice = new javax.swing.JButton();
+        buttonPasserDeclin = new javax.swing.JButton();
         panelAccueil = new javax.swing.JPanel();
         buttonPlay = new javax.swing.JButton();
 
@@ -201,6 +377,28 @@ public class MyWindow extends javax.swing.JFrame {
         panelTerritoires.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         panelTerritoires.setForeground(new java.awt.Color(0, 153, 255));
 
+        land0.setBackground(new java.awt.Color(0, 153, 153));
+        land0.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        label0.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout land0Layout = new javax.swing.GroupLayout(land0);
+        land0.setLayout(land0Layout);
+        land0Layout.setHorizontalGroup(
+            land0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(land0Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(label0, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        land0Layout.setVerticalGroup(
+            land0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land0Layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(label0, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+
         land1.setBackground(new java.awt.Color(255, 51, 51));
         land1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         land1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -209,8 +407,8 @@ public class MyWindow extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("1");
+        label1.setForeground(new java.awt.Color(255, 255, 255));
+        label1.setText("1");
 
         javax.swing.GroupLayout land1Layout = new javax.swing.GroupLayout(land1);
         land1.setLayout(land1Layout);
@@ -218,14 +416,14 @@ public class MyWindow extends javax.swing.JFrame {
             land1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(land1Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         land1Layout.setVerticalGroup(
             land1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land1Layout.createSequentialGroup()
                 .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
         );
 
@@ -237,7 +435,7 @@ public class MyWindow extends javax.swing.JFrame {
             }
         });
 
-        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
+        label2.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout land2Layout = new javax.swing.GroupLayout(land2);
         land2.setLayout(land2Layout);
@@ -245,14 +443,14 @@ public class MyWindow extends javax.swing.JFrame {
             land2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(land2Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         land2Layout.setVerticalGroup(
             land2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land2Layout.createSequentialGroup()
                 .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
         );
 
@@ -264,7 +462,7 @@ public class MyWindow extends javax.swing.JFrame {
             }
         });
 
-        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
+        label3.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout land3Layout = new javax.swing.GroupLayout(land3);
         land3.setLayout(land3Layout);
@@ -272,14 +470,14 @@ public class MyWindow extends javax.swing.JFrame {
             land3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(land3Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         land3Layout.setVerticalGroup(
             land3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land3Layout.createSequentialGroup()
                 .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
         );
 
@@ -291,7 +489,7 @@ public class MyWindow extends javax.swing.JFrame {
             }
         });
 
-        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
+        label4.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout land4Layout = new javax.swing.GroupLayout(land4);
         land4.setLayout(land4Layout);
@@ -299,14 +497,14 @@ public class MyWindow extends javax.swing.JFrame {
             land4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(land4Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         land4Layout.setVerticalGroup(
             land4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land4Layout.createSequentialGroup()
                 .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
         );
 
@@ -318,8 +516,8 @@ public class MyWindow extends javax.swing.JFrame {
             }
         });
 
-        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel25.setText("1");
+        label5.setForeground(new java.awt.Color(255, 255, 255));
+        label5.setText("1");
 
         javax.swing.GroupLayout land5Layout = new javax.swing.GroupLayout(land5);
         land5.setLayout(land5Layout);
@@ -327,612 +525,14 @@ public class MyWindow extends javax.swing.JFrame {
             land5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(land5Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         land5Layout.setVerticalGroup(
             land5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land5Layout.createSequentialGroup()
                 .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-
-        land11.setBackground(new java.awt.Color(255, 51, 51));
-        land11.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land11.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land11MouseClicked(evt);
-            }
-        });
-
-        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout land11Layout = new javax.swing.GroupLayout(land11);
-        land11.setLayout(land11Layout);
-        land11Layout.setHorizontalGroup(
-            land11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(land11Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        land11Layout.setVerticalGroup(
-            land11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land11Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-
-        land10.setBackground(new java.awt.Color(204, 204, 0));
-        land10.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land10.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land10MouseClicked(evt);
-            }
-        });
-
-        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout land10Layout = new javax.swing.GroupLayout(land10);
-        land10.setLayout(land10Layout);
-        land10Layout.setHorizontalGroup(
-            land10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(land10Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        land10Layout.setVerticalGroup(
-            land10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land10Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-
-        land9.setBackground(new java.awt.Color(0, 153, 153));
-        land9.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land9.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land9MouseClicked(evt);
-            }
-        });
-
-        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout land9Layout = new javax.swing.GroupLayout(land9);
-        land9.setLayout(land9Layout);
-        land9Layout.setHorizontalGroup(
-            land9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(land9Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        land9Layout.setVerticalGroup(
-            land9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land9Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-
-        land8.setBackground(new java.awt.Color(0, 153, 153));
-        land8.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land8MouseClicked(evt);
-            }
-        });
-
-        jLabel29.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout land8Layout = new javax.swing.GroupLayout(land8);
-        land8.setLayout(land8Layout);
-        land8Layout.setHorizontalGroup(
-            land8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(land8Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        land8Layout.setVerticalGroup(
-            land8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land8Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-
-        land7.setBackground(new java.awt.Color(255, 51, 51));
-        land7.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land7MouseClicked(evt);
-            }
-        });
-
-        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout land7Layout = new javax.swing.GroupLayout(land7);
-        land7.setLayout(land7Layout);
-        land7Layout.setHorizontalGroup(
-            land7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(land7Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        land7Layout.setVerticalGroup(
-            land7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land7Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-
-        land16.setBackground(new java.awt.Color(102, 102, 102));
-        land16.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land16.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land16MouseClicked(evt);
-            }
-        });
-
-        jLabel31.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout land16Layout = new javax.swing.GroupLayout(land16);
-        land16.setLayout(land16Layout);
-        land16Layout.setHorizontalGroup(
-            land16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(land16Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        land16Layout.setVerticalGroup(
-            land16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land16Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-
-        land15.setBackground(new java.awt.Color(102, 102, 102));
-        land15.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land15.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land15MouseClicked(evt);
-            }
-        });
-
-        jLabel32.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel32.setText("1");
-
-        javax.swing.GroupLayout land15Layout = new javax.swing.GroupLayout(land15);
-        land15.setLayout(land15Layout);
-        land15Layout.setHorizontalGroup(
-            land15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(land15Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        land15Layout.setVerticalGroup(
-            land15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land15Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-
-        land14.setBackground(new java.awt.Color(204, 0, 204));
-        land14.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land14.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land14MouseClicked(evt);
-            }
-        });
-
-        jLabel33.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel33.setText("1");
-
-        javax.swing.GroupLayout land14Layout = new javax.swing.GroupLayout(land14);
-        land14.setLayout(land14Layout);
-        land14Layout.setHorizontalGroup(
-            land14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(land14Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        land14Layout.setVerticalGroup(
-            land14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land14Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-
-        land13.setBackground(new java.awt.Color(204, 204, 0));
-        land13.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land13.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land13MouseClicked(evt);
-            }
-        });
-
-        jLabel34.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout land13Layout = new javax.swing.GroupLayout(land13);
-        land13.setLayout(land13Layout);
-        land13Layout.setHorizontalGroup(
-            land13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(land13Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        land13Layout.setVerticalGroup(
-            land13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land13Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-
-        land12.setBackground(new java.awt.Color(204, 204, 0));
-        land12.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land12.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land12MouseClicked(evt);
-            }
-        });
-
-        jLabel35.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout land12Layout = new javax.swing.GroupLayout(land12);
-        land12.setLayout(land12Layout);
-        land12Layout.setHorizontalGroup(
-            land12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(land12Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        land12Layout.setVerticalGroup(
-            land12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land12Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-
-        land21.setBackground(new java.awt.Color(0, 153, 153));
-        land21.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land21.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land21MouseClicked(evt);
-            }
-        });
-
-        jLabel36.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout land21Layout = new javax.swing.GroupLayout(land21);
-        land21.setLayout(land21Layout);
-        land21Layout.setHorizontalGroup(
-            land21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(land21Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        land21Layout.setVerticalGroup(
-            land21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land21Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-
-        land20.setBackground(new java.awt.Color(204, 204, 0));
-        land20.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land20.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land20MouseClicked(evt);
-            }
-        });
-
-        jLabel37.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout land20Layout = new javax.swing.GroupLayout(land20);
-        land20.setLayout(land20Layout);
-        land20Layout.setHorizontalGroup(
-            land20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(land20Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        land20Layout.setVerticalGroup(
-            land20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land20Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-
-        land19.setBackground(new java.awt.Color(255, 51, 51));
-        land19.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land19.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land19MouseClicked(evt);
-            }
-        });
-
-        jLabel38.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout land19Layout = new javax.swing.GroupLayout(land19);
-        land19.setLayout(land19Layout);
-        land19Layout.setHorizontalGroup(
-            land19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(land19Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        land19Layout.setVerticalGroup(
-            land19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land19Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-
-        land18.setBackground(new java.awt.Color(204, 0, 204));
-        land18.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land18.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land18MouseClicked(evt);
-            }
-        });
-
-        jLabel39.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout land18Layout = new javax.swing.GroupLayout(land18);
-        land18.setLayout(land18Layout);
-        land18Layout.setHorizontalGroup(
-            land18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(land18Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        land18Layout.setVerticalGroup(
-            land18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land18Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-
-        land17.setBackground(new java.awt.Color(0, 153, 153));
-        land17.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land17.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land17MouseClicked(evt);
-            }
-        });
-
-        jLabel40.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel40.setText("1");
-
-        javax.swing.GroupLayout land17Layout = new javax.swing.GroupLayout(land17);
-        land17.setLayout(land17Layout);
-        land17Layout.setHorizontalGroup(
-            land17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(land17Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        land17Layout.setVerticalGroup(
-            land17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land17Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-
-        land28.setBackground(new java.awt.Color(255, 51, 51));
-        land28.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land28.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land28MouseClicked(evt);
-            }
-        });
-
-        jLabel41.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout land28Layout = new javax.swing.GroupLayout(land28);
-        land28.setLayout(land28Layout);
-        land28Layout.setHorizontalGroup(
-            land28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(land28Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        land28Layout.setVerticalGroup(
-            land28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land28Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-
-        land27.setBackground(new java.awt.Color(204, 204, 0));
-        land27.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land27.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land27MouseClicked(evt);
-            }
-        });
-
-        jLabel42.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel42.setText("1");
-
-        javax.swing.GroupLayout land27Layout = new javax.swing.GroupLayout(land27);
-        land27.setLayout(land27Layout);
-        land27Layout.setHorizontalGroup(
-            land27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(land27Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        land27Layout.setVerticalGroup(
-            land27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land27Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-
-        land26.setBackground(new java.awt.Color(0, 153, 153));
-        land26.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land26.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land26MouseClicked(evt);
-            }
-        });
-
-        jLabel43.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout land26Layout = new javax.swing.GroupLayout(land26);
-        land26.setLayout(land26Layout);
-        land26Layout.setHorizontalGroup(
-            land26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(land26Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        land26Layout.setVerticalGroup(
-            land26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land26Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-
-        land25.setBackground(new java.awt.Color(255, 51, 51));
-        land25.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land25.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land25MouseClicked(evt);
-            }
-        });
-
-        jLabel44.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout land25Layout = new javax.swing.GroupLayout(land25);
-        land25.setLayout(land25Layout);
-        land25Layout.setHorizontalGroup(
-            land25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(land25Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        land25Layout.setVerticalGroup(
-            land25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land25Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-
-        land24.setBackground(new java.awt.Color(102, 102, 102));
-        land24.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land24.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land24MouseClicked(evt);
-            }
-        });
-
-        jLabel45.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout land24Layout = new javax.swing.GroupLayout(land24);
-        land24.setLayout(land24Layout);
-        land24Layout.setHorizontalGroup(
-            land24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(land24Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel45, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        land24Layout.setVerticalGroup(
-            land24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land24Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel45, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-
-        land30.setBackground(new java.awt.Color(0, 153, 153));
-        land30.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land30.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land30MouseClicked(evt);
-            }
-        });
-
-        jLabel46.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout land30Layout = new javax.swing.GroupLayout(land30);
-        land30.setLayout(land30Layout);
-        land30Layout.setHorizontalGroup(
-            land30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(land30Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel46, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        land30Layout.setVerticalGroup(
-            land30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land30Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel46, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-
-        land0.setBackground(new java.awt.Color(0, 153, 153));
-        land0.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land0.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land0MouseClicked(evt);
-            }
-        });
-
-        jLabel47.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout land0Layout = new javax.swing.GroupLayout(land0);
-        land0.setLayout(land0Layout);
-        land0Layout.setHorizontalGroup(
-            land0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(land0Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel47, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        land0Layout.setVerticalGroup(
-            land0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land0Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel47, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
         );
 
@@ -944,7 +544,7 @@ public class MyWindow extends javax.swing.JFrame {
             }
         });
 
-        jLabel48.setForeground(new java.awt.Color(255, 255, 255));
+        label6.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout land6Layout = new javax.swing.GroupLayout(land6);
         land6.setLayout(land6Layout);
@@ -952,18 +552,426 @@ public class MyWindow extends javax.swing.JFrame {
             land6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(land6Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(jLabel48, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         land6Layout.setVerticalGroup(
             land6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land6Layout.createSequentialGroup()
                 .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel48, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
         );
 
-        land22.setBackground(new java.awt.Color(204, 0, 204));
+        land7.setBackground(new java.awt.Color(102, 255, 51));
+        land7.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        land7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                land7MouseClicked(evt);
+            }
+        });
+
+        label7.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout land7Layout = new javax.swing.GroupLayout(land7);
+        land7.setLayout(land7Layout);
+        land7Layout.setHorizontalGroup(
+            land7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(land7Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        land7Layout.setVerticalGroup(
+            land7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land7Layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+
+        land8.setBackground(new java.awt.Color(0, 153, 153));
+        land8.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        land8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                land8MouseClicked(evt);
+            }
+        });
+
+        label8.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout land8Layout = new javax.swing.GroupLayout(land8);
+        land8.setLayout(land8Layout);
+        land8Layout.setHorizontalGroup(
+            land8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(land8Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(label8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        land8Layout.setVerticalGroup(
+            land8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land8Layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(label8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+
+        land9.setBackground(new java.awt.Color(102, 255, 51));
+        land9.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        land9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                land9MouseClicked(evt);
+            }
+        });
+
+        label9.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout land9Layout = new javax.swing.GroupLayout(land9);
+        land9.setLayout(land9Layout);
+        land9Layout.setHorizontalGroup(
+            land9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(land9Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(label9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        land9Layout.setVerticalGroup(
+            land9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land9Layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(label9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+
+        land10.setBackground(new java.awt.Color(204, 204, 0));
+        land10.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        land10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                land10MouseClicked(evt);
+            }
+        });
+
+        label10.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout land10Layout = new javax.swing.GroupLayout(land10);
+        land10.setLayout(land10Layout);
+        land10Layout.setHorizontalGroup(
+            land10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(land10Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(label10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        land10Layout.setVerticalGroup(
+            land10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land10Layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(label10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+
+        land11.setBackground(new java.awt.Color(255, 51, 51));
+        land11.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        land11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                land11MouseClicked(evt);
+            }
+        });
+
+        label11.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout land11Layout = new javax.swing.GroupLayout(land11);
+        land11.setLayout(land11Layout);
+        land11Layout.setHorizontalGroup(
+            land11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(land11Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(label11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        land11Layout.setVerticalGroup(
+            land11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land11Layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(label11, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+
+        land12.setBackground(new java.awt.Color(204, 204, 0));
+        land12.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        land12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                land12MouseClicked(evt);
+            }
+        });
+
+        label12.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout land12Layout = new javax.swing.GroupLayout(land12);
+        land12.setLayout(land12Layout);
+        land12Layout.setHorizontalGroup(
+            land12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(land12Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(label12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        land12Layout.setVerticalGroup(
+            land12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land12Layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(label12, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+
+        land13.setBackground(new java.awt.Color(204, 204, 0));
+        land13.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        land13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                land13MouseClicked(evt);
+            }
+        });
+
+        label13.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout land13Layout = new javax.swing.GroupLayout(land13);
+        land13.setLayout(land13Layout);
+        land13Layout.setHorizontalGroup(
+            land13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(land13Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(label13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        land13Layout.setVerticalGroup(
+            land13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land13Layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(label13, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+
+        land14.setBackground(new java.awt.Color(204, 0, 204));
+        land14.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        land14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                land14MouseClicked(evt);
+            }
+        });
+
+        label14.setForeground(new java.awt.Color(255, 255, 255));
+        label14.setText("1");
+
+        javax.swing.GroupLayout land14Layout = new javax.swing.GroupLayout(land14);
+        land14.setLayout(land14Layout);
+        land14Layout.setHorizontalGroup(
+            land14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(land14Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(label14, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        land14Layout.setVerticalGroup(
+            land14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land14Layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(label14, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+
+        land15.setBackground(new java.awt.Color(204, 204, 255));
+        land15.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        land15.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                land15MouseClicked(evt);
+            }
+        });
+
+        label15.setForeground(new java.awt.Color(255, 255, 255));
+        label15.setText("1");
+
+        javax.swing.GroupLayout land15Layout = new javax.swing.GroupLayout(land15);
+        land15.setLayout(land15Layout);
+        land15Layout.setHorizontalGroup(
+            land15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(land15Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(label15, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        land15Layout.setVerticalGroup(
+            land15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land15Layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(label15, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+
+        land16.setBackground(new java.awt.Color(102, 102, 102));
+        land16.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        land16.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                land16MouseClicked(evt);
+            }
+        });
+
+        label16.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout land16Layout = new javax.swing.GroupLayout(land16);
+        land16.setLayout(land16Layout);
+        land16Layout.setHorizontalGroup(
+            land16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(land16Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(label16, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        land16Layout.setVerticalGroup(
+            land16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land16Layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(label16, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+
+        land17.setBackground(new java.awt.Color(0, 153, 153));
+        land17.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        land17.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                land17MouseClicked(evt);
+            }
+        });
+
+        label17.setForeground(new java.awt.Color(255, 255, 255));
+        label17.setText("1");
+
+        javax.swing.GroupLayout land17Layout = new javax.swing.GroupLayout(land17);
+        land17.setLayout(land17Layout);
+        land17Layout.setHorizontalGroup(
+            land17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(land17Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(label17, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        land17Layout.setVerticalGroup(
+            land17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land17Layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(label17, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+
+        land18.setBackground(new java.awt.Color(204, 0, 204));
+        land18.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        land18.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                land18MouseClicked(evt);
+            }
+        });
+
+        label18.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout land18Layout = new javax.swing.GroupLayout(land18);
+        land18.setLayout(land18Layout);
+        land18Layout.setHorizontalGroup(
+            land18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(land18Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(label18, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        land18Layout.setVerticalGroup(
+            land18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land18Layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(label18, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+
+        land19.setBackground(new java.awt.Color(204, 204, 255));
+        land19.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        land19.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                land19MouseClicked(evt);
+            }
+        });
+
+        label19.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout land19Layout = new javax.swing.GroupLayout(land19);
+        land19.setLayout(land19Layout);
+        land19Layout.setHorizontalGroup(
+            land19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(land19Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(label19, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        land19Layout.setVerticalGroup(
+            land19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land19Layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(label19, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+
+        land20.setBackground(new java.awt.Color(102, 255, 51));
+        land20.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        land20.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                land20MouseClicked(evt);
+            }
+        });
+
+        label20.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout land20Layout = new javax.swing.GroupLayout(land20);
+        land20.setLayout(land20Layout);
+        land20Layout.setHorizontalGroup(
+            land20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(land20Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(label20, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        land20Layout.setVerticalGroup(
+            land20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land20Layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(label20, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+
+        land21.setBackground(new java.awt.Color(0, 153, 153));
+        land21.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        land21.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                land21MouseClicked(evt);
+            }
+        });
+
+        label21.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout land21Layout = new javax.swing.GroupLayout(land21);
+        land21.setLayout(land21Layout);
+        land21Layout.setHorizontalGroup(
+            land21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(land21Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(label21, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        land21Layout.setVerticalGroup(
+            land21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land21Layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(label21, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+
+        land22.setBackground(new java.awt.Color(204, 204, 255));
         land22.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         land22.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -971,7 +979,7 @@ public class MyWindow extends javax.swing.JFrame {
             }
         });
 
-        jLabel49.setForeground(new java.awt.Color(255, 255, 255));
+        label22.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout land22Layout = new javax.swing.GroupLayout(land22);
         land22.setLayout(land22Layout);
@@ -979,41 +987,14 @@ public class MyWindow extends javax.swing.JFrame {
             land22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(land22Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(jLabel49, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(label22, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         land22Layout.setVerticalGroup(
             land22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land22Layout.createSequentialGroup()
                 .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel49, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-
-        land29.setBackground(new java.awt.Color(204, 0, 204));
-        land29.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land29.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land29MouseClicked(evt);
-            }
-        });
-
-        jLabel50.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout land29Layout = new javax.swing.GroupLayout(land29);
-        land29.setLayout(land29Layout);
-        land29Layout.setHorizontalGroup(
-            land29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(land29Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel50, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        land29Layout.setVerticalGroup(
-            land29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land29Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel50, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(label22, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
         );
 
@@ -1025,7 +1006,7 @@ public class MyWindow extends javax.swing.JFrame {
             }
         });
 
-        jLabel51.setForeground(new java.awt.Color(255, 255, 255));
+        label23.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout land23Layout = new javax.swing.GroupLayout(land23);
         land23.setLayout(land23Layout);
@@ -1033,14 +1014,147 @@ public class MyWindow extends javax.swing.JFrame {
             land23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(land23Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(jLabel51, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(label23, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         land23Layout.setVerticalGroup(
             land23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land23Layout.createSequentialGroup()
                 .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel51, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(label23, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+
+        land24.setBackground(new java.awt.Color(102, 102, 102));
+        land24.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        label24.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout land24Layout = new javax.swing.GroupLayout(land24);
+        land24.setLayout(land24Layout);
+        land24Layout.setHorizontalGroup(
+            land24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(land24Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(label24, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        land24Layout.setVerticalGroup(
+            land24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land24Layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(label24, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+
+        land25.setBackground(new java.awt.Color(255, 51, 51));
+        land25.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        label25.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout land25Layout = new javax.swing.GroupLayout(land25);
+        land25.setLayout(land25Layout);
+        land25Layout.setHorizontalGroup(
+            land25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(land25Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(label25, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        land25Layout.setVerticalGroup(
+            land25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land25Layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(label25, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+
+        land26.setBackground(new java.awt.Color(0, 153, 153));
+        land26.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        label26.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout land26Layout = new javax.swing.GroupLayout(land26);
+        land26.setLayout(land26Layout);
+        land26Layout.setHorizontalGroup(
+            land26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(land26Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(label26, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        land26Layout.setVerticalGroup(
+            land26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land26Layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(label26, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+
+        land27.setBackground(new java.awt.Color(204, 204, 0));
+        land27.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        label27.setForeground(new java.awt.Color(255, 255, 255));
+        label27.setText("1");
+
+        javax.swing.GroupLayout land27Layout = new javax.swing.GroupLayout(land27);
+        land27.setLayout(land27Layout);
+        land27Layout.setHorizontalGroup(
+            land27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(land27Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(label27, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        land27Layout.setVerticalGroup(
+            land27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land27Layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(label27, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+
+        land28.setBackground(new java.awt.Color(255, 51, 51));
+        land28.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        label28.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout land28Layout = new javax.swing.GroupLayout(land28);
+        land28.setLayout(land28Layout);
+        land28Layout.setHorizontalGroup(
+            land28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(land28Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(label28, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        land28Layout.setVerticalGroup(
+            land28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land28Layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(label28, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+
+        land29.setBackground(new java.awt.Color(204, 0, 204));
+        land29.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        label29.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout land29Layout = new javax.swing.GroupLayout(land29);
+        land29.setLayout(land29Layout);
+        land29Layout.setHorizontalGroup(
+            land29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(land29Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(label29, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        land29Layout.setVerticalGroup(
+            land29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, land29Layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(label29, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
         );
 
@@ -1049,33 +1163,34 @@ public class MyWindow extends javax.swing.JFrame {
         panelTerritoiresLayout.setHorizontalGroup(
             panelTerritoiresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTerritoiresLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelTerritoiresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(land0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(land6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(land23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(60, 60, 60)
                 .addGroup(panelTerritoiresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelTerritoiresLayout.createSequentialGroup()
-                        .addComponent(land1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panelTerritoiresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(land0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(land6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(land2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(land3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(land4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(land5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelTerritoiresLayout.createSequentialGroup()
-                        .addComponent(land7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(land8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(land9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(land10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(land11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelTerritoiresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelTerritoiresLayout.createSequentialGroup()
+                                .addComponent(land1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(land2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(land3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(land4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(land5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelTerritoiresLayout.createSequentialGroup()
+                                .addComponent(land7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(land8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(land9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(land10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(land11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(panelTerritoiresLayout.createSequentialGroup()
                         .addComponent(land12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1085,10 +1200,10 @@ public class MyWindow extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(land15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(land16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelTerritoiresLayout.createSequentialGroup()
-                        .addComponent(land17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(land16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(land17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelTerritoiresLayout.createSequentialGroup()
                         .addComponent(land18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(land19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1097,28 +1212,27 @@ public class MyWindow extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(land21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(land22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelTerritoiresLayout.createSequentialGroup()
-                        .addGroup(panelTerritoiresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelTerritoiresLayout.createSequentialGroup()
-                                .addComponent(land24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(land25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(land26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(land29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(land22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelTerritoiresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(land30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panelTerritoiresLayout.createSequentialGroup()
-                                .addComponent(land27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(land28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(19, Short.MAX_VALUE))
+                        .addComponent(land23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelTerritoiresLayout.createSequentialGroup()
+                        .addComponent(land24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(land25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(land26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(land27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(land28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(land29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
         panelTerritoiresLayout.setVerticalGroup(
             panelTerritoiresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTerritoiresLayout.createSequentialGroup()
+                .addGap(49, 49, 49)
                 .addGroup(panelTerritoiresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(land5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(land4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1140,15 +1254,16 @@ public class MyWindow extends javax.swing.JFrame {
                     .addComponent(land15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(land14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(land13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(land12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(land12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(land17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelTerritoiresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(land21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(land20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(land19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(land18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(land17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(land22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(land22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(land23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelTerritoiresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(land28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1156,11 +1271,8 @@ public class MyWindow extends javax.swing.JFrame {
                     .addComponent(land26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(land25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(land24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(land23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelTerritoiresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(land30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(land29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(land29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         buttonEndTurn.setText("Terminer le tour");
@@ -1178,6 +1290,15 @@ public class MyWindow extends javax.swing.JFrame {
         labelDesc.setLabelFor(textAreaDescription);
         labelDesc.setText("Description:");
 
+        buttonChoice.setText("Choisir tribu");
+        buttonChoice.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonChoiceMouseClicked(evt);
+            }
+        });
+
+        buttonPasserDeclin.setText("Passer en déclin");
+
         javax.swing.GroupLayout panelGameLayout = new javax.swing.GroupLayout(panelGame);
         panelGame.setLayout(panelGameLayout);
         panelGameLayout.setHorizontalGroup(
@@ -1185,16 +1306,21 @@ public class MyWindow extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGameLayout.createSequentialGroup()
                 .addContainerGap(80, Short.MAX_VALUE)
                 .addGroup(panelGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelTerritoires, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(buttonEndTurn)
-                        .addComponent(buttonRedeploy)))
+                    .addGroup(panelGameLayout.createSequentialGroup()
+                        .addComponent(buttonPasserDeclin, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(559, 559, 559)
+                        .addGroup(panelGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buttonEndTurn)
+                            .addComponent(buttonRedeploy)))
+                    .addGroup(panelGameLayout.createSequentialGroup()
+                        .addComponent(panelTerritoires, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2))
-                    .addComponent(labelDesc))
+                .addGroup(panelGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)
+                    .addComponent(labelDesc)
+                    .addComponent(buttonChoice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelGameLayout.setVerticalGroup(
@@ -1208,11 +1334,15 @@ public class MyWindow extends javax.swing.JFrame {
                         .addGap(24, 24, 24)
                         .addComponent(labelDesc)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonChoice)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonRedeploy)
-                    .addComponent(buttonEndTurn))
+                .addGroup(panelGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(buttonRedeploy)
+                        .addComponent(buttonEndTurn))
+                    .addComponent(buttonPasserDeclin))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
@@ -1230,13 +1360,13 @@ public class MyWindow extends javax.swing.JFrame {
         panelAccueil.setLayout(panelAccueilLayout);
         panelAccueilLayout.setHorizontalGroup(
             panelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(buttonPlay, javax.swing.GroupLayout.DEFAULT_SIZE, 1200, Short.MAX_VALUE)
+            .addComponent(buttonPlay, javax.swing.GroupLayout.DEFAULT_SIZE, 707, Short.MAX_VALUE)
         );
         panelAccueilLayout.setVerticalGroup(
             panelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(panelAccueilLayout.createSequentialGroup()
-                .addGap(611, 611, 611)
-                .addComponent(buttonPlay, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
+                .addGap(0, 601, Short.MAX_VALUE)
+                .addComponent(buttonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1246,9 +1376,9 @@ public class MyWindow extends javax.swing.JFrame {
             .addComponent(panelGame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 7, Short.MAX_VALUE)
+                    .addGap(0, 254, Short.MAX_VALUE)
                     .addComponent(panelAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 8, Short.MAX_VALUE)))
+                    .addGap(0, 254, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1263,167 +1393,120 @@ public class MyWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlayActionPerformed
-        // TODO add your handling code here:
-        panelAccueil.setVisible(false);
-        panelGame.setVisible(true);
-    }//GEN-LAST:event_buttonPlayActionPerformed
-
-    private void land0MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land0MouseClicked
-        // TODO add your handling code here:
-        landsClick(0);
-        
-    }//GEN-LAST:event_land0MouseClicked
-
     private void land1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land1MouseClicked
         // TODO add your handling code here:
-        landsClick(1);
+        //landsClick(1);
     }//GEN-LAST:event_land1MouseClicked
 
     private void land2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land2MouseClicked
         // TODO add your handling code here:
-        landsClick(2);
+        //landsClick(2);
     }//GEN-LAST:event_land2MouseClicked
 
     private void land3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land3MouseClicked
         // TODO add your handling code here:
-        landsClick(3);
+        //landsClick(3);
     }//GEN-LAST:event_land3MouseClicked
 
     private void land4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land4MouseClicked
         // TODO add your handling code here:
-        landsClick(4);
+        //landsClick(4);
     }//GEN-LAST:event_land4MouseClicked
 
     private void land5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land5MouseClicked
         // TODO add your handling code here:
-        landsClick(5);
+        //landsClick(5);
     }//GEN-LAST:event_land5MouseClicked
 
     private void land6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land6MouseClicked
         // TODO add your handling code here:
-        landsClick(6);
+        //landsClick(6);
     }//GEN-LAST:event_land6MouseClicked
 
     private void land7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land7MouseClicked
         // TODO add your handling code here:
-        landsClick(7);
+        //landsClick(7);
     }//GEN-LAST:event_land7MouseClicked
 
     private void land8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land8MouseClicked
         // TODO add your handling code here:
-        landsClick(8);
+        //landsClick(8);
     }//GEN-LAST:event_land8MouseClicked
 
     private void land9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land9MouseClicked
         // TODO add your handling code here:
-        landsClick(9);
+        //landsClick(9);
     }//GEN-LAST:event_land9MouseClicked
 
     private void land10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land10MouseClicked
         // TODO add your handling code here:
-        landsClick(10);
+        //landsClick(10);
     }//GEN-LAST:event_land10MouseClicked
 
     private void land11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land11MouseClicked
         // TODO add your handling code here:
-        landsClick(11);
+       // landsClick(11);
     }//GEN-LAST:event_land11MouseClicked
 
     private void land12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land12MouseClicked
         // TODO add your handling code here:
-        landsClick(12);
+        //landsClick(12);
     }//GEN-LAST:event_land12MouseClicked
 
     private void land13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land13MouseClicked
         // TODO add your handling code here:
-        landsClick(13);
+        //landsClick(13);
     }//GEN-LAST:event_land13MouseClicked
 
     private void land14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land14MouseClicked
         // TODO add your handling code here:
-        landsClick(14);
+        //landsClick(14);
     }//GEN-LAST:event_land14MouseClicked
 
     private void land15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land15MouseClicked
         // TODO add your handling code here:
-        landsClick(15);
+        //landsClick(15);
     }//GEN-LAST:event_land15MouseClicked
 
     private void land16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land16MouseClicked
         // TODO add your handling code here:
-        landsClick(16);
+        //landsClick(16);
     }//GEN-LAST:event_land16MouseClicked
 
     private void land17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land17MouseClicked
         // TODO add your handling code here:
-        landsClick(17);
+        //landsClick(17);
     }//GEN-LAST:event_land17MouseClicked
 
     private void land18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land18MouseClicked
         // TODO add your handling code here:
-        landsClick(18);
+        //landsClick(18);
     }//GEN-LAST:event_land18MouseClicked
 
     private void land19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land19MouseClicked
         // TODO add your handling code here:
-        landsClick(19);
+        //landsClick(19);
     }//GEN-LAST:event_land19MouseClicked
 
     private void land20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land20MouseClicked
         // TODO add your handling code here:
-        landsClick(20);
+        //landsClick(20);
     }//GEN-LAST:event_land20MouseClicked
 
     private void land21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land21MouseClicked
         // TODO add your handling code here:
-        landsClick(21);
+        //landsClick(21);
     }//GEN-LAST:event_land21MouseClicked
 
     private void land22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land22MouseClicked
         // TODO add your handling code here:
-        landsClick(22);
+        //landsClick(22);
     }//GEN-LAST:event_land22MouseClicked
 
     private void land23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land23MouseClicked
         // TODO add your handling code here:
-        landsClick(23);
+        //landsClick(23);
     }//GEN-LAST:event_land23MouseClicked
-
-    private void land24MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land24MouseClicked
-        // TODO add your handling code here:
-        landsClick(24);
-    }//GEN-LAST:event_land24MouseClicked
-
-    private void land25MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land25MouseClicked
-        // TODO add your handling code here:
-        landsClick(25);
-    }//GEN-LAST:event_land25MouseClicked
-
-    private void land26MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land26MouseClicked
-        // TODO add your handling code here:
-        landsClick(26);
-    }//GEN-LAST:event_land26MouseClicked
-
-    private void land27MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land27MouseClicked
-        // TODO add your handling code here:
-        landsClick(27);
-    }//GEN-LAST:event_land27MouseClicked
-
-    private void land28MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land28MouseClicked
-        // TODO add your handling code here:
-        landsClick(28);
-    }//GEN-LAST:event_land28MouseClicked
-
-    private void land29MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land29MouseClicked
-        // TODO add your handling code here:
-        landsClick(29);
-    }//GEN-LAST:event_land29MouseClicked
-
-    private void land30MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land30MouseClicked
-        // TODO add your handling code here:
-        landsClick(30);
-    }//GEN-LAST:event_land30MouseClicked
 
     private void buttonRedeployMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonRedeployMouseClicked
         // TODO add your handling code here:
@@ -1440,6 +1523,24 @@ public class MyWindow extends javax.swing.JFrame {
         buttonRedeploy.setVisible(true);
         JOptionPane.showMessageDialog(this,"Le tour est terminé"," Fin du tour ",JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_buttonEndTurnMouseClicked
+
+    private void buttonChoiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonChoiceMouseClicked
+        // TODO add your handling code here:
+        buttonRedeploy.setVisible(true);
+        buttonChoice.setVisible(false);
+        
+        //game.getBank.pickTribe(listTribe.get(listPeuple.getSelectedIndex()));
+        //game.getCurrentPlayer.chooseTribe(listTribe.get(listPeuple.getSelectedIndex()),listPeuple.getSelectedIndex() );
+    }//GEN-LAST:event_buttonChoiceMouseClicked
+
+    private void buttonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlayActionPerformed
+        // TODO add your handling code here:
+        
+        panelAccueil.setVisible(false);
+        panelGame.setVisible(true);
+        /*this.setSize(panelGame.getHeight(), panelGame.getWidth());
+        this.pack();*/
+    }//GEN-LAST:event_buttonPlayActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1476,42 +1577,43 @@ public class MyWindow extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonChoice;
     private javax.swing.JButton buttonEndTurn;
+    private javax.swing.JButton buttonPasserDeclin;
     private javax.swing.JButton buttonPlay;
     private javax.swing.JButton buttonRedeploy;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
-    private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel47;
-    private javax.swing.JLabel jLabel48;
-    private javax.swing.JLabel jLabel49;
-    private javax.swing.JLabel jLabel50;
-    private javax.swing.JLabel jLabel51;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel label0;
+    private javax.swing.JLabel label1;
+    private javax.swing.JLabel label10;
+    private javax.swing.JLabel label11;
+    private javax.swing.JLabel label12;
+    private javax.swing.JLabel label13;
+    private javax.swing.JLabel label14;
+    private javax.swing.JLabel label15;
+    private javax.swing.JLabel label16;
+    private javax.swing.JLabel label17;
+    private javax.swing.JLabel label18;
+    private javax.swing.JLabel label19;
+    private javax.swing.JLabel label2;
+    private javax.swing.JLabel label20;
+    private javax.swing.JLabel label21;
+    private javax.swing.JLabel label22;
+    private javax.swing.JLabel label23;
+    private javax.swing.JLabel label24;
+    private javax.swing.JLabel label25;
+    private javax.swing.JLabel label26;
+    private javax.swing.JLabel label27;
+    private javax.swing.JLabel label28;
+    private javax.swing.JLabel label29;
+    private javax.swing.JLabel label3;
+    private javax.swing.JLabel label4;
+    private javax.swing.JLabel label5;
+    private javax.swing.JLabel label6;
+    private javax.swing.JLabel label7;
+    private javax.swing.JLabel label8;
+    private javax.swing.JLabel label9;
     private javax.swing.JLabel labelDesc;
     private javax.swing.JPanel land0;
     private javax.swing.JPanel land1;
@@ -1537,7 +1639,6 @@ public class MyWindow extends javax.swing.JFrame {
     private javax.swing.JPanel land28;
     private javax.swing.JPanel land29;
     private javax.swing.JPanel land3;
-    private javax.swing.JPanel land30;
     private javax.swing.JPanel land4;
     private javax.swing.JPanel land5;
     private javax.swing.JPanel land6;
@@ -1550,4 +1651,6 @@ public class MyWindow extends javax.swing.JFrame {
     private javax.swing.JPanel panelTerritoires;
     private javax.swing.JTextArea textAreaDescription;
     // End of variables declaration//GEN-END:variables
+
+    
 }
