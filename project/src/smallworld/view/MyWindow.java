@@ -6,12 +6,10 @@ package smallworld.view;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import smallworld.exceptions.ImpossibleAttackException;
@@ -23,9 +21,13 @@ import smallworld.model.TribeDeletedListener;
 
 
 public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener{
-    boolean redeploy;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	boolean redeploy;
     int numberClickedLand;
-    DefaultListModel listModel;
+    DefaultListModel<String> listModel;
     
     ArrayList<Tribe> listTribe;
     
@@ -65,6 +67,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         computeNeighbours();
         init();
         fillDescPop();
+        listPeuple.setModel(listModel);
         
         this.repaint();
 
@@ -182,8 +185,6 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         landDisplayer.add(new LandDisplayer(land27, label27, lands.get(27)));
         landDisplayer.add(new LandDisplayer(land28, label28, lands.get(28)));
         landDisplayer.add(new LandDisplayer(land29, label29, lands.get(29)));
-       
-       
         
     }
     
@@ -191,8 +192,13 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     public void fillListPopulation() // remplit la Jlist
     {
     	
-        listModel=new DefaultListModel();
-        listTribe= new ArrayList<>();
+    	try
+    	{
+    		listModel.clear();
+    	}
+    	catch(Exception e){}
+        
+        listTribe= new ArrayList<Tribe>();
         
         listTribe=game.getBank().getAvailableTribes();
         
@@ -201,11 +207,13 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         {
            listModel.addElement(listTribe.get(i).getPopulation().getName()+" "+listTribe.get(i).getPower().getName());
         }
-        listPeuple.setModel(listModel);
+        
+        
     }
     
     public void fillDescPop() // ajoute un listener à la Jlist.
     {
+    
   
         //Lorsqu'on clique sur une ligne de la JList, on remplit le textArea qui affiche la description de la population
         listPeuple.addListSelectionListener(new ListSelectionListener() {
@@ -233,8 +241,12 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         
         buttonRedeploy.setVisible(false);
         redeploy=false;
+        
+        
+        listModel = new DefaultListModel<String>();
+        
         fillListPopulation();
-
+        
         
     }
     
@@ -360,7 +372,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
 
         panelGame = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listPeuple = new javax.swing.JList();
+        listPeuple = new JList<String>();
         buttonRedeploy = new javax.swing.JButton();
         panelTerritoires = new javax.swing.JPanel();
         land0 = new javax.swing.JPanel();
@@ -440,7 +452,8 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
 
         listPeuple.setBackground(new java.awt.Color(204, 204, 204));
         listPeuple.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+			private static final long serialVersionUID = 1L;
+			String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -1622,8 +1635,9 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         
         game.getBank().pickTribe(listTribe.get(listPeuple.getSelectedIndex()));
         game.getCurrentPlayer().chooseTribe(listTribe.get(listPeuple.getSelectedIndex()),listPeuple.getSelectedIndex() );
-   
-        fillListPopulation();//Mise à jour de l'affichage //TODO WTF pourquoi ça marche mais en balançant des exceptions ???
+        
+        
+        fillListPopulation();//Mise à jour de l'affichage 
         
     }//GEN-LAST:event_buttonChoiceMouseClicked
 
@@ -1741,7 +1755,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     private javax.swing.JPanel land7;
     private javax.swing.JPanel land8;
     private javax.swing.JPanel land9;
-    private javax.swing.JList listPeuple;
+    private javax.swing.JList<String> listPeuple;
     private javax.swing.JPanel panelAccueil;
     private javax.swing.JPanel panelGame;
     private javax.swing.JPanel panelTerritoires;
