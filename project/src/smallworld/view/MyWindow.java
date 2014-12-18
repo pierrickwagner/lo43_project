@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
@@ -46,8 +47,13 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
      * Creates new form MyWindow
      */
     public MyWindow() {
+    	
+    	super();
+    	
         initComponents();
         //this.setSize(panelAccueil.getHeight(), panelAccueil.getWidth());
+        
+        this.setVisible(true);
         
         game=new Game(2);
    
@@ -59,6 +65,9 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         computeNeighbours();
         init();
         fillDescPop();
+        
+        this.repaint();
+
         
     }
     
@@ -216,6 +225,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         buttonRedeploy.setVisible(false);
         redeploy=false;
         fillListPopulation();
+
         
     }
     
@@ -349,8 +359,10 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         buttonPasserDeclin = new javax.swing.JButton();
         panelAccueil = new javax.swing.JPanel();
         buttonPlay = new javax.swing.JButton();
+        
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         panelGame.setBackground(new java.awt.Color(255, 204, 153));
 

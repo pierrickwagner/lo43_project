@@ -38,7 +38,7 @@ public class Power {
 		description=d;
 		basePop=bp;
 		Powertype=tp;
-		available=false;
+		available=true;
 	}
 	
 	

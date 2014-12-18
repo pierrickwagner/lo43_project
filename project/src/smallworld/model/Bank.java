@@ -85,11 +85,11 @@ public class Bank implements TribeDeletedListener{
 			
 			if(listOfPopulations.get(randPop).isAvailable() && listOfPowers.get(randPower).isAvailable()){
 				
-						if(!containsPopulation(listOfPopulations.get(randPop)) && !containsPower(listOfPowers.get(randPower))){
-				
-								AvailableTribes.add(new Tribe(listOfPopulations.get(randPop),listOfPowers.get(randPower)));
-				
-						}
+				if(!containsPopulation(listOfPopulations.get(randPop)) && !containsPower(listOfPowers.get(randPower))){
+		
+					AvailableTribes.add(new Tribe(listOfPopulations.get(randPop),listOfPowers.get(randPower)));
+		
+				}
 			}
 	
 			

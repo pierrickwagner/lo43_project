@@ -20,10 +20,14 @@ public class Game {
     //constructeur
     
     public Game(int nbPlayer){
+    	
         this.players = new ArrayList<Player>();
-        bank =  new Bank();
-        nbPlayer = 2;
-        for(int i=0; i<nbPlayer; ++i){players.add(new Player());}
+        this.bank =  new Bank();
+        this.nbPlayer = 2;
+        
+        for(int i=0; i<nbPlayer; i++)
+        	players.add(new Player());
+        
         currentPlayer = players.get(0);
         turn = 0;
         points = 0;
@@ -33,6 +37,7 @@ public class Game {
    
     //passer au joueur suivant
     public void nextPlayer(){
+    	
         countPoints();
         if(players.indexOf(currentPlayer) +1 == nbPlayer){
             currentPlayer = players.get(0);
@@ -42,7 +47,7 @@ public class Game {
         }
         if(turn == 10){
             isFinished = true;
-            showPoints();
+            showPoints();//TODO plutot à faire dans la partie view par la suite.
         }
     }
     
@@ -51,7 +56,7 @@ public class Game {
     public void showPoints(){
         if(isFinished==true){
             for(int i=1;i<=nbPlayer; ++i){
-                System.out.println("player"+i+":"+players.get(i).getPoints()+"points");
+                System.out.println("player"+i+":"+players.get(i-1).getPoints()+"points");
             }
         }
     }

@@ -37,7 +37,7 @@ public class Population {
 		name=n;
 		description=d;
 		basePop=bp;
-		available=false;
+		available=true;
 		type=t;
 	}
 	
