@@ -66,8 +66,8 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         addListenerPanel();
         computeNeighbours();
         init();
-        fillDescPop();
-        listPeuple.setModel(listModel);
+        
+        
         
         this.repaint();
 
@@ -192,11 +192,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     public void fillListPopulation() // remplit la Jlist
     {
     	
-    	try
-    	{
-    		listModel.clear();
-    	}
-    	catch(Exception e){}
+    	
         
         listTribe= new ArrayList<Tribe>();
         
@@ -208,6 +204,17 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
            listModel.addElement(listTribe.get(i).getPopulation().getName()+" "+listTribe.get(i).getPower().getName());
         }
         
+        listPeuple.setSelectedIndex(0);
+        textAreaDescription.setEditable(false);
+        textAreaDescription.setLineWrap(true);
+                
+        textAreaDescription.setText(
+                        listTribe.get(listPeuple.getSelectedIndex()).getPopulation().getName()
+                        +" : "+listTribe.get(listPeuple.getSelectedIndex()).getPopulation().getDescription()
+                        +"\n\n" +listTribe.get(listPeuple.getSelectedIndex()).getPower().getName()
+                        +" : "+listTribe.get(listPeuple.getSelectedIndex()).getPower().getDescription()
+                        );
+        
         
     }
     
@@ -218,19 +225,23 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         //Lorsqu'on clique sur une ligne de la JList, on remplit le textArea qui affiche la description de la population
         listPeuple.addListSelectionListener(new ListSelectionListener() {
 
-            @Override
+        @Override
         public void valueChanged(ListSelectionEvent e) {
-                textAreaDescription.setEditable(false);
-                textAreaDescription.setLineWrap(true);
-                textAreaDescription.setText(
+                if(listPeuple.getSelectedIndex() != -1)
+                {
+                   textAreaDescription.setText(
                 		listTribe.get(listPeuple.getSelectedIndex()).getPopulation().getName()
                 		+" : "+listTribe.get(listPeuple.getSelectedIndex()).getPopulation().getDescription()
                 		+"\n\n" +listTribe.get(listPeuple.getSelectedIndex()).getPower().getName()
                 		+" : "+listTribe.get(listPeuple.getSelectedIndex()).getPower().getDescription()
-                		);
+                		); 
+                }
+                
             }
         });
     }
+    
+   
     
     
     public void init()
@@ -244,9 +255,10 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         
         
         listModel = new DefaultListModel<String>();
+        listPeuple.setModel(listModel);
         
         fillListPopulation();
-        
+        fillDescPop();
         
     }
     
@@ -1621,23 +1633,42 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         
     }//GEN-LAST:event_buttonEndTurnMouseClicked
     
-    private void buttonPasserDeclinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonEndTurnMouseClicked
+    private void buttonPasserDeclinMouseClicked(java.awt.event.MouseEvent evt) {                                           
     	
     	game.getCurrentPlayer().abandonTribe();
+        game.countPoints();
+        if(game.getCurrentPlayer().getPreviousTribe() != null)
+                game.getBank().setAvailable(game.getCurrentPlayer().getPreviousTribe());
+        game.getCurrentPlayer().setPreviousTribe(game.getCurrentPlayer().getCurrentTribe());
+        game.getCurrentPlayer().setCurrentTribe(null);
         finishTurn();
          
      }
 
     private void buttonChoiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonChoiceMouseClicked
 
-        buttonRedeploy.setVisible(true);
-        buttonChoice.setVisible(false);
+        if(listPeuple.getSelectedIndex()!=-1)
+        {
+            buttonRedeploy.setVisible(true);
+            buttonChoice.setVisible(false);
+
+            
+            game.getBank().pickTribe(listTribe.get(listPeuple.getSelectedIndex()));
+            game.getCurrentPlayer().chooseTribe(listTribe.get(listPeuple.getSelectedIndex()),listPeuple.getSelectedIndex() );
+
+            try
+            {
+                    System.out.println(listPeuple.getSelectedIndex());
+                    listModel.clear();
+                    textAreaDescription.setText("");
+                    //listModel.remove(listPeuple.getSelectedIndex());
+            }
+            catch(Exception e){}
+            fillListPopulation();//Mise à jour de l'affichage 
+        }
+        else
+            JOptionPane.showMessageDialog(this,"Veuillez choisir une tribu"," Choix tribu ",JOptionPane.INFORMATION_MESSAGE);
         
-        game.getBank().pickTribe(listTribe.get(listPeuple.getSelectedIndex()));
-        game.getCurrentPlayer().chooseTribe(listTribe.get(listPeuple.getSelectedIndex()),listPeuple.getSelectedIndex() );
-        
-        
-        fillListPopulation();//Mise à jour de l'affichage 
         
     }//GEN-LAST:event_buttonChoiceMouseClicked
 

@@ -85,11 +85,13 @@ public class Bank implements TribeDeletedListener{
 			
 			if(listOfPopulations.get(randPop).isAvailable() && listOfPowers.get(randPower).isAvailable()){
 				
-				if(!containsPopulation(listOfPopulations.get(randPop)) && !containsPower(listOfPowers.get(randPower))){
+				//if(!containsPopulation(listOfPopulations.get(randPop)) && !containsPower(listOfPowers.get(randPower))){
 		
 					AvailableTribes.add(new Tribe(listOfPopulations.get(randPop),listOfPowers.get(randPower)));
-		
-				}
+                                        listOfPopulations.get(randPop).setAvailable(false);
+                                        listOfPowers.get(randPower).setAvailable(false);
+                                        
+				//}
 			}
 	
 			
@@ -134,8 +136,8 @@ public class Bank implements TribeDeletedListener{
 	public void pickTribe(Tribe t){
 		
 		int index = AvailableTribes.indexOf(t);
-		listOfPopulations.get(listOfPopulations.indexOf(AvailableTribes.get(index).getPopulation())).setAvailable(false);
-		listOfPowers.get(listOfPowers.indexOf(AvailableTribes.get(index).getPower())).setAvailable(false);
+//		listOfPopulations.get(listOfPopulations.indexOf(AvailableTribes.get(index).getPopulation())).setAvailable(false);
+//		listOfPowers.get(listOfPowers.indexOf(AvailableTribes.get(index).getPower())).setAvailable(false);
 		AvailableTribes.remove(index);
 		generate();
 	}

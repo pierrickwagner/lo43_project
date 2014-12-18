@@ -38,7 +38,7 @@ public class Game {
     //passer au joueur suivant
     public void nextPlayer(){
     	
-        countPoints();
+        //countPoints();
         if(players.indexOf(currentPlayer) +1 == nbPlayer){
             currentPlayer = players.get(0);
             turn++;
@@ -74,7 +74,7 @@ public class Game {
     	currentPlayer.setPoints(tmp);	
     }
     
-    public int pointsExtern(){
+    private int pointsExtern(){
         int pointsExtern=0;
         TypePower power = currentPlayer.getCurrentTribe().getPower().getPowertype();
         TypePopulation population = currentPlayer.getCurrentTribe().getPopulation().getType();

@@ -19,7 +19,7 @@ public class LandDisplayer {
         this.panelLand = panelLand;
         this.labelLand = labelLand;
         this.land = land;
-        
+        labelLand.setForeground(Color.MAGENTA);
         update();
         
         switch(land.getType())

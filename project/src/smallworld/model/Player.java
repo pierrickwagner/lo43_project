@@ -123,11 +123,13 @@ public class Player {
 			l.setPopulation(1);
 			l.setOccupant(null);
 		}
-		lands.clear();
+		lands.clear();//Probleme de calcul par rapport aux terrains possédés par previousTribe
+                
 		availablePop = 0;
 		
-		previousTribe = currentTribe;
-		currentTribe = null;
+		//previousTribe = currentTribe;
+                
+		//currentTribe = null;
 	}
 	
 	
@@ -305,6 +307,14 @@ public class Player {
 	
 	
 	//Getters
+	
+	public void setCurrentTribe(Tribe currentTribe) {
+        this.currentTribe = currentTribe;
+	}
+	
+	public void setPreviousTribe(Tribe previousTribe) {
+        this.previousTribe = previousTribe;
+	}
 	
 	public Tribe getCurrentTribe() {
 		return currentTribe;
