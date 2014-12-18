@@ -97,6 +97,16 @@ public class Bank implements TribeDeletedListener{
 			
 		}
 		
+		for(int i=0;i<listOfPopulations.size();i++){
+			
+			System.out.println(""+ listOfPopulations.get(i).getName() + " " + listOfPopulations.get(i).isAvailable());
+		}
+		
+		for(int i=0;i<listOfPowers.size();i++){
+			
+			System.out.println(""+ listOfPowers.get(i).getName() + " " + listOfPowers.get(i).isAvailable());
+		}
+		System.out.println("\n\n\n");
 	}
 	
 	private boolean containsPopulation(Population p){
