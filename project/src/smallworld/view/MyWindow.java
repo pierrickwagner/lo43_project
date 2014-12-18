@@ -86,40 +86,40 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     
     public void createLands()
     {
-        lands.add(new Land(Land.Type.COULOIR, true));
-        lands.add(new Land(Land.Type.COULOIR, true));
-        lands.add(new Land(Land.Type.COULOIR, true));
-        lands.add(new Land(Land.Type.COULOIR, true));
-        lands.add(new Land(Land.Type.COULOIR, true));
-        lands.add(new Land(Land.Type.COULOIR, true));
+        lands.add(new Land(Land.Type.TP_GI, true));
+        lands.add(new Land(Land.Type.LABO, true));
+        lands.add(new Land(Land.Type.AMPHI, true));
+        lands.add(new Land(Land.Type.AMPHI, true));
+        lands.add(new Land(Land.Type.TP_GI, true));
+        lands.add(new Land(Land.Type.LABO, true));
+        
+        lands.add(new Land(Land.Type.AMPHI, true));
+        lands.add(new Land(Land.Type.COULOIR, false));
+        lands.add(new Land(Land.Type.COULOIR, false));
+        lands.add(new Land(Land.Type.COULOIR, false));
+        lands.add(new Land(Land.Type.COULOIR, false));
+        lands.add(new Land(Land.Type.AMPHI, true));
         
         lands.add(new Land(Land.Type.COULOIR, true));
         lands.add(new Land(Land.Type.COULOIR, false));
-        lands.add(new Land(Land.Type.COULOIR, false));
-        lands.add(new Land(Land.Type.COULOIR, false));
-        lands.add(new Land(Land.Type.COULOIR, false));
-        lands.add(new Land(Land.Type.COULOIR, true));
+        lands.add(new Land(Land.Type.BIBLIO, false));
+        lands.add(new Land(Land.Type.TOILETTES, false));
+        lands.add(new Land(Land.Type.FOYER, false));
+        lands.add(new Land(Land.Type.TP_GI, true));
         
-        lands.add(new Land(Land.Type.COULOIR, true));
+        lands.add(new Land(Land.Type.LABO, true));
         lands.add(new Land(Land.Type.COULOIR, false));
         lands.add(new Land(Land.Type.COULOIR, false));
         lands.add(new Land(Land.Type.COULOIR, false));
         lands.add(new Land(Land.Type.COULOIR, false));
-        lands.add(new Land(Land.Type.COULOIR, true));
+        lands.add(new Land(Land.Type.LABO, true));
         
-        lands.add(new Land(Land.Type.COULOIR, true));
-        lands.add(new Land(Land.Type.COULOIR, false));
-        lands.add(new Land(Land.Type.COULOIR, false));
-        lands.add(new Land(Land.Type.COULOIR, false));
-        lands.add(new Land(Land.Type.COULOIR, false));
-        lands.add(new Land(Land.Type.COULOIR, true));
-        
-        lands.add(new Land(Land.Type.COULOIR, true));
-        lands.add(new Land(Land.Type.COULOIR, true));
-        lands.add(new Land(Land.Type.COULOIR, true));
-        lands.add(new Land(Land.Type.COULOIR, true));
-        lands.add(new Land(Land.Type.COULOIR, true));
-        lands.add(new Land(Land.Type.COULOIR, true));
+        lands.add(new Land(Land.Type.AMPHI, true));
+        lands.add(new Land(Land.Type.LABO, true));
+        lands.add(new Land(Land.Type.TP_GI, true));
+        lands.add(new Land(Land.Type.AMPHI, true));
+        lands.add(new Land(Land.Type.TP_GI, true));
+        lands.add(new Land(Land.Type.TOILETTES, true));
         
         
     }
@@ -155,27 +155,27 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         landDisplayer.add(new LandDisplayer(land0, label0, lands.get(0)));
         landDisplayer.add(new LandDisplayer(land1, label1, lands.get(1)));
         landDisplayer.add(new LandDisplayer(land2, label2, lands.get(2)));
-        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(3)));
-        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(4)));
-        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(5)));
-        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(6)));
-        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(7)));
-        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(8)));
-        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(9)));
-        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(10)));
-        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(11)));
-        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(12)));
-        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(13)));
-        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(14)));
-        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(15)));
-        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(16)));
-        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(17)));
-        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(18)));
-        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(19)));
-        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(20)));
-        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(0)));
-        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(0)));
-        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(0)));
+        landDisplayer.add(new LandDisplayer(land3, label3, lands.get(3)));
+        landDisplayer.add(new LandDisplayer(land4, label4, lands.get(4)));
+        landDisplayer.add(new LandDisplayer(land5, label5, lands.get(5)));
+        landDisplayer.add(new LandDisplayer(land6, label6, lands.get(6)));
+        landDisplayer.add(new LandDisplayer(land7, label7, lands.get(7)));
+        landDisplayer.add(new LandDisplayer(land8, label8, lands.get(8)));
+        landDisplayer.add(new LandDisplayer(land9, label9, lands.get(9)));
+        landDisplayer.add(new LandDisplayer(land10, label10, lands.get(10)));
+        landDisplayer.add(new LandDisplayer(land11, label11, lands.get(11)));
+        landDisplayer.add(new LandDisplayer(land12, label12, lands.get(12)));
+        landDisplayer.add(new LandDisplayer(land13, label13, lands.get(13)));
+        landDisplayer.add(new LandDisplayer(land14, label14, lands.get(14)));
+        landDisplayer.add(new LandDisplayer(land15, label15, lands.get(15)));
+        landDisplayer.add(new LandDisplayer(land16, label16, lands.get(16)));
+        landDisplayer.add(new LandDisplayer(land17, label17, lands.get(17)));
+        landDisplayer.add(new LandDisplayer(land18, label18, lands.get(18)));
+        landDisplayer.add(new LandDisplayer(land19, label19, lands.get(19)));
+        landDisplayer.add(new LandDisplayer(land20, label20, lands.get(20)));
+        landDisplayer.add(new LandDisplayer(land21, label21, lands.get(21)));
+        landDisplayer.add(new LandDisplayer(land22, label22, lands.get(22)));
+        landDisplayer.add(new LandDisplayer(land23, label23, lands.get(23)));
         landDisplayer.add(new LandDisplayer(land24, label24, lands.get(24)));
         landDisplayer.add(new LandDisplayer(land25, label25, lands.get(25)));
         landDisplayer.add(new LandDisplayer(land26, label26, lands.get(26)));
@@ -190,28 +190,36 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
    
     public void fillListPopulation() // remplit la Jlist
     {
+    	
         listModel=new DefaultListModel();
         listTribe= new ArrayList<>();
         
-        //listTribe=game.bank.getAvailableTribes();
+        listTribe=game.getBank().getAvailableTribes();
         
         
         for(int i =0;i<listTribe.size();i++)
         {
-           listModel.addElement(listTribe.get(i));
+           listModel.addElement(listTribe.get(i).getPopulation().getName()+" "+listTribe.get(i).getPower().getName());
         }
         listPeuple.setModel(listModel);
     }
     
     public void fillDescPop() // ajoute un listener à la Jlist.
     {
+  
         //Lorsqu'on clique sur une ligne de la JList, on remplit le textArea qui affiche la description de la population
         listPeuple.addListSelectionListener(new ListSelectionListener() {
 
             @Override
         public void valueChanged(ListSelectionEvent e) {
-                System.out.println(listPeuple.getSelectedIndex());
-                textAreaDescription.setText(listTribe.get(listPeuple.getSelectedIndex()).getPopulation().getDescription());
+                textAreaDescription.setEditable(false);
+                textAreaDescription.setLineWrap(true);
+                textAreaDescription.setText(
+                		listTribe.get(listPeuple.getSelectedIndex()).getPopulation().getName()
+                		+" : "+listTribe.get(listPeuple.getSelectedIndex()).getPopulation().getDescription()
+                		+"\n\n" +listTribe.get(listPeuple.getSelectedIndex()).getPower().getName()
+                		+" : "+listTribe.get(listPeuple.getSelectedIndex()).getPower().getDescription()
+                		);
             }
         });
     }
@@ -221,6 +229,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     {
         panelGame.setVisible(false);
         buttonEndTurn.setVisible(false);
+        buttonPasserDeclin.setVisible(false);
         
         buttonRedeploy.setVisible(false);
         redeploy=false;
@@ -232,19 +241,37 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     public void landsClick(int ncl, boolean rc)
     {
         numberClickedLand=ncl;
-        System.out.println(ncl);
-        if(redeploy== false)
+        if(!redeploy)
         {
             if(!buttonChoice.isVisible())
             {
-                //Attack
-                System.out.println("J'attaque la case "+ncl);
-                /*try{
+            	//Attack
+                try{
                     game.getCurrentPlayer().attack(lands.get(ncl));
                 }catch(ImpossibleAttackException e)
                 {
-
-                }*/
+                	switch(e.getReason())
+                	{
+					case FRIENDLY_FIRE:
+			            JOptionPane.showMessageDialog(this,"Vous ne pouvez pas vous attaquer vous-meme"," Noob !",JOptionPane.ERROR_MESSAGE);
+						break;
+					case NOT_ENOUGH_TROOPS:
+			            JOptionPane.showMessageDialog(this,"Vous n'avez pas assez de troupes disponibles pour attaquer ici."," Noob !",JOptionPane.ERROR_MESSAGE);
+						break;
+					case NOT_REACHABLE:
+			            JOptionPane.showMessageDialog(this,"Cette région est inatteignable."," Noob !",JOptionPane.ERROR_MESSAGE);
+						break;
+					case NO_TROOPS:
+			            JOptionPane.showMessageDialog(this,"Vous n'avez plus de troupe disponible."," Noob !",JOptionPane.ERROR_MESSAGE);
+						break;
+					case SPECIAL_RULE:
+			            JOptionPane.showMessageDialog(this,"Attaque impossible en raison d'une règle spéciale"," Noob !",JOptionPane.ERROR_MESSAGE);
+						break;
+					default:
+						break;
+                	
+                	}
+                }
                 
             }
             
@@ -252,11 +279,56 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         else
         {
         //redeploy
-            //game.getCurrentPlayer.redeploy(lands.get(ncl), !rc);
-            System.out.println("Je ne peux plus attaquer car je suis en train de redéployer");
+            game.getCurrentPlayer().redeploy(lands.get(ncl), !rc);
         }
         
+        //Met à jour l'affichage
+        landDisplayer.get(ncl).update();
+        
     }
+    
+    private void finishTurn()
+    {
+    	
+    	game.nextPlayer();
+    	
+    	if(game.isFinished())
+    	{
+            JOptionPane.showMessageDialog(this,"La partie est terminée"," Partie terminée",JOptionPane.INFORMATION_MESSAGE);
+            //TODO afficher les scores
+    	}
+    	else if(game.getCurrentPlayer().getCurrentTribe() == null)
+    	{
+    		redeploy = false;
+    		buttonEndTurn.setVisible(false);
+    		buttonRedeploy.setVisible(false);
+    		buttonPasserDeclin.setVisible(false);
+    		buttonChoice.setVisible(true);
+    	}
+    	else
+    	{
+    		redeploy=false;
+            buttonEndTurn.setVisible(false);
+            buttonRedeploy.setVisible(true);
+            buttonPasserDeclin.setVisible(true);
+            buttonChoice.setVisible(false);
+    	}
+    	
+    	game.getCurrentPlayer().beginTurn();
+    	
+        for(LandDisplayer ld : landDisplayer)
+        {
+        	ld.update();
+        }
+        	
+    	
+         //TODO à compléter pour toujours afficher les bons boutons, et les scores si la partie est finie
+         
+    }
+    
+    
+    
+    
     
     public void addListenerPanel()
     {
@@ -265,7 +337,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
             final int j = i;
             landDisplayer.get(i).getPanelLand().addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                boolean rightClick = (evt.getButton() == MouseEvent.BUTTON2);
+                boolean rightClick = (evt.getButton() == MouseEvent.BUTTON3);
                 landsClick(j, rightClick);
                 
             }
@@ -1306,6 +1378,11 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         });
 
         buttonPasserDeclin.setText("Passer en déclin");
+        buttonPasserDeclin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonPasserDeclinMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelGameLayout = new javax.swing.GroupLayout(panelGame);
         panelGame.setLayout(panelGameLayout);
@@ -1402,147 +1479,155 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     }// </editor-fold>//GEN-END:initComponents
 
     private void land1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land1MouseClicked
-        // TODO add your handling code here:
+         
         //landsClick(1);
     }//GEN-LAST:event_land1MouseClicked
 
     private void land2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land2MouseClicked
-        // TODO add your handling code here:
+         
         //landsClick(2);
     }//GEN-LAST:event_land2MouseClicked
 
     private void land3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land3MouseClicked
-        // TODO add your handling code here:
+         
         //landsClick(3);
     }//GEN-LAST:event_land3MouseClicked
 
     private void land4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land4MouseClicked
-        // TODO add your handling code here:
+         
         //landsClick(4);
     }//GEN-LAST:event_land4MouseClicked
 
     private void land5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land5MouseClicked
-        // TODO add your handling code here:
+         
         //landsClick(5);
     }//GEN-LAST:event_land5MouseClicked
 
     private void land6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land6MouseClicked
-        // TODO add your handling code here:
+         
         //landsClick(6);
     }//GEN-LAST:event_land6MouseClicked
 
     private void land7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land7MouseClicked
-        // TODO add your handling code here:
+         
         //landsClick(7);
     }//GEN-LAST:event_land7MouseClicked
 
     private void land8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land8MouseClicked
-        // TODO add your handling code here:
+         
         //landsClick(8);
     }//GEN-LAST:event_land8MouseClicked
 
     private void land9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land9MouseClicked
-        // TODO add your handling code here:
+         
         //landsClick(9);
     }//GEN-LAST:event_land9MouseClicked
 
     private void land10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land10MouseClicked
-        // TODO add your handling code here:
+         
         //landsClick(10);
     }//GEN-LAST:event_land10MouseClicked
 
     private void land11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land11MouseClicked
-        // TODO add your handling code here:
+         
        // landsClick(11);
     }//GEN-LAST:event_land11MouseClicked
 
     private void land12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land12MouseClicked
-        // TODO add your handling code here:
+         
         //landsClick(12);
     }//GEN-LAST:event_land12MouseClicked
 
     private void land13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land13MouseClicked
-        // TODO add your handling code here:
+         
         //landsClick(13);
     }//GEN-LAST:event_land13MouseClicked
 
     private void land14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land14MouseClicked
-        // TODO add your handling code here:
+         
         //landsClick(14);
     }//GEN-LAST:event_land14MouseClicked
 
     private void land15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land15MouseClicked
-        // TODO add your handling code here:
+         
         //landsClick(15);
     }//GEN-LAST:event_land15MouseClicked
 
     private void land16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land16MouseClicked
-        // TODO add your handling code here:
+
         //landsClick(16);
     }//GEN-LAST:event_land16MouseClicked
 
     private void land17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land17MouseClicked
-        // TODO add your handling code here:
+
         //landsClick(17);
     }//GEN-LAST:event_land17MouseClicked
 
     private void land18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land18MouseClicked
-        // TODO add your handling code here:
+
         //landsClick(18);
     }//GEN-LAST:event_land18MouseClicked
 
     private void land19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land19MouseClicked
-        // TODO add your handling code here:
+
         //landsClick(19);
     }//GEN-LAST:event_land19MouseClicked
 
     private void land20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land20MouseClicked
-        // TODO add your handling code here:
+
         //landsClick(20);
     }//GEN-LAST:event_land20MouseClicked
 
     private void land21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land21MouseClicked
-        // TODO add your handling code here:
+
         //landsClick(21);
     }//GEN-LAST:event_land21MouseClicked
 
     private void land22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land22MouseClicked
-        // TODO add your handling code here:
+
         //landsClick(22);
     }//GEN-LAST:event_land22MouseClicked
 
     private void land23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land23MouseClicked
-        // TODO add your handling code here:
+
         //landsClick(23);
     }//GEN-LAST:event_land23MouseClicked
 
     private void buttonRedeployMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonRedeployMouseClicked
-        // TODO add your handling code here:
+
         redeploy=true;
         buttonRedeploy.setVisible(false);
         buttonEndTurn.setVisible(true);
-        JOptionPane.showMessageDialog(this,"Veuillez redéployer vos troupes"," Redéploiement ",JOptionPane.INFORMATION_MESSAGE);
+        //JOptionPane.showMessageDialog(this,"Veuillez redéployer vos troupes"," Redéploiement ",JOptionPane.INFORMATION_MESSAGE);
+    
     }//GEN-LAST:event_buttonRedeployMouseClicked
 
     private void buttonEndTurnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonEndTurnMouseClicked
-        // TODO add your handling code here:
-        redeploy=false;
-        buttonEndTurn.setVisible(false);
-        buttonRedeploy.setVisible(true);
-        JOptionPane.showMessageDialog(this,"Le tour est terminé"," Fin du tour ",JOptionPane.INFORMATION_MESSAGE);
+
+       finishTurn();
+        
     }//GEN-LAST:event_buttonEndTurnMouseClicked
+    
+    private void buttonPasserDeclinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonEndTurnMouseClicked
+    	
+    	game.getCurrentPlayer().abandonTribe();
+        finishTurn();
+         
+     }
 
     private void buttonChoiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonChoiceMouseClicked
-        // TODO add your handling code here:
+
         buttonRedeploy.setVisible(true);
         buttonChoice.setVisible(false);
         
-        //game.getBank.pickTribe(listTribe.get(listPeuple.getSelectedIndex()));
-        //game.getCurrentPlayer.chooseTribe(listTribe.get(listPeuple.getSelectedIndex()),listPeuple.getSelectedIndex() );
+        game.getBank().pickTribe(listTribe.get(listPeuple.getSelectedIndex()));
+        game.getCurrentPlayer().chooseTribe(listTribe.get(listPeuple.getSelectedIndex()),listPeuple.getSelectedIndex() );
+   
+        fillListPopulation();//Mise à jour de l'affichage //TODO WTF pourquoi ça marche mais en balançant des exceptions ???
+        
     }//GEN-LAST:event_buttonChoiceMouseClicked
 
     private void buttonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlayActionPerformed
-        // TODO add your handling code here:
         
         panelAccueil.setVisible(false);
         panelGame.setVisible(true);
@@ -1550,6 +1635,9 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         this.pack();*/
     }//GEN-LAST:event_buttonPlayActionPerformed
 
+    
+    
+    
     /**
      * @param args the command line arguments
      */

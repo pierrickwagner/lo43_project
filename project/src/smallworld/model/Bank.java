@@ -14,27 +14,27 @@ public class Bank implements TribeDeletedListener{
 	private ArrayList<Power> listOfPowers;
 	private ArrayList<Population> listOfPopulations;
 	private ArrayList<Tribe> AvailableTribes;
-	private String listOfDescriptionsPop[] = {"Leur connaissance du terrain leur permet d'être plus efficace pour se défendre. Il faut une unité de plus pour les attaquer.", 
+	private String listOfDescriptionsPop[] = {"Leur connaissance du terrain leur permet d'être plus efficaces pour se défendre. Il faut une unité de plus pour les attaquer.", 
 			"Étant d'une grande capacité d'adaptation ils peuvent attaquer les labos avec 1 unité en moins", 
 			"Leur envie de s'établir sur un ordinateur est tellement grande que leur combativité en est stimulée, ils ont besoin d'une unité en moins pour attaquer les salles GI" , 
-			"Leur charme absolu les rendent capable de rendre inutile 1 défenseur du terrain attaqué."
+			"Leur charme absolu leur permet de rendre inutile 1 défenseur du terrain attaqué."
 			,"Leur rapidité à juger leurs ennemis leur permet de se replier rapidement, ils ne perdent pas de troupe quand ils se font envahir."
-			,"Leur habilité a s'installer la où on les attend le moins leur assure 1 pvic de + quand ils sont dans les couloirs"
-			,"Ayant besoin des GI pour leurs travaux, Ce peuple ne peux pas les attaquer."
-			,"Leur examens pour devenir soldats est tellement soutenu et quotidien qu'une unité est réorientée à chaque tour vers un autre travail."
-			,"La chance ne leur est pas permise, ils ne peuvent donc pas compter sur le dé leur assurant l'espoir d'avoir des troupes en plus si ils attaquent avec un sous nombre."
-			,"D'une grande sauf de savoirs ils attaquent seulement les salles de cours."
-			,"Il faut 1 unités en + pour pouvoir les attaquer étant donné leur violence sans égal"
-			,"Etant doté d'un pass très efficace, Ils peuvent s'établir n'importe où"};
+			,"Leur habileté a s'installer la où on les attend le moins leur assure 1 point de victoire de plus quand ils sont dans les couloirs"
+			,"Ayant besoin des GI pour leurs travaux, ce peuple ne peut pas les attaquer."
+			,"Leurs examens pour devenir soldats sont tellement éprouvants qu'une unité est réorientée à chaque tour."
+			,"La chance ne leur est pas permise, ils ne peuvent donc pas compter sur le dé."
+			,"D'une grande soif de savoirs ils attaquent seulement les salles de cours."
+			,"Il faut 1 unité en + pour pouvoir les attaquer étant donnée leur violence sans égal"
+			,"Etant dotés d'un pass très efficace, ils peuvent s'établir n'importe où"};
 	
 	private String listOfDescriptionsPower[] = {"+1 point de victoire bonus si installés dans la bibliothèque",
 			"+4 points de victoire si le foyer est possédé."
-			,"a besoin d'1 d'attaque en plus pour attaquer mais jette le dé à chaque fois"
+			,"Ont besoin d'1 d'attaque en plus pour attaquer mais jettent le dé à chaque fois"
 			," à chaque tour, reçoivent une unité bonus"
 			,"+ 7 points lorsque la tribu est choisie"
-			,"a besoin de 1 troupes en moins pour attaquer"
-			,"résistants au attaque +1 unités adverses sont nécessaires pour les attaquer"
-			,"leur attaque sournoise leur permet de ne pas céder de terrain dans les couloirs"};
+			,"ont besoin de 1 troupes en moins pour attaquer"
+			,"résistants au attaques, 1 unités adverse supplémentaire estnécessaire pour les attaquer"
+			,"leurs attaques sournoises leurs permettent de ne pas céder de terrain dans les couloirs"};
 
 	public Bank(){
 			
@@ -60,12 +60,12 @@ public class Bank implements TribeDeletedListener{
 		listOfPopulations.add(new Population("Disigners", listOfDescriptionsPop[3], 5, Population.TypePopulation.EDIM));
 		listOfPopulations.add(new Population("Environementalistes", listOfDescriptionsPop[4], 5, Population.TypePopulation.E));
 		listOfPopulations.add(new Population("Managers", listOfDescriptionsPop[5], 5, Population.TypePopulation.IMSI));
-		listOfPopulations.add(new Population("Mecaniciens", listOfDescriptionsPop[6], 5, Population.TypePopulation.GMC));
+		listOfPopulations.add(new Population("Mécaniciens", listOfDescriptionsPop[6], 5, Population.TypePopulation.GMC));
 		listOfPopulations.add(new Population("Néophytes", listOfDescriptionsPop[7], 5, Population.TypePopulation.TC));
 		listOfPopulations.add(new Population("IUT", listOfDescriptionsPop[8], 5, Population.TypePopulation.IUT));
-		listOfPopulations.add(new Population("Groupe ISO", listOfDescriptionsPop[0], 5, Population.TypePopulation.GROUPEISO));
-		listOfPopulations.add(new Population("Anciens", listOfDescriptionsPop[0], 5, Population.TypePopulation.ANCIENS));
-		listOfPopulations.add(new Population("Personnels Administratifs", listOfDescriptionsPop[0], 5, Population.TypePopulation.ADMIN));
+		listOfPopulations.add(new Population("Groupe ISO", listOfDescriptionsPop[9], 5, Population.TypePopulation.GROUPEISO));
+		listOfPopulations.add(new Population("Anciens", listOfDescriptionsPop[10], 5, Population.TypePopulation.ANCIENS));
+		listOfPopulations.add(new Population("Personnels Administratifs", listOfDescriptionsPop[11], 5, Population.TypePopulation.ADMIN));
 		
 		generate();
 	}
@@ -78,7 +78,7 @@ public class Bank implements TribeDeletedListener{
 		int maxPower=listOfPowers.size();
 		int randPop=0;
 		int randPower=0;
-		while(AvailableTribes.size()<=6){
+		while(AvailableTribes.size()<6){
 			
 			randPop = (int) (minPop + (Math.random() * (maxPop - minPop))) ;
 			randPower = (int) (minPower + (Math.random() * (maxPower - minPower))) ;

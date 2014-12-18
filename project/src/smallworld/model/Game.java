@@ -128,8 +128,10 @@ public class Game {
     public int getPoints(){
         return points;
     }
-    public int getIsBoolean(){
-        return nbPlayer;
+    
+    public boolean isFinished()
+    {
+    	return isFinished;
     }
     
     //set

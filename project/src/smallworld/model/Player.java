@@ -157,12 +157,15 @@ public class Player {
 			}
 		}
 		
-		//Les TC perdent une unité par tour
-		if(currentTribe.getPopulation().getType() == TypePopulation.TC)
-			availablePop --;
-		//Les charlatans gagnent une unité par tour
-		if(currentTribe.getPower().getPowertype() == Power.TypePower.CHARLATANTS)
-			availablePop ++;
+		if(currentTribe != null)
+		{
+			//Les TC perdent une unité par tour
+			if(currentTribe.getPopulation().getType() == TypePopulation.TC)
+				availablePop --;
+			//Les charlatans gagnent une unité par tour
+			if(currentTribe.getPower().getPowertype() == Power.TypePower.CHARLATANTS)
+				availablePop ++;
+		}
 	}
 	
 	
@@ -175,10 +178,10 @@ public class Player {
 		
 		
 		
-		if(lands.isEmpty())
-			legalMove = target.isBorder();
-		else if(currentTribe.getPopulation().getType() == TypePopulation.ADMIN)
+		if(currentTribe.getPopulation().getType() == TypePopulation.ADMIN)
 			legalMove = true; // Les admins vont où ils veulent
+		else if(lands.isEmpty())
+			legalMove = target.isBorder();
 		else
 		{
 			//Boucle qui vérifie que la cible soit bien l'un des lands adjacents à ceux possédés.
@@ -342,6 +345,8 @@ public class Player {
 			result = 1;
 		else
 			result = 0;
+		
+		System.out.println("Jet de dé : "+result);
 		
 		return result;
 	}
