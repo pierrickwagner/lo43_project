@@ -7,6 +7,7 @@ import smallworld.model.Power.TypePower;
 
 
 public class Game {
+	
     private ArrayList<Player> players;
     private int nbPlayer;
     private Player currentPlayer;
@@ -17,6 +18,7 @@ public class Game {
     private int countForChanceux;
     
     //constructeur
+    
     public Game(int nbPlayer){
         this.players = new ArrayList<Player>();
         bank =  new Bank();

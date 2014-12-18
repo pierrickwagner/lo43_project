@@ -21,10 +21,6 @@ import smallworld.model.TribeDeletedListener;
 
 
 
-/**
- *
- * @author Darty
- */
 public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener{
     boolean redeploy;
     int numberClickedLand;
@@ -53,7 +49,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         initComponents();
         //this.setSize(panelAccueil.getHeight(), panelAccueil.getWidth());
         
-        game=new Game();
+        game=new Game(2);
    
         lands=new ArrayList<Land>();
         landDisplayer=new ArrayList<LandDisplayer>();

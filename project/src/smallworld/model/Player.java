@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 
 import smallworld.exceptions.ImpossibleAttackException;
-import smallworld.exceptions.ImpossibleAttackException.Reason;
 import smallworld.model.Population.TypePopulation;
 
 public class Player {
@@ -296,7 +295,7 @@ public class Player {
 	
 	
 	
-	private void addPoints(int count)
+	public void addPoints(int count)
 	{
 		points += count;
 	}

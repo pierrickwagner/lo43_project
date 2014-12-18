@@ -22,8 +22,18 @@ public class Land {
 	
 	
 	
-	
 	public Land(Type type, boolean border, int initTroups)
+	{
+		construction(type, border, initTroups);
+	}
+	
+	public Land(Type type, boolean border)
+	{
+		construction(type, border, 0);
+	}
+	
+	
+	private void construction(Type type, boolean border, int initTroups)
 	{
 		this.type = type;
 		this.border = border;
@@ -32,6 +42,8 @@ public class Land {
 		this.occupant = null;
 		this.tribe = null;
 	}
+	
+	
 	
 	
 	public void addAdjacent(Land l)

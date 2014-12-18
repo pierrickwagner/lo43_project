@@ -9,10 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import smallworld.model.Land;
 
-/**
- *
- * @author Darty
- */
+
 public class LandDisplayer {
     private JPanel panelLand;
     private JLabel labelLand;
@@ -56,7 +53,7 @@ public class LandDisplayer {
     
     public void update()
     {
-        labelLand.setText(""+ land.getPopulation());
+        labelLand.setText(""+ land.getTroups());
     }
 
     public JPanel getPanelLand() {
