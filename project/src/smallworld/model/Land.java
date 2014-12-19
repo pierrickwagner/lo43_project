@@ -20,6 +20,8 @@ public class Land {
 	private Player occupant;
 	private Tribe tribe;
 	
+	private boolean declining;
+	
 	
 	
 	public Land(Type type, boolean border, int initTroups)
@@ -41,6 +43,7 @@ public class Land {
 		this.adjacentLands = new ArrayList<Land>();
 		this.occupant = null;
 		this.tribe = null;
+		this.declining = false;
 	}
 	
 	
@@ -114,5 +117,13 @@ public class Land {
 			return tribe.getPower().getPowertype();
 		else
 			return null;
+	}
+
+	public boolean isDeclining() {
+		return declining;
+	}
+
+	public void setDeclining(boolean declining) {
+		this.declining = declining;
 	}
 }

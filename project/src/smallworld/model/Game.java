@@ -41,6 +41,9 @@ public class Game {
     
     //passer au joueur suivant
     public void nextPlayer(){
+    	
+    	countPoints();
+    	
         if(players.indexOf(currentPlayer) +1 == nbPlayer){
             currentPlayer = players.get(0);
             turn++;
@@ -78,36 +81,42 @@ public class Game {
     
     private int pointsExtern(){
         int pointsExtern=0;
-        TypePower power = currentPlayer.getCurrentTribe().getPower().getPowertype();
-        TypePopulation population = currentPlayer.getCurrentTribe().getPopulation().getType();
-        switch(power){
-            case INTELLOS:
-                for(Land l:currentPlayer.getLands()){
-                    if(l.getType()== Land.Type.BIBLIO)
-                        pointsExtern+=1;
-                }break;
-            case CHANCEUX:
-                if(countForChanceux == 0){
-                    pointsExtern+= 7;
-                    this.countForChanceux+=1;
-                }break;
-            case FETARD:
-                for(Land l:currentPlayer.getLands()){
-                    if(l.getType()==Land.Type.FOYER)
-                        pointsExtern+=4;
-                }break;
-            default:pointsExtern+=0;
+        
+        if(currentPlayer.getCurrentTribe()!=null)
+        {
+        	TypePower power = currentPlayer.getCurrentTribe().getPower().getPowertype();
+            TypePopulation population = currentPlayer.getCurrentTribe().getPopulation().getType();
+            switch(power){
+                case INTELLOS:
+                    for(Land l:currentPlayer.getLands()){
+                        if(!l.isDeclining() && l.getType()== Land.Type.BIBLIO)
+                            pointsExtern+=1;
+                    }break;
+                case CHANCEUX:
+                    if(countForChanceux == 0){
+                        pointsExtern+= 7;
+                        this.countForChanceux+=1;
+                    }break;
+                case FETARD:
+                    for(Land l:currentPlayer.getLands()){
+                        if(!l.isDeclining() && l.getType()==Land.Type.FOYER)
+                            pointsExtern+=4;
+                    }break;
+                default:pointsExtern+=0;
+            }
+            
+            switch(population){
+                case IMSI:
+                    for(Land l:currentPlayer.getLands()){
+                        if(!l.isDeclining() && l.getType()==Land.Type.COULOIR)
+                            pointsExtern+=1;
+                    }break;
+           
+                default:pointsExtern+=0;
+            }
         }
         
-        switch(population){
-            case IMSI:
-                for(Land l:currentPlayer.getLands()){
-                    if(l.getType()==Land.Type.COULOIR)
-                        pointsExtern+=1;
-                }break;
-       
-            default:pointsExtern+=0;
-        }
+        
    
         return pointsExtern;
     }

@@ -15,6 +15,7 @@ public class Player {
 	private int availablePop;
 	
 	private ArrayList<Land> lands;
+	private ArrayList<Land> currentLands;
 	
 
 	public void setPoints(int points) {
@@ -36,6 +37,7 @@ public class Player {
 		points = 5;
 		availablePop = 0;
 		lands = new ArrayList<Land>();
+		currentLands = new ArrayList<Land>();
 		currentTribe = null;
 		previousTribe = null;
 		listeners = new ArrayList<TribeDeletedListener>();
@@ -78,8 +80,11 @@ public class Player {
 				target.setOccupant(this);
 				target.setTribe(currentTribe);
 				target.setPopulation(sentTroops);
+				target.setDeclining(false);
 				
 				lands.add(target);
+				currentLands.add(target);
+				
 			}
 				
 		}
@@ -89,7 +94,7 @@ public class Player {
 	
 	public void redeploy(Land land, Boolean addPop)
 	{
-		if(lands.contains(land))
+		if(currentLands.contains(land))
 		{
 			if(addPop)
 			{
@@ -121,17 +126,18 @@ public class Player {
 		for(Land l : lands)
 		{
 			l.setPopulation(1);
-			l.setOccupant(null);
+			l.setDeclining(true);
 		}
-		lands.clear();
+		
+		currentLands.clear();
                 
 		availablePop = 0;
 		
-		//previousTribe = currentTribe;
+		previousTribe = currentTribe;
                 
-		//currentTribe = null;
+		currentTribe = null;
 		//placement dans le Mouseclick declin pour le moment
-		//TribeDeletedlistener � regarder en detail ***************************
+		//TribeDeletedlistener � regarder en detail ***************************
 	}
 	
 	
@@ -152,7 +158,7 @@ public class Player {
 	{
 		
 		//Sets the population of each land to 1 and gets the pop tokens back.
-		for(Land l : lands)
+		for(Land l : currentLands)
 		{
 			if(l.getTroups() > 1)
 			{
@@ -184,12 +190,12 @@ public class Player {
 		
 		if(currentTribe.getPopulation().getType() == TypePopulation.ADMIN)
 			legalMove = true; // Les admins vont où ils veulent
-		else if(lands.isEmpty())
+		else if(currentLands.isEmpty())
 			legalMove = target.isBorder();
 		else
 		{
 			//Boucle qui vérifie que la cible soit bien l'un des lands adjacents à ceux possédés.
-			for(Land l : lands)
+			for(Land l : currentLands)
 			{
 				for(Land neighbor : l.getNeighbors())
 				{
@@ -274,9 +280,15 @@ public class Player {
 	
 	public void looseLand(Land l)
 	{
-		//Quand on perd une case on rècupère les jetons de cette case moins 1. Sauf pour les E.
-		if(currentTribe.getPopulation().getType()!=TypePopulation.E)
-			availablePop += l.getTroups() -1;
+		
+		if(currentLands.contains(l))
+		{
+			//Quand on perd une case on rècupère les jetons de cette case moins 1. Sauf pour les E.
+			if(currentTribe.getPopulation().getType()!=TypePopulation.E)
+				availablePop += l.getTroups() -1;
+			
+			currentLands.remove(l);
+		}
 		
 		lands.remove(l);
 	}

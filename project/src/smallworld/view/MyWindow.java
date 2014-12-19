@@ -329,7 +329,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     		buttonRedeploy.setVisible(false);
     		buttonPasserDeclin.setVisible(false);
     		buttonChoice.setVisible(true);
-    		JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " à vous de jouer!"," Information",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " ï¿½ vous de jouer!"," Information",JOptionPane.ERROR_MESSAGE);
         	
     	}
     	else
@@ -339,7 +339,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
             buttonRedeploy.setVisible(true);
             buttonPasserDeclin.setVisible(true);
             buttonChoice.setVisible(false);
-            JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " à vous de jouer!"," Information",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " ï¿½ vous de jouer!"," Information",JOptionPane.ERROR_MESSAGE);
         	
     	}
     	
@@ -1640,13 +1640,17 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     
     private void buttonPasserDeclinMouseClicked(java.awt.event.MouseEvent evt) {                                           
     	
+    	game.getCurrentPlayer().getCurrentTribe().getPopulation().setAvailable(true);
+    	game.getCurrentPlayer().getCurrentTribe().getPower().setAvailable(true);
+    	
     	game.getCurrentPlayer().abandonTribe();
-        game.countPoints();
-        if(game.getCurrentPlayer().getPreviousTribe() != null)
-        	game.getCurrentPlayer().getPreviousTribe().getPopulation().setAvailable(true);
+        //game.countPoints();    	
+
+        /*if(game.getCurrentPlayer().getPreviousTribe() != null)
+        	
         game.getCurrentPlayer().setPreviousTribe(game.getCurrentPlayer().getCurrentTribe());
-        game.getCurrentPlayer().getPreviousTribe().getPower().setAvailable(true);
-        game.getCurrentPlayer().setCurrentTribe(null);
+        
+        game.getCurrentPlayer().setCurrentTribe(null);*/
         finishTurn();
          
      }
@@ -1682,7 +1686,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         
         panelAccueil.setVisible(false);
         panelGame.setVisible(true);
-        JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " à vous de jouer!"," Information",JOptionPane.ERROR_MESSAGE);   
+        JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " ï¿½ vous de jouer!"," Information",JOptionPane.ERROR_MESSAGE);   
         /*this.setSize(panelGame.getHeight(), panelGame.getWidth());
         this.pack();*/
     }//GEN-LAST:event_buttonPlayActionPerformed
