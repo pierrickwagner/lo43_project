@@ -2,6 +2,8 @@ package smallworld.model;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import smallworld.model.Population.TypePopulation;
 import smallworld.model.Power.TypePower;
 
@@ -16,7 +18,7 @@ public class Game {
     private int points;
     private boolean isFinished;
     private int countForChanceux;
-    
+    private JOptionPane joueur;
     //constructeur
     
     public Game(int nbPlayer){
@@ -35,10 +37,10 @@ public class Game {
         countForChanceux = 0;
     }
    
+
+    
     //passer au joueur suivant
     public void nextPlayer(){
-    	
-        //countPoints();
         if(players.indexOf(currentPlayer) +1 == nbPlayer){
             currentPlayer = players.get(0);
             turn++;
@@ -113,7 +115,11 @@ public class Game {
  
     //get
  
-    public int getNbPlayer(){
+    public ArrayList<Player> getPlayers() {
+		return players;
+	}
+
+	public int getNbPlayer(){
         return nbPlayer;
     }
     public Player getCurrentPlayer(){

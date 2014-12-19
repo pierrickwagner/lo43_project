@@ -259,11 +259,12 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         
         fillListPopulation();
         fillDescPop();
-        
+        	
     }
     
     public void landsClick(int ncl, boolean rc)
     {
+    	
         numberClickedLand=ncl;
         if(!redeploy)
         {
@@ -328,6 +329,8 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     		buttonRedeploy.setVisible(false);
     		buttonPasserDeclin.setVisible(false);
     		buttonChoice.setVisible(true);
+    		JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " à vous de jouer!"," Information",JOptionPane.ERROR_MESSAGE);
+        	
     	}
     	else
     	{
@@ -336,10 +339,11 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
             buttonRedeploy.setVisible(true);
             buttonPasserDeclin.setVisible(true);
             buttonChoice.setVisible(false);
+            JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " à vous de jouer!"," Information",JOptionPane.ERROR_MESSAGE);
+        	
     	}
     	
     	game.getCurrentPlayer().beginTurn();
-    	
         for(LandDisplayer ld : landDisplayer)
         {
         	ld.update();
@@ -1463,6 +1467,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         buttonPlay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonPlayActionPerformed(evt);
+                
             }
         });
 
@@ -1677,6 +1682,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         
         panelAccueil.setVisible(false);
         panelGame.setVisible(true);
+        JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " à vous de jouer!"," Information",JOptionPane.ERROR_MESSAGE);   
         /*this.setSize(panelGame.getHeight(), panelGame.getWidth());
         this.pack();*/
     }//GEN-LAST:event_buttonPlayActionPerformed

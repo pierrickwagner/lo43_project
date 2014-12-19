@@ -123,13 +123,15 @@ public class Player {
 			l.setPopulation(1);
 			l.setOccupant(null);
 		}
-		lands.clear();//Probleme de calcul par rapport aux terrains possédés par previousTribe
+		lands.clear();
                 
 		availablePop = 0;
 		
 		//previousTribe = currentTribe;
                 
 		//currentTribe = null;
+		//placement dans le Mouseclick declin pour le moment
+		//TribeDeletedlistener � regarder en detail ***************************
 	}
 	
 	
