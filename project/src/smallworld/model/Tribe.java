@@ -27,6 +27,9 @@ public class Tribe {
 		this.power = power;
 	}
 	
-	
+	public String toString(){
+		
+		return ""+population.getName()+" "+power.getName();
+	}
 	
 }

@@ -4,14 +4,17 @@
  */
 package smallworld.view;
 
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
 import smallworld.exceptions.ImpossibleAttackException;
 import smallworld.model.Game;
 import smallworld.model.Land;
@@ -316,7 +319,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     {
     	
     	game.nextPlayer();
-    	
+    	majInformationPlayer();
     	if(game.isFinished())
     	{
             JOptionPane.showMessageDialog(this,"La partie est terminÃ©e"," Partie terminÃ©e",JOptionPane.INFORMATION_MESSAGE);
@@ -459,7 +462,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         buttonPasserDeclin = new javax.swing.JButton();
         panelAccueil = new javax.swing.JPanel();
         buttonPlay = new javax.swing.JButton();
-        
+        textPlayerCurrentTribe = new javax.swing.JTextArea();
 
 
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1390,7 +1393,9 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
                 buttonEndTurnMouseClicked(evt);
             }
         });
-
+        textPlayerCurrentTribe.setEnabled(false);
+        textPlayerCurrentTribe.setText("");
+        textPlayerCurrentTribe.setFont(new Font("font",PROPERTIES,20));
         textAreaDescription.setColumns(20);
         textAreaDescription.setRows(5);
         jScrollPane2.setViewportView(textAreaDescription);
@@ -1434,6 +1439,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
                     .addComponent(jScrollPane2)
                     .addComponent(labelDesc)
+                    .addComponent(textPlayerCurrentTribe)
                     .addComponent(buttonChoice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1450,7 +1456,8 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonChoice)))
+                        .addComponent(buttonChoice)
+                        .addComponent(textPlayerCurrentTribe)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1663,9 +1670,12 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
             buttonChoice.setVisible(false);
 
             
+           
+            game.getCurrentPlayer().chooseTribe(listTribe.get(listPeuple.getSelectedIndex()),listPeuple.getSelectedIndex() ); 
             game.getBank().pickTribe(listTribe.get(listPeuple.getSelectedIndex()));
-            game.getCurrentPlayer().chooseTribe(listTribe.get(listPeuple.getSelectedIndex()),listPeuple.getSelectedIndex() );
-
+            textPlayerCurrentTribe.setLineWrap(true);
+            
+           majInformationPlayer();
             try
             {
                     System.out.println(listPeuple.getSelectedIndex());
@@ -1692,7 +1702,30 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     }//GEN-LAST:event_buttonPlayActionPerformed
 
     
-    
+    public void majInformationPlayer(){// permet de mettre à jour les informations du joueur
+    	
+    	 if(game.getCurrentPlayer().getPreviousTribe()!=null && game.getCurrentPlayer().getCurrentTribe()!=null){
+             textPlayerCurrentTribe.setText("tribu actuelle: " + "\n"+ game.getCurrentPlayer().getCurrentTribe().toString() + "\n\n"
+             								+ "tribu précédente: "+"\n" + game.getCurrentPlayer().getPreviousTribe().toString());
+             }else{
+            	 if(game.getCurrentPlayer().getCurrentTribe()==null && game.getCurrentPlayer().getPreviousTribe()==null ){
+            		 
+            		 textPlayerCurrentTribe.setText("");
+            	 }else{
+            		 if(game.getCurrentPlayer().getCurrentTribe()==null){
+            			 
+            			 textPlayerCurrentTribe.setText("tribu actuelle: "+ "\n\n\n"+ "tribu précédente: "+"\n" + game.getCurrentPlayer().getPreviousTribe().toString());
+            		 }else{
+            			 
+            			 textPlayerCurrentTribe.setText("tribu actuelle: "+ "\n"+game.getCurrentPlayer().getCurrentTribe().toString() + "\n\n"
+  								+ "tribu précédente: "+"\n");
+            		 }
+            		 
+            	 }
+             	
+             	
+             }
+    }
     
     /**
      * @param args the command line arguments
@@ -1729,6 +1762,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea textPlayerCurrentTribe;
     private javax.swing.JButton buttonChoice;
     private javax.swing.JButton buttonEndTurn;
     private javax.swing.JButton buttonPasserDeclin;
