@@ -8,8 +8,10 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -158,36 +160,36 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     public void createLandDisplayer()
     {
         
-        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(0)));
-        landDisplayer.add(new LandDisplayer(land1, label1, lands.get(1)));
-        landDisplayer.add(new LandDisplayer(land2, label2, lands.get(2)));
-        landDisplayer.add(new LandDisplayer(land3, label3, lands.get(3)));
-        landDisplayer.add(new LandDisplayer(land4, label4, lands.get(4)));
-        landDisplayer.add(new LandDisplayer(land5, label5, lands.get(5)));
-        landDisplayer.add(new LandDisplayer(land6, label6, lands.get(6)));
-        landDisplayer.add(new LandDisplayer(land7, label7, lands.get(7)));
-        landDisplayer.add(new LandDisplayer(land8, label8, lands.get(8)));
-        landDisplayer.add(new LandDisplayer(land9, label9, lands.get(9)));
-        landDisplayer.add(new LandDisplayer(land10, label10, lands.get(10)));
-        landDisplayer.add(new LandDisplayer(land11, label11, lands.get(11)));
-        landDisplayer.add(new LandDisplayer(land12, label12, lands.get(12)));
-        landDisplayer.add(new LandDisplayer(land13, label13, lands.get(13)));
-        landDisplayer.add(new LandDisplayer(land14, label14, lands.get(14)));
-        landDisplayer.add(new LandDisplayer(land15, label15, lands.get(15)));
-        landDisplayer.add(new LandDisplayer(land16, label16, lands.get(16)));
-        landDisplayer.add(new LandDisplayer(land17, label17, lands.get(17)));
-        landDisplayer.add(new LandDisplayer(land18, label18, lands.get(18)));
-        landDisplayer.add(new LandDisplayer(land19, label19, lands.get(19)));
-        landDisplayer.add(new LandDisplayer(land20, label20, lands.get(20)));
-        landDisplayer.add(new LandDisplayer(land21, label21, lands.get(21)));
-        landDisplayer.add(new LandDisplayer(land22, label22, lands.get(22)));
-        landDisplayer.add(new LandDisplayer(land23, label23, lands.get(23)));
-        landDisplayer.add(new LandDisplayer(land24, label24, lands.get(24)));
-        landDisplayer.add(new LandDisplayer(land25, label25, lands.get(25)));
-        landDisplayer.add(new LandDisplayer(land26, label26, lands.get(26)));
-        landDisplayer.add(new LandDisplayer(land27, label27, lands.get(27)));
-        landDisplayer.add(new LandDisplayer(land28, label28, lands.get(28)));
-        landDisplayer.add(new LandDisplayer(land29, label29, lands.get(29)));
+        landDisplayer.add(new LandDisplayer(land0, label0, lands.get(0),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land1, label1, lands.get(1),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land2, label2, lands.get(2),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land3, label3, lands.get(3),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land4, label4, lands.get(4),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land5, label5, lands.get(5),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land6, label6, lands.get(6),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land7, label7, lands.get(7),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land8, label8, lands.get(8),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land9, label9, lands.get(9),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land10, label10, lands.get(10),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land11, label11, lands.get(11),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land12, label12, lands.get(12),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land13, label13, lands.get(13),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land14, label14, lands.get(14),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land15, label15, lands.get(15),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land16, label16, lands.get(16),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land17, label17, lands.get(17),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land18, label18, lands.get(18),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land19, label19, lands.get(19),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land20, label20, lands.get(20),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land21, label21, lands.get(21),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land22, label22, lands.get(22),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land23, label23, lands.get(23),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land24, label24, lands.get(24),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land25, label25, lands.get(25),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land26, label26, lands.get(26),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land27, label27, lands.get(27),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land28, label28, lands.get(28),game.getBank().getIconPopulation()));
+        landDisplayer.add(new LandDisplayer(land29, label29, lands.get(29),game.getBank().getIconPopulation()));
         
     }
     
@@ -267,7 +269,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     
     public void landsClick(int ncl, boolean rc)
     {
-    	
+    	buttonPasserDeclin.setVisible(false);
         numberClickedLand=ncl;
         if(!redeploy)
         {
@@ -276,6 +278,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
             	//Attack
                 try{
                     game.getCurrentPlayer().attack(lands.get(ncl));
+                    this.repaint();
                 }catch(ImpossibleAttackException e)
                 {
                 	switch(e.getReason())
@@ -395,65 +398,65 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         buttonRedeploy = new javax.swing.JButton();
         panelTerritoires = new javax.swing.JPanel();
         land0 = new javax.swing.JPanel();
-        label0 = new javax.swing.JLabel();
+        label0 = new javax.swing.JPanel();
         land1 = new javax.swing.JPanel();
-        label1 = new javax.swing.JLabel();
+        label1 = new javax.swing.JPanel();
         land2 = new javax.swing.JPanel();
-        label2 = new javax.swing.JLabel();
+        label2 = new javax.swing.JPanel();
         land3 = new javax.swing.JPanel();
-        label3 = new javax.swing.JLabel();
+        label3 = new javax.swing.JPanel();
         land4 = new javax.swing.JPanel();
-        label4 = new javax.swing.JLabel();
+        label4 = new javax.swing.JPanel();
         land5 = new javax.swing.JPanel();
-        label5 = new javax.swing.JLabel();
+        label5 = new javax.swing.JPanel();
         land6 = new javax.swing.JPanel();
-        label6 = new javax.swing.JLabel();
+        label6 = new javax.swing.JPanel();
         land7 = new javax.swing.JPanel();
-        label7 = new javax.swing.JLabel();
+        label7 = new javax.swing.JPanel();
         land8 = new javax.swing.JPanel();
-        label8 = new javax.swing.JLabel();
+        label8 = new javax.swing.JPanel();
         land9 = new javax.swing.JPanel();
-        label9 = new javax.swing.JLabel();
+        label9 = new javax.swing.JPanel();
         land10 = new javax.swing.JPanel();
-        label10 = new javax.swing.JLabel();
+        label10 = new javax.swing.JPanel();
         land11 = new javax.swing.JPanel();
-        label11 = new javax.swing.JLabel();
+        label11 = new javax.swing.JPanel();
         land12 = new javax.swing.JPanel();
-        label12 = new javax.swing.JLabel();
+        label12 = new javax.swing.JPanel();
         land13 = new javax.swing.JPanel();
-        label13 = new javax.swing.JLabel();
+        label13 = new javax.swing.JPanel();
         land14 = new javax.swing.JPanel();
-        label14 = new javax.swing.JLabel();
+        label14 = new javax.swing.JPanel();
         land15 = new javax.swing.JPanel();
-        label15 = new javax.swing.JLabel();
+        label15 = new javax.swing.JPanel();
         land16 = new javax.swing.JPanel();
-        label16 = new javax.swing.JLabel();
+        label16 = new javax.swing.JPanel();
         land17 = new javax.swing.JPanel();
-        label17 = new javax.swing.JLabel();
+        label17 = new javax.swing.JPanel();
         land18 = new javax.swing.JPanel();
-        label18 = new javax.swing.JLabel();
+        label18 = new javax.swing.JPanel();
         land19 = new javax.swing.JPanel();
-        label19 = new javax.swing.JLabel();
+        label19 = new javax.swing.JPanel();
         land20 = new javax.swing.JPanel();
-        label20 = new javax.swing.JLabel();
+        label20 = new javax.swing.JPanel();
         land21 = new javax.swing.JPanel();
-        label21 = new javax.swing.JLabel();
+        label21 = new javax.swing.JPanel();
         land22 = new javax.swing.JPanel();
-        label22 = new javax.swing.JLabel();
+        label22 = new javax.swing.JPanel();
         land23 = new javax.swing.JPanel();
-        label23 = new javax.swing.JLabel();
+        label23 = new javax.swing.JPanel();
         land24 = new javax.swing.JPanel();
-        label24 = new javax.swing.JLabel();
+        label24 = new javax.swing.JPanel();
         land25 = new javax.swing.JPanel();
-        label25 = new javax.swing.JLabel();
+        label25 = new javax.swing.JPanel();
         land26 = new javax.swing.JPanel();
-        label26 = new javax.swing.JLabel();
+        label26 = new javax.swing.JPanel();
         land27 = new javax.swing.JPanel();
-        label27 = new javax.swing.JLabel();
+        label27 = new javax.swing.JPanel();
         land28 = new javax.swing.JPanel();
-        label28 = new javax.swing.JLabel();
+        label28 = new javax.swing.JPanel();
         land29 = new javax.swing.JPanel();
-        label29 = new javax.swing.JLabel();
+        label29 = new javax.swing.JPanel();
         buttonEndTurn = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         textAreaDescription = new javax.swing.JTextArea();
@@ -520,7 +523,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         });
 
         label1.setForeground(new java.awt.Color(255, 255, 255));
-        label1.setText("1");
+//        label1.setText("1");
 
         javax.swing.GroupLayout land1Layout = new javax.swing.GroupLayout(land1);
         land1.setLayout(land1Layout);
@@ -629,7 +632,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         });
 
         label5.setForeground(new java.awt.Color(255, 255, 255));
-        label5.setText("1");
+//        label5.setText("1");
 
         javax.swing.GroupLayout land5Layout = new javax.swing.GroupLayout(land5);
         land5.setLayout(land5Layout);
@@ -873,7 +876,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         });
 
         label14.setForeground(new java.awt.Color(255, 255, 255));
-        label14.setText("1");
+//        label14.setText("1");
 
         javax.swing.GroupLayout land14Layout = new javax.swing.GroupLayout(land14);
         land14.setLayout(land14Layout);
@@ -901,7 +904,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         });
 
         label15.setForeground(new java.awt.Color(255, 255, 255));
-        label15.setText("1");
+//        label15.setText("1");
 
         javax.swing.GroupLayout land15Layout = new javax.swing.GroupLayout(land15);
         land15.setLayout(land15Layout);
@@ -956,7 +959,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         });
 
         label17.setForeground(new java.awt.Color(255, 255, 255));
-        label17.setText("1");
+//        label17.setText("1");
 
         javax.swing.GroupLayout land17Layout = new javax.swing.GroupLayout(land17);
         land17.setLayout(land17Layout);
@@ -1207,7 +1210,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         land27.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         label27.setForeground(new java.awt.Color(255, 255, 255));
-        label27.setText("1");
+//        label27.setText("1");
 
         javax.swing.GroupLayout land27Layout = new javax.swing.GroupLayout(land27);
         land27.setLayout(land27Layout);
@@ -1770,36 +1773,36 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     private javax.swing.JButton buttonRedeploy;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel label0;
-    private javax.swing.JLabel label1;
-    private javax.swing.JLabel label10;
-    private javax.swing.JLabel label11;
-    private javax.swing.JLabel label12;
-    private javax.swing.JLabel label13;
-    private javax.swing.JLabel label14;
-    private javax.swing.JLabel label15;
-    private javax.swing.JLabel label16;
-    private javax.swing.JLabel label17;
-    private javax.swing.JLabel label18;
-    private javax.swing.JLabel label19;
-    private javax.swing.JLabel label2;
-    private javax.swing.JLabel label20;
-    private javax.swing.JLabel label21;
-    private javax.swing.JLabel label22;
-    private javax.swing.JLabel label23;
-    private javax.swing.JLabel label24;
-    private javax.swing.JLabel label25;
-    private javax.swing.JLabel label26;
-    private javax.swing.JLabel label27;
-    private javax.swing.JLabel label28;
-    private javax.swing.JLabel label29;
-    private javax.swing.JLabel label3;
-    private javax.swing.JLabel label4;
-    private javax.swing.JLabel label5;
-    private javax.swing.JLabel label6;
-    private javax.swing.JLabel label7;
-    private javax.swing.JLabel label8;
-    private javax.swing.JLabel label9;
+    private javax.swing.JPanel label0;
+    private javax.swing.JPanel label1;
+    private javax.swing.JPanel label10;
+    private javax.swing.JPanel label11;
+    private javax.swing.JPanel label12;
+    private javax.swing.JPanel label13;
+    private javax.swing.JPanel label14;
+    private javax.swing.JPanel label15;
+    private javax.swing.JPanel label16;
+    private javax.swing.JPanel label17;
+    private javax.swing.JPanel label18;
+    private javax.swing.JPanel label19;
+    private javax.swing.JPanel label2;
+    private javax.swing.JPanel label20;
+    private javax.swing.JPanel label21;
+    private javax.swing.JPanel label22;
+    private javax.swing.JPanel label23;
+    private javax.swing.JPanel label24;
+    private javax.swing.JPanel label25;
+    private javax.swing.JPanel label26;
+    private javax.swing.JPanel label27;
+    private javax.swing.JPanel label28;
+    private javax.swing.JPanel label29;
+    private javax.swing.JPanel label3;
+    private javax.swing.JPanel label4;
+    private javax.swing.JPanel label5;
+    private javax.swing.JPanel label6;
+    private javax.swing.JPanel label7;
+    private javax.swing.JPanel label8;
+    private javax.swing.JPanel label9;
     private javax.swing.JLabel labelDesc;
     private javax.swing.JPanel land0;
     private javax.swing.JPanel land1;

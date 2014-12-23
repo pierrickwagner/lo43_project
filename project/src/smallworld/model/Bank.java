@@ -1,7 +1,11 @@
 package smallworld.model;
 
+import java.awt.Image;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
+
+import javax.swing.ImageIcon;
 
 import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
@@ -36,6 +40,14 @@ public class Bank implements TribeDeletedListener{
 			,"résistants au attaques, 1 unités adverse supplémentaire estnécessaire pour les attaquer"
 			,"leurs attaques sournoises leurs permettent de ne pas céder de terrain dans les couloirs"};
 
+	private HashMap<Population.TypePopulation,ImageIcon> iconPopulation;
+    private String [] pathImage= { ".\\image_peuple\\PROFESSEUR.jpg", ".\\image_peuple\\DOCOTORANTS.jpg",".\\image_peuple\\GI.jpg",".\\image_peuple\\EDIM.jpg"
+    		,".\\image_peuple\\E.jpg",".\\image_peuple\\IMSI.jpg",".\\image_peuple\\GMC.jpg",".\\image_peuple\\TC.jpg",".\\image_peuple\\IUT.jpg",".\\image_peuple\\GROUPEISO.jpg",".\\image_peuple\\ANCIENS.jpg"
+    		,".\\image_peuple\\ADMIN.jpg"};
+	public HashMap<Population.TypePopulation, ImageIcon> getIconPopulation() {
+		return iconPopulation;
+	}
+
 	public Bank(){
 			
 		listOfPopulations  = new ArrayList<Population>();
@@ -67,6 +79,12 @@ public class Bank implements TribeDeletedListener{
 		listOfPopulations.add(new Population("Anciens", listOfDescriptionsPop[10], 5, Population.TypePopulation.ANCIENS));
 		listOfPopulations.add(new Population("Personnels Administratifs", listOfDescriptionsPop[11], 5, Population.TypePopulation.ADMIN));
 		
+		iconPopulation = new HashMap<Population.TypePopulation, ImageIcon>();
+		
+		for(int i=0;i<listOfPopulations.size();i++){
+			
+			iconPopulation.put(listOfPopulations.get(i).getType(), new ImageIcon(new ImageIcon(pathImage[i]).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
+		}
 		generate();
 	}
 	

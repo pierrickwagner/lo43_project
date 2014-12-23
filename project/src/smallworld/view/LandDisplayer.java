@@ -4,22 +4,43 @@
  */
 package smallworld.view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.util.Collection;
+import java.util.HashMap;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 import smallworld.model.Land;
+import smallworld.model.Population;
 
 
 public class LandDisplayer {
     private JPanel panelLand;
-    private JLabel labelLand;
+    private JPanel landDisp;
     private Land land;
-
-    public LandDisplayer(JPanel panelLand, JLabel labelLand, Land land) {
+    private JLabel gif;
+    private JLabel labNumberOfTroups;
+    HashMap<Population.TypePopulation, ImageIcon> iconPopulation;
+    public LandDisplayer(JPanel panelLand, JPanel labelLand, Land land,HashMap<Population.TypePopulation, ImageIcon> collection) {
         this.panelLand = panelLand;
-        this.labelLand = labelLand;
+        this.landDisp = labelLand;
+        iconPopulation = collection;
+        panelLand.setLayout(new BorderLayout());
+		landDisp.setLayout(new BorderLayout());
+		labNumberOfTroups = new JLabel("nombre d'unités dessus!");
+
+//		ImageIcon icon = new ImageIcon(new ImageIcon(".\\image_peuple\\DEFAULT.jpg").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+		gif = new JLabel();
+		landDisp.add(labNumberOfTroups,BorderLayout.SOUTH);
+		landDisp.add(gif,BorderLayout.CENTER);
         this.land = land;
-        labelLand.setForeground(Color.MAGENTA);
+        panelLand.add(landDisp,BorderLayout.CENTER);
         update();
         
         switch(land.getType())
@@ -53,26 +74,71 @@ public class LandDisplayer {
     
     public void update()
     {
-        labelLand.setText(""+ land.getTroups());
+    	labNumberOfTroups.setText(""+ land.getTroups());
+    	landDisp.add(labNumberOfTroups,BorderLayout.SOUTH);
+    	if(land.getOccupant()!=null){
+    		
+    			switch(land.getPopulationType()){
+    			
+    			case PROFESSEURS:
+    				
+    				gif.setIcon(iconPopulation.get(land.getPopulationType()));
+    				break;
+    				
+    			case GI:
+    				gif.setIcon(iconPopulation.get(land.getPopulationType()));
+    				break;
+    			case EDIM:
+    				gif.setIcon(iconPopulation.get(land.getPopulationType()));
+    				break;
+    			case E:
+    				gif.setIcon(iconPopulation.get(land.getPopulationType()));
+    				break;
+    			case IMSI:
+    				gif.setIcon(iconPopulation.get(land.getPopulationType()));
+    				break;
+    			case GMC:
+    				gif.setIcon(iconPopulation.get(land.getPopulationType()));
+    				break;
+    			case TC:
+    				gif.setIcon(iconPopulation.get(land.getPopulationType()));
+    				break;
+    			case IUT:
+    				gif.setIcon(iconPopulation.get(land.getPopulationType()));
+    				break;
+    			case GROUPEISO:
+    				gif.setIcon(iconPopulation.get(land.getPopulationType()));
+    				break;
+    			case ANCIENS:
+    				gif.setIcon(iconPopulation.get(land.getPopulationType()));
+    				break;
+    			case ADMIN:
+    				gif.setIcon(iconPopulation.get(land.getPopulationType()));
+    				break;
+    			
+    			}
+
+    	}else{
+    		ImageIcon icon = new ImageIcon(new ImageIcon(".\\image_peuple\\DEFAULT.jpg").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+    		gif.setIcon(icon);
+    		
+    	}
+    	landDisp.add(gif,BorderLayout.CENTER);
+		landDisp.repaint();
+		panelLand.add(landDisp,BorderLayout.CENTER);
+		panelLand.repaint();
+    	
     }
 
     public JPanel getPanelLand() {
         return panelLand;
     }
 
-    public JLabel getLabelLand() {
-        return labelLand;
-    }
+	public JLabel getGif() {
+		return gif;
+	}
 
-    public void setLabelLand(JLabel labelLand) {
-        this.labelLand = labelLand;
-    }
-
-    public LandDisplayer(JPanel panelLand, JLabel labelLand) {
-        this.panelLand = panelLand;
-        this.labelLand = labelLand;
-    }
-    
+   
     
     
 }
