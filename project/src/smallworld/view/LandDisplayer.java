@@ -78,45 +78,9 @@ public class LandDisplayer {
     	landDisp.add(labNumberOfTroups,BorderLayout.SOUTH);
     	if(land.getOccupant()!=null){
     		
-    			switch(land.getPopulationType()){
+    		
+    				gif.setIcon(iconPopulation.get(land.getPopulationType()));
     			
-    			case PROFESSEURS:
-    				
-    				gif.setIcon(iconPopulation.get(land.getPopulationType()));
-    				break;
-    				
-    			case GI:
-    				gif.setIcon(iconPopulation.get(land.getPopulationType()));
-    				break;
-    			case EDIM:
-    				gif.setIcon(iconPopulation.get(land.getPopulationType()));
-    				break;
-    			case E:
-    				gif.setIcon(iconPopulation.get(land.getPopulationType()));
-    				break;
-    			case IMSI:
-    				gif.setIcon(iconPopulation.get(land.getPopulationType()));
-    				break;
-    			case GMC:
-    				gif.setIcon(iconPopulation.get(land.getPopulationType()));
-    				break;
-    			case TC:
-    				gif.setIcon(iconPopulation.get(land.getPopulationType()));
-    				break;
-    			case IUT:
-    				gif.setIcon(iconPopulation.get(land.getPopulationType()));
-    				break;
-    			case GROUPEISO:
-    				gif.setIcon(iconPopulation.get(land.getPopulationType()));
-    				break;
-    			case ANCIENS:
-    				gif.setIcon(iconPopulation.get(land.getPopulationType()));
-    				break;
-    			case ADMIN:
-    				gif.setIcon(iconPopulation.get(land.getPopulationType()));
-    				break;
-    			
-    			}
 
     	}else{
     		ImageIcon icon = new ImageIcon(new ImageIcon(".\\image_peuple\\DEFAULT.jpg").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
