@@ -72,12 +72,16 @@ public class LandDisplayer {
         }
     }
     
-    public void update()
+    public Land getLand() {
+		return land;
+	}
+
+	public void update()
     {
     	labNumberOfTroups.setText(""+ land.getTroups());
     	landDisp.add(labNumberOfTroups,BorderLayout.SOUTH);
     	if(land.getOccupant()!=null){
-    		
+    			
     		
     				gif.setIcon(iconPopulation.get(land.getPopulationType()));
     			

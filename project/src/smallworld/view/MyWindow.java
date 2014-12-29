@@ -1654,6 +1654,21 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     	game.getCurrentPlayer().getCurrentTribe().getPower().setAvailable(true);
     	
     	game.getCurrentPlayer().abandonTribe();
+    	
+    	for(int i=0;i<landDisplayer.size();i++){
+
+    		if(game.getCurrentPlayer()==landDisplayer.get(i).getLand().getOccupant()){
+    			
+    			
+    			if(game.getCurrentPlayer().getPreviousTribe()!=landDisplayer.get(i).getLand().getTribe() && 
+    				game.getCurrentPlayer().getCurrentTribe()!=landDisplayer.get(i).getLand().getTribe()){
+    			
+    			landDisplayer.get(i).getLand().setOccupant(null);
+    			}
+    		}
+    			
+    		
+    	}
         //game.countPoints();    	
 
         /*if(game.getCurrentPlayer().getPreviousTribe() != null)

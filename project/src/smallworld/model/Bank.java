@@ -41,7 +41,7 @@ public class Bank implements TribeDeletedListener{
 			,"leurs attaques sournoises leurs permettent de ne pas céder de terrain dans les couloirs"};
 
 	private HashMap<Population.TypePopulation,ImageIcon> iconPopulation;
-    private String [] pathImage= { ".\\image_peuple\\PROFESSEUR.jpg", ".\\image_peuple\\DOCTORANTS.jpg",".\\image_peuple\\GI.jpg",".\\image_peuple\\EDIM.jpg"
+    private String [] pathImage= { ".\\image_peuple\\PROFESSEURS.jpg", ".\\image_peuple\\DOCTORANTS.jpg",".\\image_peuple\\GI.jpg",".\\image_peuple\\EDIM.jpg"
     		,".\\image_peuple\\E.jpg",".\\image_peuple\\IMSI.jpg",".\\image_peuple\\GMC.jpg",".\\image_peuple\\TC.jpg",".\\image_peuple\\IUT.jpg",".\\image_peuple\\GROUPEISO.jpg",".\\image_peuple\\ANCIENS.jpg"
     		,".\\image_peuple\\ADMIN.jpg"};
 	public HashMap<Population.TypePopulation, ImageIcon> getIconPopulation() {
