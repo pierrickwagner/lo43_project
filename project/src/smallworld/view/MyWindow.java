@@ -262,6 +262,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         listModel = new DefaultListModel<String>();
         listPeuple.setModel(listModel);
         
+        
         fillListPopulation();
         fillDescPop();
         	
@@ -335,7 +336,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     		buttonRedeploy.setVisible(false);
     		buttonPasserDeclin.setVisible(false);
     		buttonChoice.setVisible(true);
-    		JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " ï¿½ vous de jouer!"," Information",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " Ã  vous de jouer!"," Information",JOptionPane.ERROR_MESSAGE);
         	
     	}
     	else
@@ -345,7 +346,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
             buttonRedeploy.setVisible(true);
             buttonPasserDeclin.setVisible(true);
             buttonChoice.setVisible(false);
-            JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " ï¿½ vous de jouer!"," Information",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " Ã  vous de jouer!"," Information",JOptionPane.ERROR_MESSAGE);
         	
     	}
     	
@@ -1715,16 +1716,17 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         panelAccueil.setVisible(false);
         panelGame.setVisible(true);
         JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " ï¿½ vous de jouer!"," Information",JOptionPane.ERROR_MESSAGE);   
+        listPeuple.setCellRenderer(new MyRenderer(game.getBank().getIconPopulation(),listTribe));
         /*this.setSize(panelGame.getHeight(), panelGame.getWidth());
         this.pack();*/
     }//GEN-LAST:event_buttonPlayActionPerformed
 
     
-    public void majInformationPlayer(){// permet de mettre à jour les informations du joueur
+    public void majInformationPlayer(){// permet de mettre ï¿½ jour les informations du joueur
     	
     	 if(game.getCurrentPlayer().getPreviousTribe()!=null && game.getCurrentPlayer().getCurrentTribe()!=null){
              textPlayerCurrentTribe.setText("tribu actuelle: " + "\n"+ game.getCurrentPlayer().getCurrentTribe().toString() + "\n\n"
-             								+ "tribu précédente: "+"\n" + game.getCurrentPlayer().getPreviousTribe().toString());
+             								+ "tribu prï¿½cï¿½dente: "+"\n" + game.getCurrentPlayer().getPreviousTribe().toString());
              }else{
             	 if(game.getCurrentPlayer().getCurrentTribe()==null && game.getCurrentPlayer().getPreviousTribe()==null ){
             		 
@@ -1732,11 +1734,11 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
             	 }else{
             		 if(game.getCurrentPlayer().getCurrentTribe()==null){
             			 
-            			 textPlayerCurrentTribe.setText("tribu actuelle: "+ "\n\n\n"+ "tribu précédente: "+"\n" + game.getCurrentPlayer().getPreviousTribe().toString());
+            			 textPlayerCurrentTribe.setText("tribu actuelle: "+ "\n\n\n"+ "tribu prï¿½cï¿½dente: "+"\n" + game.getCurrentPlayer().getPreviousTribe().toString());
             		 }else{
             			 
             			 textPlayerCurrentTribe.setText("tribu actuelle: "+ "\n"+game.getCurrentPlayer().getCurrentTribe().toString() + "\n\n"
-  								+ "tribu précédente: "+"\n");
+  								+ "tribu prï¿½cï¿½dente: "+"\n");
             		 }
             		 
             	 }
