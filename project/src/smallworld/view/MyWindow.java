@@ -1715,10 +1715,10 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         
         panelAccueil.setVisible(false);
         panelGame.setVisible(true);
-        JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " � vous de jouer!"," Information",JOptionPane.ERROR_MESSAGE);   
         listPeuple.setCellRenderer(new MyRenderer(game.getBank().getIconPopulation(),listTribe));
-        /*this.setSize(panelGame.getHeight(), panelGame.getWidth());
-        this.pack();*/
+        JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " � vous de jouer!"," Information",JOptionPane.ERROR_MESSAGE);   
+
+        
     }//GEN-LAST:event_buttonPlayActionPerformed
 
     
