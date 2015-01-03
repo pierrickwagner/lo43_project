@@ -1716,17 +1716,17 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         panelAccueil.setVisible(false);
         panelGame.setVisible(true);
         listPeuple.setCellRenderer(new MyRenderer(game.getBank().getIconPopulation(),listTribe));
-        JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " � vous de jouer!"," Information",JOptionPane.ERROR_MESSAGE);   
+        JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " à vous de jouer!"," Information",JOptionPane.ERROR_MESSAGE);   
 
         
     }//GEN-LAST:event_buttonPlayActionPerformed
 
     
-    public void majInformationPlayer(){// permet de mettre � jour les informations du joueur
+    public void majInformationPlayer(){// permet de mettre à jour les informations du joueur
     	
     	 if(game.getCurrentPlayer().getPreviousTribe()!=null && game.getCurrentPlayer().getCurrentTribe()!=null){
              textPlayerCurrentTribe.setText("tribu actuelle: " + "\n"+ game.getCurrentPlayer().getCurrentTribe().toString() + "\n\n"
-             								+ "tribu pr�c�dente: "+"\n" + game.getCurrentPlayer().getPreviousTribe().toString());
+             								+ "tribu précédente: "+"\n" + game.getCurrentPlayer().getPreviousTribe().toString());
              }else{
             	 if(game.getCurrentPlayer().getCurrentTribe()==null && game.getCurrentPlayer().getPreviousTribe()==null ){
             		 
@@ -1734,11 +1734,11 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
             	 }else{
             		 if(game.getCurrentPlayer().getCurrentTribe()==null){
             			 
-            			 textPlayerCurrentTribe.setText("tribu actuelle: "+ "\n\n\n"+ "tribu pr�c�dente: "+"\n" + game.getCurrentPlayer().getPreviousTribe().toString());
+            			 textPlayerCurrentTribe.setText("tribu actuelle: "+ "\n\n\n"+ "tribu précédente: "+"\n" + game.getCurrentPlayer().getPreviousTribe().toString());
             		 }else{
             			 
             			 textPlayerCurrentTribe.setText("tribu actuelle: "+ "\n"+game.getCurrentPlayer().getCurrentTribe().toString() + "\n\n"
-  								+ "tribu pr�c�dente: "+"\n");
+  								+ "tribu précédente: "+"\n");
             		 }
             		 
             	 }
