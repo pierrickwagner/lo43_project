@@ -35,7 +35,6 @@ public class LandDisplayer {
 		landDisp.setLayout(new BorderLayout());
 		labNumberOfTroups = new JLabel("nombre d'unit�s dessus!");
 
-//		ImageIcon icon = new ImageIcon(new ImageIcon(".\\image_peuple\\DEFAULT.jpg").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
 		gif = new JLabel();
 		landDisp.add(labNumberOfTroups,BorderLayout.SOUTH);
 		landDisp.add(gif,BorderLayout.CENTER);
@@ -87,7 +86,7 @@ public class LandDisplayer {
     			
 
     	}else{
-    		ImageIcon icon = new ImageIcon(new ImageIcon("./image_peuple/DEFAULT.jpg").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+    		ImageIcon icon = new ImageIcon(new ImageIcon("./image_peuple/DEFAULT.jpg").getImage().getScaledInstance(70, 70, Image.SCALE_DEFAULT));
     		gif.setIcon(icon);
     		
     	}

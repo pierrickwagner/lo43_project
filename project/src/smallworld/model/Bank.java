@@ -83,7 +83,7 @@ public class Bank implements TribeDeletedListener{
 		
 		for(int i=0;i<listOfPopulations.size();i++){
 			
-			iconPopulation.put(listOfPopulations.get(i).getType(), new ImageIcon(new ImageIcon(pathImage[i]).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
+			iconPopulation.put(listOfPopulations.get(i).getType(), new ImageIcon(new ImageIcon(pathImage[i]).getImage().getScaledInstance(70, 70, Image.SCALE_DEFAULT)));
 		}
 		generate();
 	}
