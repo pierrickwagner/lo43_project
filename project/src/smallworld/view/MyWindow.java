@@ -467,7 +467,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         panelAccueil = new javax.swing.JPanel();
         buttonPlay = new javax.swing.JButton();
         textPlayerCurrentTribe = new javax.swing.JTextArea();
-
+        buttonInfoLandColor = new javax.swing.JButton();
 
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -481,7 +481,22 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
             public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane1.setViewportView(listPeuple);
-
+        buttonInfoLandColor.setText("Legende Couleur");
+        buttonInfoLandColor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            	JOptionPane
+  	          .showMessageDialog(
+  	              null,
+  	              "orange -> foyer \n"
+  	              + "vert -> bibliothËque \n"
+  	              + "jaune -> toilettes \n"
+  	              + "cyan -> laboratoires \n"
+  	              + "bleu -> salle de tp informatique \n"
+  	              + "gris -> amphithÈatre \n"
+  	              + "blanc -> couloir \n");
+            }
+        });
+        
         buttonRedeploy.setText("Red√©ployer");
         buttonRedeploy.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1443,6 +1458,8 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
                     .addComponent(jScrollPane2)
                     .addComponent(labelDesc)
+                    .addComponent(textPlayerCurrentTribe)
+                     .addComponent(buttonInfoLandColor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,Short.MAX_VALUE)
                     .addComponent(buttonChoice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1459,7 +1476,9 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonChoice)))
+                        .addComponent(buttonChoice)
+                        .addComponent(textPlayerCurrentTribe)
+                        .addComponent(buttonInfoLandColor)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1787,6 +1806,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     private javax.swing.JButton buttonPasserDeclin;
     private javax.swing.JButton buttonPlay;
     private javax.swing.JButton buttonRedeploy;
+    private javax.swing.JButton buttonInfoLandColor;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel label0;
