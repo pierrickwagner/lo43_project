@@ -62,8 +62,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
        
         this.setVisible(true);
         
-        game=new Game(2);
-   
+        game=new Game(3);
         lands=new ArrayList<Land>();
         landDisplayer=new ArrayList<LandDisplayer>();
         createLands();
@@ -291,13 +290,13 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
 			            JOptionPane.showMessageDialog(this,"Vous n'avez pas assez de troupes disponibles pour attaquer ici."," Noob !",JOptionPane.ERROR_MESSAGE);
 						break;
 					case NOT_REACHABLE:
-			            JOptionPane.showMessageDialog(this,"Cette région est inatteignable."," Noob !",JOptionPane.ERROR_MESSAGE);
+			            JOptionPane.showMessageDialog(this,"Cette region est inatteignable."," Noob !",JOptionPane.ERROR_MESSAGE);
 						break;
 					case NO_TROOPS:
 			            JOptionPane.showMessageDialog(this,"Vous n'avez plus de troupe disponible."," Noob !",JOptionPane.ERROR_MESSAGE);
 						break;
 					case SPECIAL_RULE:
-			            JOptionPane.showMessageDialog(this,"Attaque impossible en raison d'une règle spéciale"," Noob !",JOptionPane.ERROR_MESSAGE);
+			            JOptionPane.showMessageDialog(this,"Attaque impossible en raison d'une regle speciale"," Noob !",JOptionPane.ERROR_MESSAGE);
 						break;
 					default:
 						break;
@@ -326,7 +325,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     	majInformationPlayer();
     	if(game.isFinished())
     	{
-            JOptionPane.showMessageDialog(this,"La partie est terminée"," Partie terminée",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this,"La partie est terminee"," Partie terminee",JOptionPane.INFORMATION_MESSAGE);
             //TODO afficher les scores
             Sound.MUSIC.stop();
     	}
@@ -337,7 +336,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     		buttonRedeploy.setVisible(false);
     		buttonPasserDeclin.setVisible(false);
     		buttonChoice.setVisible(true);
-    		JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " à vous de jouer!"," Information",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " � vous de jouer!"," Information",JOptionPane.INFORMATION_MESSAGE);
         	
     	}
     	else
@@ -347,7 +346,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
             buttonRedeploy.setVisible(true);
             buttonPasserDeclin.setVisible(true);
             buttonChoice.setVisible(false);
-            JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " à vous de jouer!"," Information",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " � vous de jouer!"," Information",JOptionPane.INFORMATION_MESSAGE);
         	
     	}
     	
@@ -498,7 +497,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
             }
         });
         
-        buttonRedeploy.setText("Redéployer");
+        buttonRedeploy.setText("Redeployer");
         buttonRedeploy.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 buttonRedeployMouseClicked(evt);
@@ -1530,7 +1529,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
        
         panelGame.setVisible(true);
         listPeuple.setCellRenderer(new MyRenderer(game.getBank().getIconPopulation(),listTribe));
-        JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " à vous de jouer!"," Information",JOptionPane.ERROR_MESSAGE);   
+        JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " � vous de jouer!"," Information",JOptionPane.INFORMATION_MESSAGE);   
 
         
     }//GEN-LAST:event_buttonPlayActionPerformed
@@ -1540,7 +1539,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     	
     	 if(game.getCurrentPlayer().getPreviousTribe()!=null && game.getCurrentPlayer().getCurrentTribe()!=null){
              textPlayerCurrentTribe.setText("tribu actuelle: " + "\n"+ game.getCurrentPlayer().getCurrentTribe().toString() + "\n\n"
-             								+ "tribu précédente: "+"\n" + game.getCurrentPlayer().getPreviousTribe().toString()
+             								+ "tribu precedente: "+"\n" + game.getCurrentPlayer().getPreviousTribe().toString()
              								+ "\n points:" + game.getCurrentPlayer().getPoints());
              }else{
             	 if(game.getCurrentPlayer().getCurrentTribe()==null && game.getCurrentPlayer().getPreviousTribe()==null ){
@@ -1549,11 +1548,11 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
             	 }else{
             		 if(game.getCurrentPlayer().getCurrentTribe()==null){
             			 
-            			 textPlayerCurrentTribe.setText("tribu actuelle: "+ "\n\n\n"+ "tribu précédente: "+"\n" + game.getCurrentPlayer().getPreviousTribe().toString()+"\n points:" + game.getCurrentPlayer().getPoints());
+            			 textPlayerCurrentTribe.setText("tribu actuelle: "+ "\n\n\n"+ "tribu precedente: "+"\n" + game.getCurrentPlayer().getPreviousTribe().toString()+"\n points:" + game.getCurrentPlayer().getPoints());
             		 }else{
             			 
             			 textPlayerCurrentTribe.setText("tribu actuelle: "+ "\n"+game.getCurrentPlayer().getCurrentTribe().toString() + "\n\n"
-  								+ "tribu précédente: "+"\n" + "\n points:" + game.getCurrentPlayer().getPoints());
+  								+ "tribu precedente: "+"\n" + "\n points:" + game.getCurrentPlayer().getPoints());
             		 }
             		 
             	 }

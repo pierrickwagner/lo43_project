@@ -45,7 +45,7 @@ public class Game {
     	
     	countPoints();
     	
-        if(players.indexOf(currentPlayer) +1 == nbPlayer){
+        if(players.indexOf(currentPlayer)  == nbPlayer){
             currentPlayer = players.get(0);
             turn++;
         }else{

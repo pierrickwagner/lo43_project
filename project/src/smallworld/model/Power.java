@@ -3,7 +3,7 @@ package smallworld.model;
 public class Power {
 	
 	
-	public enum TypePower{INTELLOS,FETARD,BOURRES,CHARLATANTS,CHANCEUX,COURAGEUX,OVERDRIVES,NAINS}
+	public enum TypePower{INTELLOS,FETARD,BOURRES,CHARLATANTS,CHANCEUX,COURAGEUX,OVERDRIVES,NAINS,HUMAINS}
 	
 	private String name;
 	private String description;
