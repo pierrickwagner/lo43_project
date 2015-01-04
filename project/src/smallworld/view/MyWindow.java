@@ -1726,7 +1726,8 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     	
     	 if(game.getCurrentPlayer().getPreviousTribe()!=null && game.getCurrentPlayer().getCurrentTribe()!=null){
              textPlayerCurrentTribe.setText("tribu actuelle: " + "\n"+ game.getCurrentPlayer().getCurrentTribe().toString() + "\n\n"
-             								+ "tribu précédente: "+"\n" + game.getCurrentPlayer().getPreviousTribe().toString());
+             								+ "tribu précédente: "+"\n" + game.getCurrentPlayer().getPreviousTribe().toString()
+             								+ "\n points:" + game.getCurrentPlayer().getPoints());
              }else{
             	 if(game.getCurrentPlayer().getCurrentTribe()==null && game.getCurrentPlayer().getPreviousTribe()==null ){
             		 
@@ -1734,11 +1735,11 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
             	 }else{
             		 if(game.getCurrentPlayer().getCurrentTribe()==null){
             			 
-            			 textPlayerCurrentTribe.setText("tribu actuelle: "+ "\n\n\n"+ "tribu précédente: "+"\n" + game.getCurrentPlayer().getPreviousTribe().toString());
+            			 textPlayerCurrentTribe.setText("tribu actuelle: "+ "\n\n\n"+ "tribu précédente: "+"\n" + game.getCurrentPlayer().getPreviousTribe().toString()+"\n points:" + game.getCurrentPlayer().getPoints());
             		 }else{
             			 
             			 textPlayerCurrentTribe.setText("tribu actuelle: "+ "\n"+game.getCurrentPlayer().getCurrentTribe().toString() + "\n\n"
-  								+ "tribu précédente: "+"\n");
+  								+ "tribu précédente: "+"\n" + "\n points:" + game.getCurrentPlayer().getPoints());
             		 }
             		 
             	 }
