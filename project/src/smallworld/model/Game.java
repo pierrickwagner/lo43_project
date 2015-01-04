@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 import smallworld.model.Population.TypePopulation;
 import smallworld.model.Power.TypePower;
+import sound.Sound;
 
 
 public class Game {

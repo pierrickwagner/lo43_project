@@ -22,7 +22,7 @@ import smallworld.model.Game;
 import smallworld.model.Land;
 import smallworld.model.Tribe;
 import smallworld.model.TribeDeletedListener;
-
+import sound.Sound;
 
 
 public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener{
@@ -328,6 +328,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     	{
             JOptionPane.showMessageDialog(this,"La partie est terminée"," Partie terminée",JOptionPane.INFORMATION_MESSAGE);
             //TODO afficher les scores
+            Sound.MUSIC.stop();
     	}
     	else if(game.getCurrentPlayer().getCurrentTribe() == null)
     	{
@@ -1402,6 +1403,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         buttonPlay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonPlayActionPerformed(evt);
+                Sound.MUSIC.play();
                 
             }
         });
