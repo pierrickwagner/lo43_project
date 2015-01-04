@@ -59,7 +59,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     	
         initComponents();
         //this.setSize(panelAccueil.getHeight(), panelAccueil.getWidth());
-        
+        this.setSize(500, 300);
         this.setVisible(true);
         
         game=new Game(2);
@@ -1412,7 +1412,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         panelAccueil.setLayout(panelAccueilLayout);
         panelAccueilLayout.setHorizontalGroup(
             panelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(buttonPlay, javax.swing.GroupLayout.DEFAULT_SIZE, 707, Short.MAX_VALUE)
+            .addComponent(buttonPlay, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
         );
         panelAccueilLayout.setVerticalGroup(
             panelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
