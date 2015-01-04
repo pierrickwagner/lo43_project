@@ -532,11 +532,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
 
         land1.setBackground(new java.awt.Color(255, 51, 51));
         land1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land1MouseClicked(evt);
-            }
-        });
+        
 
         label1.setForeground(new java.awt.Color(255, 255, 255));
 //        label1.setText("1");
@@ -560,11 +556,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
 
         land2.setBackground(new java.awt.Color(204, 204, 0));
         land2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land2MouseClicked(evt);
-            }
-        });
+        
 
         label2.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -587,11 +579,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
 
         land3.setBackground(new java.awt.Color(255, 51, 51));
         land3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land3MouseClicked(evt);
-            }
-        });
+        
 
         label3.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -614,11 +602,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
 
         land4.setBackground(new java.awt.Color(204, 0, 204));
         land4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land4MouseClicked(evt);
-            }
-        });
+        
 
         label4.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -641,12 +625,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
 
         land5.setBackground(new java.awt.Color(0, 153, 153));
         land5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land5MouseClicked(evt);
-            }
-        });
-
+        
         label5.setForeground(new java.awt.Color(255, 255, 255));
 //        label5.setText("1");
 
@@ -669,11 +648,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
 
         land6.setBackground(new java.awt.Color(102, 102, 102));
         land6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land6MouseClicked(evt);
-            }
-        });
+       
 
         label6.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -696,11 +671,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
 
         land7.setBackground(new java.awt.Color(102, 255, 51));
         land7.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land7MouseClicked(evt);
-            }
-        });
+        
 
         label7.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -723,11 +694,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
 
         land8.setBackground(new java.awt.Color(0, 153, 153));
         land8.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land8MouseClicked(evt);
-            }
-        });
+        
 
         label8.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -750,11 +717,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
 
         land9.setBackground(new java.awt.Color(102, 255, 51));
         land9.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land9.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land9MouseClicked(evt);
-            }
-        });
+        
 
         label9.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -777,11 +740,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
 
         land10.setBackground(new java.awt.Color(204, 204, 0));
         land10.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land10.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land10MouseClicked(evt);
-            }
-        });
+        
 
         label10.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -804,11 +763,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
 
         land11.setBackground(new java.awt.Color(255, 51, 51));
         land11.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land11.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land11MouseClicked(evt);
-            }
-        });
+        
 
         label11.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -831,11 +786,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
 
         land12.setBackground(new java.awt.Color(204, 204, 0));
         land12.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land12.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land12MouseClicked(evt);
-            }
-        });
+        
 
         label12.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -858,11 +809,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
 
         land13.setBackground(new java.awt.Color(204, 204, 0));
         land13.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land13.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land13MouseClicked(evt);
-            }
-        });
+        
 
         label13.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -885,11 +832,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
 
         land14.setBackground(new java.awt.Color(204, 0, 204));
         land14.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land14.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land14MouseClicked(evt);
-            }
-        });
+        
 
         label14.setForeground(new java.awt.Color(255, 255, 255));
 //        label14.setText("1");
@@ -913,11 +856,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
 
         land15.setBackground(new java.awt.Color(204, 204, 255));
         land15.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land15.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land15MouseClicked(evt);
-            }
-        });
+        
 
         label15.setForeground(new java.awt.Color(255, 255, 255));
 //        label15.setText("1");
@@ -941,11 +880,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
 
         land16.setBackground(new java.awt.Color(102, 102, 102));
         land16.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land16.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land16MouseClicked(evt);
-            }
-        });
+        
 
         label16.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -968,11 +903,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
 
         land17.setBackground(new java.awt.Color(0, 153, 153));
         land17.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land17.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land17MouseClicked(evt);
-            }
-        });
+        
 
         label17.setForeground(new java.awt.Color(255, 255, 255));
 //        label17.setText("1");
@@ -996,11 +927,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
 
         land18.setBackground(new java.awt.Color(204, 0, 204));
         land18.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land18.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land18MouseClicked(evt);
-            }
-        });
+        
 
         label18.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -1023,11 +950,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
 
         land19.setBackground(new java.awt.Color(204, 204, 255));
         land19.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land19.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land19MouseClicked(evt);
-            }
-        });
+        
 
         label19.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -1050,11 +973,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
 
         land20.setBackground(new java.awt.Color(102, 255, 51));
         land20.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land20.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land20MouseClicked(evt);
-            }
-        });
+        
 
         label20.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -1077,11 +996,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
 
         land21.setBackground(new java.awt.Color(0, 153, 153));
         land21.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land21.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land21MouseClicked(evt);
-            }
-        });
+        
 
         label21.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -1104,11 +1019,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
 
         land22.setBackground(new java.awt.Color(204, 204, 255));
         land22.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land22.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land22MouseClicked(evt);
-            }
-        });
+        
 
         label22.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -1131,11 +1042,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
 
         land23.setBackground(new java.awt.Color(255, 51, 51));
         land23.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        land23.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                land23MouseClicked(evt);
-            }
-        });
+        
 
         label23.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -1536,120 +1443,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void land1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land1MouseClicked
-         
-        //landsClick(1);
-    }//GEN-LAST:event_land1MouseClicked
-
-    private void land2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land2MouseClicked
-         
-        //landsClick(2);
-    }//GEN-LAST:event_land2MouseClicked
-
-    private void land3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land3MouseClicked
-         
-        //landsClick(3);
-    }//GEN-LAST:event_land3MouseClicked
-
-    private void land4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land4MouseClicked
-         
-        //landsClick(4);
-    }//GEN-LAST:event_land4MouseClicked
-
-    private void land5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land5MouseClicked
-         
-        //landsClick(5);
-    }//GEN-LAST:event_land5MouseClicked
-
-    private void land6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land6MouseClicked
-         
-        //landsClick(6);
-    }//GEN-LAST:event_land6MouseClicked
-
-    private void land7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land7MouseClicked
-         
-        //landsClick(7);
-    }//GEN-LAST:event_land7MouseClicked
-
-    private void land8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land8MouseClicked
-         
-        //landsClick(8);
-    }//GEN-LAST:event_land8MouseClicked
-
-    private void land9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land9MouseClicked
-         
-        //landsClick(9);
-    }//GEN-LAST:event_land9MouseClicked
-
-    private void land10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land10MouseClicked
-         
-        //landsClick(10);
-    }//GEN-LAST:event_land10MouseClicked
-
-    private void land11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land11MouseClicked
-         
-       // landsClick(11);
-    }//GEN-LAST:event_land11MouseClicked
-
-    private void land12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land12MouseClicked
-         
-        //landsClick(12);
-    }//GEN-LAST:event_land12MouseClicked
-
-    private void land13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land13MouseClicked
-         
-        //landsClick(13);
-    }//GEN-LAST:event_land13MouseClicked
-
-    private void land14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land14MouseClicked
-         
-        //landsClick(14);
-    }//GEN-LAST:event_land14MouseClicked
-
-    private void land15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land15MouseClicked
-         
-        //landsClick(15);
-    }//GEN-LAST:event_land15MouseClicked
-
-    private void land16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land16MouseClicked
-
-        //landsClick(16);
-    }//GEN-LAST:event_land16MouseClicked
-
-    private void land17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land17MouseClicked
-
-        //landsClick(17);
-    }//GEN-LAST:event_land17MouseClicked
-
-    private void land18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land18MouseClicked
-
-        //landsClick(18);
-    }//GEN-LAST:event_land18MouseClicked
-
-    private void land19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land19MouseClicked
-
-        //landsClick(19);
-    }//GEN-LAST:event_land19MouseClicked
-
-    private void land20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land20MouseClicked
-
-        //landsClick(20);
-    }//GEN-LAST:event_land20MouseClicked
-
-    private void land21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land21MouseClicked
-
-        //landsClick(21);
-    }//GEN-LAST:event_land21MouseClicked
-
-    private void land22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land22MouseClicked
-
-        //landsClick(22);
-    }//GEN-LAST:event_land22MouseClicked
-
-    private void land23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_land23MouseClicked
-
-        //landsClick(23);
-    }//GEN-LAST:event_land23MouseClicked
+  
 
     private void buttonRedeployMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonRedeployMouseClicked
 
