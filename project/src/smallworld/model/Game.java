@@ -61,8 +61,8 @@ public class Game {
     //show points
     public void showPoints(){
         if(isFinished==true){
-            for(int i=1;i<=nbPlayer; ++i){
-                System.out.println("player"+i+":"+players.get(i-1).getPoints()+"points");
+            for(int i=0;i<=nbPlayer; ++i){
+                System.out.println("player"+(i+1)+":"+players.get(i).getPoints()+"points");
             }
         }
     }
