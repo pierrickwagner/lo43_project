@@ -386,7 +386,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     	ArrayList<Integer> scores = game.getScores();
     	
     	for(int i=0;i<game.getNbPlayer();i++)
-    		texte += "\nJoueur "+i+" : "+scores.get(i)+"pts";
+    		texte += "\nJoueur "+(i+1)+" : "+scores.get(i)+"pts";
     	
     	JOptionPane.showMessageDialog(this,texte," Partie terminee",JOptionPane.INFORMATION_MESSAGE);
        
@@ -407,7 +407,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         panelGame.setVisible(false);
         panelAccueil.setVisible(false);*/
         
-        this.dispose();
+        System.exit(0);
         
         
 	}
@@ -1639,7 +1639,8 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
             		 }else{
             			 
             			 textPlayerCurrentTribe.setText("tribu actuelle: "+ "\n"+game.getCurrentPlayer().getCurrentTribe().toString() + "\n\n"
-  								+ "tribu precedente: "+"\n" + "\n points:" + game.getCurrentPlayer().getPoints());
+  								+ "tribu precedente: "+"\n" + "\n points:" + game.getCurrentPlayer().getPoints()
+  								+ "\n tour:"+(game.getTurn()+1));
             		 }
             		 
             	 }
