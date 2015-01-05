@@ -22,14 +22,15 @@ public class Game {
     private JOptionPane joueur;
     //constructeur
     
-    public Game(int nbPlayer){
+    public Game(){
     	
         this.players = new ArrayList<Player>();
         this.bank =  new Bank();
-        this.nbPlayer = 2;
+        this.nbPlayer = 0;
         
-        for(int i=0; i<nbPlayer; i++)
+        for(int i=0; i<3; i++)
         	players.add(new Player());
+        
         
         currentPlayer = players.get(0);
         turn = 0;
@@ -45,7 +46,7 @@ public class Game {
     	
     	countPoints();
     	
-        if(players.indexOf(currentPlayer)  == nbPlayer){
+        if(players.indexOf(currentPlayer)+1  == nbPlayer){
             currentPlayer = players.get(0);
             turn++;
         }else{
@@ -61,7 +62,7 @@ public class Game {
     //show points
     public void showPoints(){
         if(isFinished==true){
-            for(int i=0;i<=nbPlayer; ++i){
+            for(int i=0;i<nbPlayer; i++){
                 System.out.println("player"+(i+1)+":"+players.get(i).getPoints()+"points");
             }
         }
@@ -153,6 +154,7 @@ public class Game {
     //set
     public void setNbPlayer(int p){
         this.nbPlayer = p;
+        
     }
     public void setIsFinished(boolean b){
         this.isFinished = b;

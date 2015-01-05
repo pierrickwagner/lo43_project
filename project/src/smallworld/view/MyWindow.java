@@ -4,16 +4,25 @@
  */
 package smallworld.view;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -44,6 +53,11 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     
     
     
+    
+    
+    
+    
+    
     ArrayList<LandDisplayer> landDisplayer;
     ArrayList<Land> lands;
     
@@ -61,8 +75,9 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         //this.setSize(panelAccueil.getHeight(), panelAccueil.getWidth());
        
         this.setVisible(true);
+        this.setName("Small UTBM World");
         
-        game=new Game(3);
+        game=new Game();
         lands=new ArrayList<Land>();
         landDisplayer=new ArrayList<LandDisplayer>();
         createLands();
@@ -336,7 +351,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     		buttonRedeploy.setVisible(false);
     		buttonPasserDeclin.setVisible(false);
     		buttonChoice.setVisible(true);
-    		JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " à vous de jouer!"," Information",JOptionPane.INFORMATION_MESSAGE);
+    		JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " ï¿½ vous de jouer!"," Information",JOptionPane.INFORMATION_MESSAGE);
         	
     	}
     	else
@@ -346,7 +361,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
             buttonRedeploy.setVisible(true);
             buttonPasserDeclin.setVisible(true);
             buttonChoice.setVisible(false);
-            JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " à vous de jouer!"," Information",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " ï¿½ vous de jouer!"," Information",JOptionPane.INFORMATION_MESSAGE);
         	
     	}
     	
@@ -468,6 +483,24 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         buttonPlay = new javax.swing.JButton();
         textPlayerCurrentTribe = new javax.swing.JTextArea();
         buttonInfoLandColor = new javax.swing.JButton();
+        
+        button2Players = new JRadioButton("2 joueurs", true);
+        button3Players = new JRadioButton("3 joueurs", false);
+        
+        button2Players.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            	button2Players.setSelected(true);
+                button3Players.setSelected(false);
+            }
+        });
+        button3Players.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            	button3Players.setSelected(true);
+                button2Players.setSelected(false);
+            }
+        });
+        
+        
 
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -488,11 +521,11 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
   	          .showMessageDialog(
   	              null,
   	              "orange -> foyer \n"
-  	              + "vert -> bibliothèque \n"
+  	              + "vert -> bibliothï¿½que \n"
   	              + "jaune -> toilettes \n"
   	              + "cyan -> laboratoires \n"
   	              + "bleu -> salle de tp informatique \n"
-  	              + "gris -> amphithéatre \n"
+  	              + "gris -> amphithï¿½atre \n"
   	              + "blanc -> couloir \n");
             }
         });
@@ -1401,24 +1434,47 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         buttonPlay.setText("Jouer");
         buttonPlay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	int nbPlayers = (button2Players.isSelected() ? 2 : 3);
+            	
+            	game.setNbPlayer(nbPlayers);
+            	
                 buttonPlayActionPerformed(evt);
                 Sound.MUSIC.play();
                 
             }
         });
 
-        javax.swing.GroupLayout panelAccueilLayout = new javax.swing.GroupLayout(panelAccueil);
-        panelAccueil.setLayout(panelAccueilLayout);
-        panelAccueilLayout.setHorizontalGroup(
+        //javax.swing.GroupLayout panelAccueilLayout = new javax.swing.GroupLayout(panelAccueil);
+        //panelAccueil.setLayout(panelAccueilLayout);
+        /*panelAccueilLayout.setHorizontalGroup(
             panelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(buttonPlay, javax.swing.GroupLayout.DEFAULT_SIZE, 707, Short.MAX_VALUE)
-        );
-        panelAccueilLayout.setVerticalGroup(
+        );*/
+        /*panelAccueilLayout.setVerticalGroup(
             panelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(panelAccueilLayout.createSequentialGroup()
-                .addGap(0, 601, Short.MAX_VALUE)
+                //.addComponent(button2Players)
+            	//.addComponent(button3Players)
                 .addComponent(buttonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        );*/
+        panelAccueil.setLayout(new BorderLayout());
+        panelAccueil.add(buttonPlay, BorderLayout.SOUTH);
+        
+        JPanel radioPanel = new JPanel();
+        radioPanel.setLayout(new FlowLayout());
+        radioPanel.add(button2Players);
+        radioPanel.add(button3Players);
+        
+		ImageIcon icon = new ImageIcon(new ImageIcon("./image_peuple/titre.jpg").getImage().getScaledInstance(600, 200, Image.SCALE_DEFAULT));
+		JLabel labelTitre = new JLabel();
+		labelTitre.setIcon(icon);
+		
+		panelAccueil.add(labelTitre, BorderLayout.NORTH);
+        
+        panelAccueil.add(radioPanel, BorderLayout.CENTER);
+        
+        //accueilLayout.addLayoutComponent(radioLayout, BorderLayout.CENTER);
+        
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1471,7 +1527,6 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     	for(int i=0;i<landDisplayer.size();i++){
 
     		if(game.getCurrentPlayer()==landDisplayer.get(i).getLand().getOccupant()){
-    			
     			
     			if(game.getCurrentPlayer().getPreviousTribe()!=landDisplayer.get(i).getLand().getTribe() && 
     				game.getCurrentPlayer().getCurrentTribe()!=landDisplayer.get(i).getLand().getTribe()){
@@ -1529,7 +1584,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
        
         panelGame.setVisible(true);
         listPeuple.setCellRenderer(new MyRenderer(game.getBank().getIconPopulation(),listTribe));
-        JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " à  vous de jouer!"," Information",JOptionPane.INFORMATION_MESSAGE);   
+        JOptionPane.showMessageDialog(this,"Joueur " + (game.getPlayers().indexOf(game.getCurrentPlayer())+1) + " ï¿½ vous de jouer!"," Information",JOptionPane.INFORMATION_MESSAGE);   
 
         
     }//GEN-LAST:event_buttonPlayActionPerformed
@@ -1671,6 +1726,9 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     private javax.swing.JPanel panelGame;
     private javax.swing.JPanel panelTerritoires;
     private javax.swing.JTextArea textAreaDescription;
+    
+    private JRadioButton button2Players;
+    private JRadioButton button3Players;
     // End of variables declaration//GEN-END:variables
 
     
