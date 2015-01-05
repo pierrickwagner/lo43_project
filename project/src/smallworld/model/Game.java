@@ -1,6 +1,7 @@
 package smallworld.model;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import javax.swing.JOptionPane;
 
@@ -54,7 +55,7 @@ public class Game {
         }
         if(turn == 10){
             isFinished = true;
-            showPoints();//TODO plutot à faire dans la partie view par la suite.
+            showPoints();
         }
     }
     
@@ -66,6 +67,18 @@ public class Game {
                 System.out.println("player"+(i+1)+":"+players.get(i).getPoints()+"points");
             }
         }
+    }
+    
+    public ArrayList<Integer> getScores()
+    {
+    	ArrayList<Integer> result = new ArrayList<Integer>();
+    	
+    	for(int i=0;i<nbPlayer;i++)
+    	{
+    		result.add(players.get(i).getPoints());
+    	}
+    	
+    	return result;
     }
     
     

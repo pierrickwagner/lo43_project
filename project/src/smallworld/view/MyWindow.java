@@ -340,9 +340,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     	majInformationPlayer();
     	if(game.isFinished())
     	{
-            JOptionPane.showMessageDialog(this,"La partie est terminee"," Partie terminee",JOptionPane.INFORMATION_MESSAGE);
-            //TODO afficher les scores
-            Sound.MUSIC.stop();
+    		finishGame();
     	}
     	else if(game.getCurrentPlayer().getCurrentTribe() == null)
     	{
@@ -380,7 +378,41 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     
     
     
-    public void addListenerPanel()
+    private void finishGame() {
+    	
+    	
+    	String texte = "Scores : ";
+    	
+    	ArrayList<Integer> scores = game.getScores();
+    	
+    	for(int i=0;i<game.getNbPlayer();i++)
+    		texte += "\nJoueur "+i+" : "+scores.get(i)+"pts";
+    	
+    	JOptionPane.showMessageDialog(this,texte," Partie terminee",JOptionPane.INFORMATION_MESSAGE);
+       
+        Sound.MUSIC.stop();
+        
+        /*initComponents();
+        
+        game=new Game();
+        lands=new ArrayList<Land>();
+        landDisplayer=new ArrayList<LandDisplayer>();
+        createLands();
+        createLandDisplayer();
+        addListenerPanel();
+        computeNeighbours();
+        init();
+        
+        
+        panelGame.setVisible(false);
+        panelAccueil.setVisible(false);*/
+        
+        this.dispose();
+        
+        
+	}
+
+	public void addListenerPanel()
     {
         for(int i=0; i<landDisplayer.size(); i++)
         {
@@ -1729,6 +1761,8 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     
     private JRadioButton button2Players;
     private JRadioButton button3Players;
+    
+    
     // End of variables declaration//GEN-END:variables
 
     
