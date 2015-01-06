@@ -29,8 +29,7 @@ public class MyRenderer extends JLabel implements ListCellRenderer {
     }
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-        //récuperer l'indice
-       // int ind=((Integer)value).intValue();
+        //recuperer l'indice
         
         System.out.println("LA VALEUR EST "+value);
         String[] decoupage=((String)value).split(" ");

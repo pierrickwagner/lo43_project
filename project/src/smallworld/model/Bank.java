@@ -54,7 +54,7 @@ public class Bank implements TribeDeletedListener{
 		listOfPopulations  = new ArrayList<Population>();
 		listOfPowers  = new ArrayList<Power>();
 		AvailableTribes =  new ArrayList<Tribe>();
-		//cr√©ation de la liste de la banque contenant les diff√©rents pouvoirs et leurs caract√©ristiques (population en + et description)
+		//crÈation de la liste de la banque contenant les diff√©rents pouvoirs et leurs caractÈristiques (population en + et description)
 		
 		listOfPowers.add(new Power("intellos",listOfDescriptionsPower[0],5,Power.TypePower.INTELLOS));
 		listOfPowers.add(new Power("fetard",listOfDescriptionsPower[1],5,Power.TypePower.FETARD));
@@ -66,7 +66,7 @@ public class Bank implements TribeDeletedListener{
 		listOfPowers.add(new Power("nains",listOfDescriptionsPower[7],5,Power.TypePower.NAINS));
 		listOfPowers.add(new Power("humains",listOfDescriptionsPower[8],5,Power.TypePower.HUMAINS));
 		
-		//cr√©ation de la liste de la banque contenant les diff√©rents peuples et leurs caract√©ristiques (population en + et description)
+		//crÈation de la liste de la banque contenant les diffÈrents peuples et leurs caractÈristiques (population en + et description)
 		
 		listOfPopulations.add(new Population("Professeurs", listOfDescriptionsPop[0], 5, Population.TypePopulation.PROFESSEURS));
 		listOfPopulations.add(new Population("Doctorants", listOfDescriptionsPop[1], 5, Population.TypePopulation.DOCTORANTS));
@@ -104,14 +104,11 @@ public class Bank implements TribeDeletedListener{
 			randPower = (int) (minPower + (Math.random() * (maxPower - minPower))) ;
 			
 			if(listOfPopulations.get(randPop).isAvailable() && listOfPowers.get(randPower).isAvailable()){
-				
-				//if(!containsPopulation(listOfPopulations.get(randPop)) && !containsPower(listOfPowers.get(randPower))){
-		
 					AvailableTribes.add(new Tribe(listOfPopulations.get(randPop),listOfPowers.get(randPower)));
                                         listOfPopulations.get(randPop).setAvailable(false);
                                         listOfPowers.get(randPower).setAvailable(false);
                                         
-				//}
+				
 			}
 	
 			
@@ -166,8 +163,7 @@ public class Bank implements TribeDeletedListener{
 	public void pickTribe(Tribe t){
 		
 		int index = AvailableTribes.indexOf(t);
-//		listOfPopulations.get(listOfPopulations.indexOf(AvailableTribes.get(index).getPopulation())).setAvailable(false);
-//		listOfPowers.get(listOfPowers.indexOf(AvailableTribes.get(index).getPower())).setAvailable(false);
+
 		AvailableTribes.remove(index);
 		generate();
 	}
@@ -178,7 +174,6 @@ public class Bank implements TribeDeletedListener{
 
 	@Override
 	public void tribeDeleted(Tribe t) {
-		// TODO Auto-generated method stub
 		setAvailable(t);
 		
 	}

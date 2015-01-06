@@ -21,8 +21,8 @@ public class Game {
     private boolean isFinished;
     private int countForChanceux;
     private JOptionPane joueur;
+   
     //constructeur
-    
     public Game(){
     	
         this.players = new ArrayList<Player>();
@@ -177,14 +177,4 @@ public class Game {
     
 }
 
-
-
-/*
-     for(int i;i<=players.size();++i)
-     {
-     if(players[i].getavaliablePop()!=0&&i!=currentPlayer){
-     players[i].redeploy();
-     }
-     }
-    if(players[currentPlayer].getavaliablePop()==0)*/
 

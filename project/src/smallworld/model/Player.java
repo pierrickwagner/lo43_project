@@ -54,7 +54,7 @@ public class Player {
 		else// Si l'attaque est possible
 		{
 			
-			//On vérifie que la bataille n'est pas perdue d'avance
+			//On v�rifie que la bataille n'est pas perdue d'avance
 			if(availablePop + 3 < neededTroops)
 				throw(new ImpossibleAttackException(ImpossibleAttackException.Reason.NOT_ENOUGH_TROOPS));
 			
@@ -65,8 +65,8 @@ public class Player {
 			
 			
 			int reinforcements = 0;
-			// si les troupes sont insuffisantes, on lance le dé, sauf pour les IUT.
-			//Les bourrés jettent toujours le dé.
+			// si les troupes sont insuffisantes, on lance le d�, sauf pour les IUT.
+			//Les bourr�s jettent toujours le dé.
 			if((sentTroops < neededTroops && currentTribe.getPopulation().getType() == TypePopulation.IUT)
 					||  currentTribe.getPower().getPowertype() == Power.TypePower.BOURRES)
 			{
@@ -212,7 +212,7 @@ public class Player {
 			throw(new ImpossibleAttackException(ImpossibleAttackException.Reason.NOT_REACHABLE));
 		
 		
-		//On vérifie que le joueur ne s'attaque pas lui-meme
+		//On verifie que le joueur ne s'attaque pas lui-meme
 		if(target.getOccupant() == this)
 			throw(new ImpossibleAttackException(ImpossibleAttackException.Reason.FRIENDLY_FIRE));
 		
@@ -230,7 +230,7 @@ public class Player {
 			throw(new ImpossibleAttackException(ImpossibleAttackException.Reason.SPECIAL_RULE));
 		
 		
-		// Fonctionne dans le cas général, des conditions à rajouter pour les tribus / terrains particuliers
+		// Fonctionne dans le cas general, des conditions a� rajouter pour les tribus / terrains particuliers
 		int neededTroops = 2;
 		neededTroops += target.getTroups();
 		
@@ -250,11 +250,11 @@ public class Player {
 		if(currentTribe.getPopulation().getType() == TypePopulation.GI && target.getType() == Land.Type.TP_GI)
 			neededTroops --;
 		
-		//Les anciens ont un bonus de défense
+		//Les anciens ont un bonus de defense
 		if(target.getPopulationType() == TypePopulation.ANCIENS)
 			neededTroops ++;
 		
-		//Les bourrés ont besoin d'un d'attaque en plus
+		//Les bourres ont besoin d'un d'attaque en plus
 		if(currentTribe.getPower().getPowertype() == Power.TypePower.BOURRES)
 			neededTroops ++;
 		
@@ -262,12 +262,12 @@ public class Player {
 		if(currentTribe.getPower().getPowertype() == Power.TypePower.COURAGEUX)
 			neededTroops --;
 		
-		//Les overdrives ont un bonus de défense
+		//Les overdrives ont un bonus de defense
 		if(target.getPowerType() == Power.TypePower.OVERDRIVES)
 			neededTroops ++;
 		
 		
-		//On ne peut pas avoir 0 troupes sur une case, le minimum de troupes à utiliser pour attaquer est donc de 1 dans tous les cas.
+		//On ne peut pas avoir 0 troupes sur une case, le minimum de troupes a� utiliser pour attaquer est donc de 1 dans tous les cas.
 		if(neededTroops <= 0)
 			neededTroops = 1;
 		
@@ -283,7 +283,7 @@ public class Player {
 		
 		if(currentLands.contains(l))
 		{
-			//Quand on perd une case on rècupère les jetons de cette case moins 1. Sauf pour les E.
+			//Quand on perd une case on recupere les jetons de cette case moins 1. Sauf pour les E.
 			if(currentTribe.getPopulation().getType()!=TypePopulation.E)
 				availablePop += l.getTroups() -1;
 			
@@ -356,7 +356,7 @@ public class Player {
 	
 	
 	
-	//Dé
+	//De
 	private static int throwDice()
 	{
 		double rand = Math.random();

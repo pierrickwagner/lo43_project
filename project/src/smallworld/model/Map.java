@@ -13,7 +13,7 @@ public class Map implements TribeDeletedListener {
 	
 	public Map()
 	{
-		//TODO : constructeur de la map
+		
 	}
 	
 	

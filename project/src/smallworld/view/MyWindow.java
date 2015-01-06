@@ -49,19 +49,9 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     public static final int MAP_HEIGHT=5;
     
     Game game;
-    
-    
-    
-    
-    
-    
-    
-    
-    
     ArrayList<LandDisplayer> landDisplayer;
     ArrayList<Land> lands;
     
-    //JPanel[][] tabPanel ;
     
     
     /**
@@ -72,7 +62,6 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     	super();
     	
         initComponents();
-        //this.setSize(panelAccueil.getHeight(), panelAccueil.getWidth());
        
         this.setVisible(true);
         this.setName("Small UTBM World");
@@ -146,6 +135,8 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         
     }
     
+    
+    //Calcul des lands voisins pour chaque land
     public void computeNeighbours()
     {
             for(int i=0;i<lands.size();i++)
@@ -171,6 +162,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
             }
     }
     
+    //Gere l'affichage des lands
     public void createLandDisplayer()
     {
         
@@ -208,11 +200,10 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     }
     
    
+    //Remplit la Jlist
     public void fillListPopulation() // remplit la Jlist
     {
     	
-    	
-        
         listTribe= new ArrayList<Tribe>();
         
         listTribe=game.getBank().getAvailableTribes();
@@ -237,10 +228,9 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         
     }
     
-    public void fillDescPop() // ajoute un listener √† la Jlist.
+    public void fillDescPop() // ajoute un listener a la Jlist.
     {
     
-  
         //Lorsqu'on clique sur une ligne de la JList, on remplit le textArea qui affiche la description de la population
         listPeuple.addListSelectionListener(new ListSelectionListener() {
 
@@ -262,7 +252,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     
    
     
-    
+    //Initialisation des valeurs et des affichages
     public void init()
     {
         panelGame.setVisible(false);
@@ -282,6 +272,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         	
     }
     
+    //Fonction appelee lors du clic sur une land
     public void landsClick(int ncl, boolean rc)
     {
     	buttonPasserDeclin.setVisible(false);
@@ -333,6 +324,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
         
     }
     
+    //Fonction appelee lors de la fin du tour d'un joueur
     private void finishTurn()
     {
     	
@@ -374,10 +366,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
          
     }
     
-    
-    
-    
-    
+    //Termine le jeu, affiche le score et quitte le programme
     private void finishGame() {
     	
     	
@@ -391,27 +380,12 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     	JOptionPane.showMessageDialog(this,texte," Partie terminee",JOptionPane.INFORMATION_MESSAGE);
        
         Sound.MUSIC.stop();
-        
-        /*initComponents();
-        
-        game=new Game();
-        lands=new ArrayList<Land>();
-        landDisplayer=new ArrayList<LandDisplayer>();
-        createLands();
-        createLandDisplayer();
-        addListenerPanel();
-        computeNeighbours();
-        init();
-        
-        
-        panelGame.setVisible(false);
-        panelAccueil.setVisible(false);*/
-        
         System.exit(0);
         
         
 	}
 
+    //Ajoute un listener ‡ chaque land
 	public void addListenerPanel()
     {
         for(int i=0; i<landDisplayer.size(); i++)
@@ -1533,14 +1507,13 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     }// </editor-fold>//GEN-END:initComponents
 
   
-
+    
     private void buttonRedeployMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonRedeployMouseClicked
 
         redeploy=true;
         buttonRedeploy.setVisible(false);
         buttonEndTurn.setVisible(true);
-        //JOptionPane.showMessageDialog(this,"Veuillez red√©ployer vos troupes"," Red√©ploiement ",JOptionPane.INFORMATION_MESSAGE);
-    
+      
     }//GEN-LAST:event_buttonRedeployMouseClicked
 
     private void buttonEndTurnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonEndTurnMouseClicked
@@ -1569,13 +1542,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     			
     		
     	}
-        //game.countPoints();    	
-
-        /*if(game.getCurrentPlayer().getPreviousTribe() != null)
-        	
-        game.getCurrentPlayer().setPreviousTribe(game.getCurrentPlayer().getCurrentTribe());
         
-        game.getCurrentPlayer().setCurrentTribe(null);*/
         finishTurn();
          
      }
@@ -1587,8 +1554,6 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
             buttonRedeploy.setVisible(true);
             buttonChoice.setVisible(false);
 
-            
-           
             game.getCurrentPlayer().chooseTribe(listTribe.get(listPeuple.getSelectedIndex()),listPeuple.getSelectedIndex() ); 
             game.getBank().pickTribe(listTribe.get(listPeuple.getSelectedIndex()));
             textPlayerCurrentTribe.setLineWrap(true);
@@ -1599,10 +1564,9 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
                     System.out.println(listPeuple.getSelectedIndex());
                     listModel.clear();
                     textAreaDescription.setText("");
-                    //listModel.remove(listPeuple.getSelectedIndex());
             }
             catch(Exception e){}
-            fillListPopulation();//Mise √† jour de l'affichage 
+            fillListPopulation();//Mise a† jour de l'affichage 
         }
         else
             JOptionPane.showMessageDialog(this,"Veuillez choisir une tribu"," Choix tribu ",JOptionPane.INFORMATION_MESSAGE);
@@ -1622,7 +1586,7 @@ public class MyWindow extends javax.swing.JFrame implements TribeDeletedListener
     }//GEN-LAST:event_buttonPlayActionPerformed
 
     
-    public void majInformationPlayer(){// permet de mettre √† jour les informations du joueur
+    public void majInformationPlayer(){// permet de mettre a† jour les informations du joueur
     	
     	 if(game.getCurrentPlayer().getPreviousTribe()!=null && game.getCurrentPlayer().getCurrentTribe()!=null){
              textPlayerCurrentTribe.setText("tribu actuelle: " + "\n"+ game.getCurrentPlayer().getCurrentTribe().toString() + "\n\n"
